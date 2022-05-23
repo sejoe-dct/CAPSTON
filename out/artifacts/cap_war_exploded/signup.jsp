@@ -30,7 +30,7 @@
     Class.forName("com.mysql.cj.jdbc.Driver");
 
 
-    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/cap?serverTimezone=Asia/Seoul", "root", "tkddms1101");
+    Connection conn = DriverManager.getConnection("jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul", "test", "1234");
     Statement stmt = conn.createStatement();
 
     int count = stmt.executeUpdate(sql);

@@ -15,9 +15,9 @@
   ResultSet rs =null;
   try {
 
-    String jdbcDriver ="jdbc:mysql://localhost:3306/cap?serverTimezone=UTC";
-    String dbUser ="root"; //mysql id
-    String dbPass ="tkddms1101"; //mysql password
+    String jdbcDriver ="jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=UTC";
+    String dbUser ="test"; //mysql id
+    String dbPass ="1234"; //mysql password
     String query ="select * from User";//query
     // Create DB Connection
     conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
