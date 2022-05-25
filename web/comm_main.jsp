@@ -12,10 +12,10 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
-<%@page import="bbs.Bbs"%>
-<%@page import="bbs.BbsDAO"%>
+<%@page import="comm.Comm"%>
+<%@page import="comm.CommDAO"%>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bbs.BbsDAO" %>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -116,9 +116,9 @@
         <div class="navbar-nav ms-auto p-4 p-lg-0">
 
             <a href="map.html" class="nav-item nav-link">지도</a>
-            <a href="test.jsp" class="nav-item nav-link">행사/축제</a>
+            <a href="event_main.jsp" class="nav-item nav-link">행사/축제</a>
             <a href="comm_main.jsp" class="nav-item nav-link">맛집</a>
-            <a href="covid.html" class="nav-item nav-link">코로나현황/날씨</a>
+            <a href="project.html" class="nav-item nav-link">코로나현황/날씨</a>
 
         </div>
 
@@ -130,29 +130,13 @@
 <!-- Navbar End -->
 
 
-<!-- Page Header Start
-<div class="container-fluid page-header py-5 mb-5">
-    <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Projects</h1>
-        <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Projects</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-Page Header End -->
-
-
 <!-- 게시판 Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">축제 및 행사 게시판</h6>
-            <h1 class="mb-4">전국 지역방방곡곡의 축제들을 알려드립니다!</h1>
+            <h6 class="text-primary">지역 커뮤니티</h6>
+            <h1 class="mb-4">지역 명소 및 맛집을 소개해주세요!</h1>
         </div>
         <!-- 카테고리 -->
         <!-- <form method="post" action="event_detail.jsp">-->
@@ -183,83 +167,14 @@ Page Header End -->
         </form>
         <div class="cp33list1">
                 <%
- //   request.getParameter("localNum");
+
     System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
     Connection conn =null;
     Statement stmt =null;
     ResultSet rs =null;
- //   int localNum=0;
- //   String imsi = request.getParameter("imsi")==null ? "" : request.getParameter("imsi");
 
-
-    //   int localNum = Integer.parseInt(request.getParameter("localNum")==null ? "0": request.getParameter("localNum"));
-   //     System.out.println("넘어온 localNum ===="+localNum);
-    //    String localName = "";
-/*
-        switch (localNum) {
-            case 0:
-                localName="전국";
-            case 1:
-                localName="seoul";
-                break;
-            case 2:
-              System.out.println("busan 클릭 넘어옴");
-                localName="busan";
-                break;
-            case 3:
-              System.out.println("dajeon 클릭 넘어옴");
-                localName="dajeon";
-                break;
-            case 4:
-              System.out.println("incheon 클릭 넘어옴");
-                localName = "incheon";
-                break;
-            case 5:
-                localName = "gwangju";
-                break;
-            case 6:
-                localName = "ulsan";
-                break;
-            case 7:
-                localName = "sejong";
-                break;
-            case 8:
-                localName = "gyeonggi";
-                break;
-            case 9:
-                localName = "gangwon";
-                break;
-            case 10:
-                localName = "choongbuk";
-                break;
-            case 11:
-                localName = "choongnam";
-                break;
-            case 12:
-                localName = "jeonbuk";
-                break;
-            case 13:
-                localName = "jeonnam";
-                break;
-            case 14:
-                localName = "gyeongbuk";
-                break;
-            case 15:
-                localName = "gyeongnam";
-                break;
-            case 16:
-                localName = "jeju";
-                break;
-            default:
-                localName = "전국";
-                break;
-        }*/
-
-  BbsDAO bbsDAO=new BbsDAO();
- // ArrayList<Bbs> list= bbsDAO.getList(localName);
-  //for(int i=list.size()-1;i>=0;i--){
+  CommDAO commDAO=new CommDAO();
 %>
-
 
             <ul class="lst1">
 
@@ -267,10 +182,10 @@ Page Header End -->
                 <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
                     <%
                         //    ArrayList<Bbs> list= bbsDAO.getList("서울");
-                        ArrayList<Bbs> list= bbsDAO.getList("seoul");
+                        ArrayList<Comm> list= commDAO.getList("seoul");
                         for(int i=list.size()-1;i>=0;i--){
                     %>
-                    <%System.out.println("event_list.jsp list.size()-i 값: "+(list.size()-i));%>
+                    <%System.out.println("comm_main.jsp list.size()-i 값: "+(list.size()-i));%>
                     <%System.out.println("i값 : "+i);%>
 <%--                    <%=   list.size()-i %>--%>
                     <li class="li1">
@@ -279,10 +194,10 @@ Page Header End -->
                             <div class="w1c1">
                                 <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
               <span class="f1">
-                  <%System.out.println("event_list.jsp 리스트 html문 for문 안 ");%>
+                  <%System.out.println("comm_main.jsp 리스트 html문 for문 안 ");%>
                 <span class="f1p1">
           <!--      <img src="../static/img/test/맥주1.JPG.400x400.jpg" alt="독일마을 맥주축제1">-->
-                    <img src="<%=list.get(i).getEvent_Picture()%>" alt="<%=list.get(i).getEvent_Title()%>>">
+                    <img src="<%=list.get(i).getcomm_picture()%>" alt="<%=list.get(i).getcomm_title()%>>">
                 </span>
               </span>
                                 </a>
@@ -292,9 +207,9 @@ Page Header End -->
                                 <div class="texts">
                                     <a href="?amode=view&amp;idx=191&amp;category=F0100" class="tg1">
                                         <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()-i%></em>
-                                        <strong class="t1"><%=list.get(i).getEvent_Title()%></strong>
+                                        <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
 
-                                        <div class="t2"><%=list.get(i).getEvent_Preview()%></div>
+                                        <div class="t2"><%=list.get(i).getcomm_preview()%></div>
                                     </a>
                                     <div class="cp33dlist1">
                                         <ul class="dl1">
@@ -304,14 +219,15 @@ Page Header End -->
                                                     <span class="t1">위치</span>
                                                     <span class="sep">:</span></b>
                                                 <span class="dd">
-                      <span class="t2"> <%=list.get(i).getEvent_Address()%></span>
+                      <span class="t2"> <%=list.get(i).getcomm_address()%></span>
                     </span>
                                             </li>
                                             <li class="di calendar">
                                                 <b class="dt"><i class="ic1"></i> <span class="t1">기간</span> <span
                                                         class="sep">:</span></b>
-                                                <span class="dd"><span class="t2"><%=list.get(i).getEvent_StartDate()%> ~ <%=list.get(i).getEvent_EndDate()%></span></span>
+                                                <span class="dd"><span class="t2"><%=list.get(i).getcomm_date()%> ~ <%=list.get(i).getcomm_date()%></span></span>
                                             </li>
+                                            <!-- 수정 필요 -->
                                             <li class="di agency">
                                                 <b class="dt">
                                                     <i class="ic1"></i>
@@ -319,7 +235,7 @@ Page Header End -->
                                                     <span class="sep">:</span>
                                                 </b>
                                                 <span class="dd">
-                      <span class="t2"><%=list.get(i).getEvent_manager()%></span>
+                      <span class="t2"><%=list.get(i).getcomm_title()%></span>
                     </span>
                                             </li>
                                             <li class="di phone">
@@ -329,7 +245,7 @@ Page Header End -->
                                                     <span class="sep">:</span>
                                                 </b>
                                                 <span class="dd">
-                      <span class="t2"><%=list.get(i).getEvent_Phone()%></span>
+                      <span class="t2"><%=list.get(i).getcomm_title()%></span>
                     </span>
                                             </li>
                                         </ul>
@@ -350,7 +266,7 @@ Page Header End -->
                                     </i>
                                     <span class="t2">
                 <span class="blind">점수</span>
-                <span class="t2t1"><%=list.get(i).getEvent_score()%></span>
+                <span class="t2t1"><%=list.get(i).getcomm_score()%></span>
                 <span class="sep">/</span>
                 <span class="t2t2">5.0</span>
               </span>
@@ -371,7 +287,7 @@ Page Header End -->
                         }
                     %>
                     <div class="text-end" style="padding: 10px">
-                        <a type="button" class="btn btn-primary" href="event_register.html">등록</a>
+                        <a type="button" class="btn btn-primary" href="comm_reg.html">등록</a>
                     </div>
                 </div>
 
@@ -440,99 +356,99 @@ Page Header End -->
                   </div>
                 </div></li>-->
             </ul>
-            <%--            <jsp:directive.include file="footer.jsp"/>--%>
-            <!-- Footer Start -->
-            <div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
-                <div class="container py-5">
-                    <div class="row g-5">
-                        <div class="col-lg-3 col-md-6">
-                            <h5 class="text-white mb-4">Address</h5>
-                            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                            <div class="d-flex pt-2">
-                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+<%--            <jsp:directive.include file="footer.jsp"/>--%>
+                            <!-- Footer Start -->
+                            <div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+                                <div class="container py-5">
+                                    <div class="row g-5">
+                                        <div class="col-lg-3 col-md-6">
+                                            <h5 class="text-white mb-4">Address</h5>
+                                            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                                            <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
+                                            <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                                            <div class="d-flex pt-2">
+                                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                                                <a class="btn btn-square btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <h5 class="text-white mb-4">Quick Links</h5>
+                                            <a class="btn btn-link" href="">About Us</a>
+                                            <a class="btn btn-link" href="">Contact Us</a>
+                                            <a class="btn btn-link" href="">Our Services</a>
+                                            <a class="btn btn-link" href="">Terms & Condition</a>
+                                            <a class="btn btn-link" href="">Support</a>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <h5 class="text-white mb-4">Project Gallery</h5>
+                                            <div class="row g-2">
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-1.jpg" alt="">
+                                                </div>
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-2.jpg" alt="">
+                                                </div>
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-3.jpg" alt="">
+                                                </div>
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-4.jpg" alt="">
+                                                </div>
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-5.jpg" alt="">
+                                                </div>
+                                                <div class="col-4">
+                                                    <img class="img-fluid rounded" src="../static/img/gallery-6.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6">
+                                            <h5 class="text-white mb-4">Newsletter</h5>
+                                            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                                            <div class="position-relative mx-auto" style="max-width: 400px;">
+                                                <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                                                <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="copyright">
+                                        <div class="row">
+                                            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                                                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                                            </div>
+                                            <div class="col-md-6 text-center text-md-end">
+                                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                                                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h5 class="text-white mb-4">Quick Links</h5>
-                            <a class="btn btn-link" href="">About Us</a>
-                            <a class="btn btn-link" href="">Contact Us</a>
-                            <a class="btn btn-link" href="">Our Services</a>
-                            <a class="btn btn-link" href="">Terms & Condition</a>
-                            <a class="btn btn-link" href="">Support</a>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h5 class="text-white mb-4">Project Gallery</h5>
-                            <div class="row g-2">
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-1.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-2.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-3.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-4.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-5.jpg" alt="">
-                                </div>
-                                <div class="col-4">
-                                    <img class="img-fluid rounded" src="../static/img/gallery-6.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <h5 class="text-white mb-4">Newsletter</h5>
-                            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                            <div class="position-relative mx-auto" style="max-width: 400px;">
-                                <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                                <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container">
-                    <div class="copyright">
-                        <div class="row">
-                            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                                &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                            </div>
-                            <div class="col-md-6 text-center text-md-end">
-                                <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                                Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                                <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer End -->
+                            <!-- Footer End -->
 
 
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+                            <!-- Back to Top -->
+                            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="../static/lib/wow/wow.min.js"></script>
-            <script src="../static/lib/easing/easing.min.js"></script>
-            <script src="../static/lib/waypoints/waypoints.min.js"></script>
-            <script src="../static/lib/counterup/counterup.min.js"></script>
-            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
-            <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
+                            <!-- JavaScript Libraries -->
+                            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                            <script src="../static/lib/wow/wow.min.js"></script>
+                            <script src="../static/lib/easing/easing.min.js"></script>
+                            <script src="../static/lib/waypoints/waypoints.min.js"></script>
+                            <script src="../static/lib/counterup/counterup.min.js"></script>
+                            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+                            <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
+                            <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
 
-            <!-- Template Javascript -->
-            <script src="../static/js/main.js"></script>--%>
+                            <!-- Template Javascript -->
+                            <script src="../static/js/main.js"></script>--%>
 </body>
 
 </html>

@@ -35,24 +35,24 @@
         try{
             MultipartRequest multiRequest = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
             // 전송받은 데이터가 파일일 경우 getFilesystemName()으로 파일 이름을 받아올 수 있다.
-            //filename = bbs.getEvent_Picture();
-            // 업로드한 파일의 전체 경로를 DB에 저장하기 위함
             Enumeration files = multiRequest.getFileNames();
             str = (String)files.nextElement();
+            filename = multiRequest.getFilesystemName(str);
+            original_filename = multiRequest.getOriginalFileName(str);
 
-            if( multiRequest.getParameter("event_Title") == null|| multiRequest.getParameter("event_Content") == null){
+            if (multiRequest.getParameter("event_Title") == null || multiRequest.getParameter("event_Content") == null) {
                 PrintWriter script = response.getWriter();
                 script.println("<script>");
                 script.println("alert('입력이 안 된 사항이 있습니다')");
                 script.println("history.back()");
                 script.println("</script>");
-            }else{
+            } else {
                 // 정상적으로 입력이 되었다면 글쓰기 로직을 수행한다
                 BbsDAO bbsDAO = new BbsDAO();
 
-                int result = bbsDAO.write(userID,multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
-                        multiRequest.getParameter("event_Address"),multiRequest.getParameter("event_Phone"),path
-                        , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"),multiRequest.getParameter("event_Intro")
+                int result = bbsDAO.write(userID, multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
+                        multiRequest.getParameter("event_Address"), multiRequest.getParameter("event_Phone"), path+"\\"+original_filename
+                        , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"), multiRequest.getParameter("event_Intro")
                         , multiRequest.getParameter("event_Content"));
 
                 // 데이터베이스 오류인 경우
