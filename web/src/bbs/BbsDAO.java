@@ -1,6 +1,7 @@
 package bbs;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 
 public class BbsDAO {
@@ -97,5 +98,82 @@ public class BbsDAO {
     }
 
 
+    public ArrayList<Bbs> getList(String localName){
+        if (localName == "전국") {
+            String sql = String.format("SELECT * FROM event");
+            ArrayList<Bbs> list =new ArrayList<Bbs>();
+            try {
+                PreparedStatement pstmt=conn.prepareStatement(sql);
+                //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
+                rs=pstmt.executeQuery();
+                while(rs.next()) {
+                    Bbs bbs=new Bbs();
+                    bbs.setEventID(rs.getString(1));
+                    bbs.setUserID(rs.getString(2));
+                    bbs.setEvent_Title(rs.getString(3));
+                    bbs.setEvent_Preview(rs.getString(4));
+                    bbs.setEvent_Picture(rs.getString(5));
+                    bbs.setEvent_Address(rs.getString(6));
+                    bbs.setEvent_Intro(rs.getString(7));
+                    bbs.setEvent_Content(rs.getString(8));
+                    bbs.setEvent_Phone(rs.getString(9));
+                    bbs.setEvent_StartDate(rs.getString(10));
+                    bbs.setEvent_EndDate(rs.getString(11));
+                    bbs.setEvent_Like(rs.getInt(12));
+                    bbs.setEvent_manager(rs.getString(13));
+                    bbs.setEvent_type(rs.getInt(14));
+                    list.add(bbs);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return list;
+        }else{ //기본 값이 아니라 지역명 선택했을 때
+            //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
+            StringBuffer query = new StringBuffer();
+            System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
+            query.append("SELECT * FROM event WHERE event_address LIKE ?");
 
+
+            //     String sql = "select * from event where event_address like %" +localName +"%";
+            ArrayList<Bbs> list =new ArrayList<Bbs>();
+            try {
+                System.out.println("try문 들어옴");
+                PreparedStatement psmt=conn.prepareStatement(query.toString());
+                //     PreparedStatement psmt=  conn.prepareStatement(new String(query.toString().getBytes("KSC5601"), "8859_1")+"%");
+                System.out.println("try문 들어옴 local name = "+localName);
+                psmt.setString(1, "%"+localName+"%"); //"KSC5601"),"8859_1"//1트
+                //psmt.setString(1, "%"+new String(localName.getBytes("8859_1"), "euc-kr")+"%");
+                //         String ppssmmtt=new String( psmt.setString(1, "%"+localName+"%").getBytes("8859_1"), "euc-kr")+"%");
+                System.out.println("try문 들어옴");
+                //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
+                rs=psmt.executeQuery();
+                System.out.println("try문 들어옴");
+                while(rs.next()) {
+                    System.out.println("while문");
+                    Bbs bbs=new Bbs();
+                    bbs.setEventID(rs.getString(1));
+                    bbs.setUserID(rs.getString(2));
+                    bbs.setEvent_Title(rs.getString(3));
+                    bbs.setEvent_Preview(rs.getString(4));
+                    bbs.setEvent_Picture(rs.getString(5));
+                    bbs.setEvent_Address(rs.getString(6));
+                    bbs.setEvent_Intro(rs.getString(7));
+                    bbs.setEvent_Content(rs.getString(8));
+                    bbs.setEvent_Phone(rs.getString(9));
+                    bbs.setEvent_StartDate(rs.getString(10));
+                    bbs.setEvent_EndDate(rs.getString(11));
+                    bbs.setEvent_Like(rs.getInt(12));
+                    bbs.setEvent_manager(rs.getString(13));
+                    bbs.setEvent_type(rs.getInt(14));
+                    list.add(bbs);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return list;
+        }
+        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
+
+    }
 }
