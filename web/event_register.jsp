@@ -1,20 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<% request.setCharacterEncoding("euc-kr"); %>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="bbs.BbsDAO"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="java.util.Enumeration" %>
-<jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
-<jsp:setProperty name="bbs" property ="event_Title"/>
-<jsp:setProperty name="bbs" property ="event_Preview"/>
-<jsp:setProperty name="bbs" property ="event_Address"/>
-<jsp:setProperty name="bbs" property ="event_Phone"/>
-<jsp:setProperty name="bbs" property ="event_Picture"/>
-<jsp:setProperty name="bbs" property ="event_StartDate"/>
-<jsp:setProperty name="bbs" property ="event_EndDate"/>
-<jsp:setProperty name="bbs" property ="event_Intro"/>
-<jsp:setProperty name="bbs" property ="event_Content"/>
 
 
 <!DOCTYPE html>
@@ -24,51 +14,67 @@
 <body>
 
 <%
-    // í˜„ì¬ ì„¸ì…˜ ìƒíƒœë¥¼ ì²´í¬í•œë‹¤
+
+    // ÇöÀç ¼¼¼Ç »óÅÂ¸¦ Ã¼Å©ÇÑ´Ù
     String userID = null;
     if(session.getAttribute("userID") != null){
         userID = (String)session.getAttribute("userID");
     }
-    // ë¡œê·¸ì¸ì„ í•œ ì‚¬ëŒë§Œ ê¸€ì„ ì“¸ ìˆ˜ ìˆë„ë¡ ì½”ë“œë¥¼ ìˆ˜ì •í•œë‹¤
+    // ·Î±×ÀÎÀ» ÇÑ »ç¶÷¸¸ ±ÛÀ» ¾µ ¼ö ÀÖµµ·Ï ÄÚµå¸¦ ¼öÁ¤ÇÑ´Ù
     if(userID == null){
         PrintWriter script = response.getWriter();
         script.println("<script>");
-        script.println("alert('ë¡œê·¸ì¸ì„ í•˜ì„¸ìš”')");
+        script.println("alert('·Î±×ÀÎÀ» ÇÏ¼¼¿ä')");
         script.println("location.href='login.html'");
         script.println("</script>");
     }else{
-        // ì…ë ¥ì´ ì•ˆ ëœ ë¶€ë¶„ì´ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤
-        if( bbs.getEvent_Title() == null|| bbs.getEvent_Content() == null){
-            PrintWriter script = response.getWriter();
-            script.println("<script>");
-            script.println("alert('ì…ë ¥ì´ ì•ˆ ëœ ì‚¬í•­ì´ ìˆìŠµë‹ˆë‹¤')");
-            script.println("history.back()");
-            script.println("</script>");
-        }else{
-            // ì •ìƒì ìœ¼ë¡œ ì…ë ¥ì´ ë˜ì—ˆë‹¤ë©´ ê¸€ì“°ê¸° ë¡œì§ì„ ìˆ˜í–‰í•œë‹¤
-            //PrintWriter script = response.getWriter();
-            BbsDAO bbsDAO = new BbsDAO();
+        int size = 1024 * 1024 * 20; //20MB
+        String path = request.getRealPath("uploadedFiles");
+        System.out.println("ÀÎÆ®ÀÎÆ®ÀÎÆ® : "+size);
+        String str, filename, original_filename;
+        try{
+            MultipartRequest multiRequest = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
+            // Àü¼Û¹ŞÀº µ¥ÀÌÅÍ°¡ ÆÄÀÏÀÏ °æ¿ì getFilesystemName()À¸·Î ÆÄÀÏ ÀÌ¸§À» ¹Ş¾Æ¿Ã ¼ö ÀÖ´Ù.
+            //filename = bbs.getEvent_Picture();
+            // ¾÷·ÎµåÇÑ ÆÄÀÏÀÇ ÀüÃ¼ °æ·Î¸¦ DB¿¡ ÀúÀåÇÏ±â À§ÇÔ
+            Enumeration files = multiRequest.getFileNames();
+            str = (String)files.nextElement();
 
-
-            int result = bbsDAO.write(userID,bbs.getEvent_Title(), bbs.getEvent_Preview(),bbs.getEvent_Address(),bbs.getEvent_Phone()
-                    ,"", bbs.getEvent_StartDate(), bbs.getEvent_EndDate(),bbs.getEvent_Intro(), bbs.getEvent_Content());
-
-
-            // ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜ì¸ ê²½ìš°
-            if(result==-1){
-                PrintWriter script= response.getWriter();
+            if( multiRequest.getParameter("event_Title") == null|| multiRequest.getParameter("event_Content") == null){
+                PrintWriter script = response.getWriter();
                 script.println("<script>");
-                script.println("alert('ê¸€ì“°ê¸°ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.')");
+                script.println("alert('ÀÔ·ÂÀÌ ¾È µÈ »çÇ×ÀÌ ÀÖ½À´Ï´Ù')");
                 script.println("history.back()");
                 script.println("</script>");
+            }else{
+                // Á¤»óÀûÀ¸·Î ÀÔ·ÂÀÌ µÇ¾ú´Ù¸é ±Û¾²±â ·ÎÁ÷À» ¼öÇàÇÑ´Ù
+                BbsDAO bbsDAO = new BbsDAO();
+
+                int result = bbsDAO.write(userID,multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
+                        multiRequest.getParameter("event_Address"),multiRequest.getParameter("event_Phone"),path
+                        , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"),multiRequest.getParameter("event_Intro")
+                        , multiRequest.getParameter("event_Content"));
+
+                // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ùÀÎ °æ¿ì
+                if(result==-1){
+                    PrintWriter script= response.getWriter();
+                    script.println("<script>");
+                    script.println("alert('±Û¾²±â¿¡ ½ÇÆĞÇß½À´Ï´Ù.')");
+                    script.println("history.back()");
+                    script.println("</script>");
+                }
+                else{
+                    PrintWriter script= response.getWriter();
+                    script.println("<script>");
+                    script.println("location.href='event_main.jsp'");
+                    script.println("</script>");
+                }
             }
-            else{
-                PrintWriter script= response.getWriter();
-                script.println("<script>");
-                script.println("location.href='main.html'");
-                script.println("</script>");
-            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
+        // ÀÔ·ÂÀÌ ¾È µÈ ºÎºĞÀÌ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù
+
     }
 
 %>

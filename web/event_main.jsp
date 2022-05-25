@@ -6,7 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-출처: https://action713.tistory.com/entry/펌한글깨짐-처리 [내 인생에도 예쁜 꽃이 피었으면 좋겠다]
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.Connection" %>
