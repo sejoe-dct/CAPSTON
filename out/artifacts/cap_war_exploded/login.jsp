@@ -1,54 +1,65 @@
-<%@ page contentType="text/html" pageEncoding="utf-8" %>
-<%@ page import ="java.sql.DriverManager" %>
-<%@ page import ="java.sql.Connection" %>
-<%@ page import ="java.sql.Statement" %>
-<%@ page import ="java.sql.ResultSet" %>
-<%@ page import ="java.sql.SQLException" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ page import="user.UserDAO" %>
+<%@ page import="java.io.PrintWriter" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<jsp:useBean id="user" class="user.User" scope="page"/>
+<jsp:setProperty name="user" property="userID"/>
+<jsp:setProperty name="user" property="userPassword"/>
+<!--property의 값을 login.jsp의 값과 동일하게 써주면 login.jsp 페이지의 데이터를 가져온다.-->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" initial-scale="1">
 
-<% // MySQL JDBC Driver Loading
-  String uid = request.getParameter("id");
-  String upwd = request.getParameter("ps");
+</head>
+<body>
 
-  Class.forName("com.mysql.cj.jdbc.Driver");
-  Connection conn =null;
-  Statement stmt =null;
-  ResultSet rs =null;
-  try {
-
-    String jdbcDriver ="jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=UTC";
-    String dbUser ="test"; //mysql id
-    String dbPass ="1234"; //mysql password
-    String query ="select * from User";//query
-    // Create DB Connection
-    conn = DriverManager.getConnection(jdbcDriver, dbUser, dbPass);
-    // Create Statement
-    stmt = conn.createStatement();
-    // Run Qeury
-    rs = stmt.executeQuery(query);
-    // Print Result (Run by Query)
-
-    while(rs.next()) {
-      String user_email = rs.getString("user_email");
-      String user_pswd = rs.getString("user_pswd");
-
-      if (uid.equals(user_email)&&upwd.equals(user_pswd)) {
-        //session.setAttribute("id", uid);
-        response.sendRedirect("main.html");
-        //out.print("로그인 되었습니다.");
-        //out.print("메인 페이지입니다.");
-      }
-      else {
-        out.print("로그인 정보가 없습니다.");
-      }
-    }
-  } catch(SQLException ex) {
-    out.println(ex.getMessage());
-    ex.printStackTrace();
-  } finally {
-    // Close Statement
-    if (rs !=null) try { rs.close(); } catch(SQLException ex) {}
-    if (stmt !=null) try { stmt.close(); } catch(SQLException ex) {}
-    // Close Connection
-    if (conn !=null) try { conn.close(); } catch(SQLException ex) {}
+<%
+  String userID=null;
+  if(session.getAttribute("userID")!=null){
+    userID=(String)session.getAttribute("userID");
+  }
+  if(userID!=null){
+    PrintWriter script=response.getWriter();
+    script.println("<script>");
+    script.println("alert('이미 로그인 되어있습니다.')");
+    script.println("location.href='main.jsp'");
+    script.println("</script>");
+  }
+  UserDAO userDAO = new UserDAO();
+  int result =userDAO.login(user.getUserID(),user.getUserPassword());
+  System.out.println("로그인2 : "+ user.getUserID()+ " "+user.getUserPassword());
+  if(result==1){
+    session.setAttribute("userID", user.getUserID());
+    PrintWriter script=response.getWriter();
+    script.println("<script>");
+    script.println("location.href='main.html'");
+    script.println("</script>");
+  }
+  else if(result==0){
+    PrintWriter script=response.getWriter();
+    script.println("<script>");
+    script.println("alert('비밀번호가 틀립니다.')");
+    script.println("history.back()");
+    script.println("</script>");
+  }
+  else if(result==-1){
+    PrintWriter script=response.getWriter();
+    script.println("<script>");
+    script.println("alert('존재하지 않는 아이디입니다.')");
+    script.println("history.back()");
+    script.println("</script>");
+  }
+  else if(result==-2){
+    PrintWriter script=response.getWriter();
+    script.println("<script>");
+    script.println("alert('데이터베이스 오류가 발생했습니다.')");
+    script.println("history.back()");
+    script.println("</script>");
   }
 %>
+
+</body>
+</html>

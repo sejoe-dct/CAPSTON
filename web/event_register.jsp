@@ -1,69 +1,76 @@
-<%@ page contentType="text/html" pageEncoding="utf-8" %>
-<%@ page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="bbs.BbsDAO"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
+<jsp:setProperty name="bbs" property ="event_Title"/>
+<jsp:setProperty name="bbs" property ="event_Preview"/>
+<jsp:setProperty name="bbs" property ="event_Address"/>
+<jsp:setProperty name="bbs" property ="event_Phone"/>
+<jsp:setProperty name="bbs" property ="event_Picture"/>
+<jsp:setProperty name="bbs" property ="event_StartDate"/>
+<jsp:setProperty name="bbs" property ="event_EndDate"/>
+<jsp:setProperty name="bbs" property ="event_Intro"/>
+<jsp:setProperty name="bbs" property ="event_Content"/>
+
+
+<!DOCTYPE html>
 <html>
+<head>
+</head>
+<body>
+
 <%
-
-    request.setCharacterEncoding("utf-8");
-
-    String path = request.getRealPath("uploadedFiles");
-    int size = 1024 * 1024 * 20; //20MB
-    String str, filename, original_filename;
-    ;
-    try{
-        MultipartRequest multiRequest = new MultipartRequest(request, path, size, "EUC-KR", new DefaultFileRenamePolicy());
-
-        Enumeration files = multiRequest.getFileNames();
-        str = (String)files.nextElement();
-        filename = multiRequest.getFilesystemName(str);
-        original_filename = multiRequest.getOriginalFileName(str);
-
-        //System.out.println("str : "+str);
-        //System.out.println("filename : "+filename);
-        //System.out.println("original_filename : "+original_filename);
-
-
-    String etitle = request.getParameter("eventtitle");
-    String epreview = request.getParameter("eventpreview");
-    String eaddress = request.getParameter("eventaddress");
-    String ephone = request.getParameter("eventphone");
-    String epicture = request.getParameter("eventpicture");
-    String estartdate = request.getParameter("eventstartdate");
-    String eenddate = request.getParameter("eventenddate");
-    String eintro = request.getParameter("eventintro");
-    String econtent = request.getParameter("eventcontent");
-
-    String eid = "e1";
-    String uid = "qq";
-
-    String sql = "INSERT INTO Event(user_id, event_title, event_preview, event_address, event_phone, event_picture, " +
-            "event_intro, event_content) VALUES";
-
-
-    sql += "('"  + eid + "', '" + uid + "', '" + etitle + "', '" + epreview + "', '" + eaddress + "', '" + ephone + "', '" + path + "', '"
-            + estartdate + "', '" + eenddate + "', '" + eintro + "', '" + econtent +  "')";
-
-    out.println(sql);
-
-    Class.forName("com.mysql.cj.jdbc.Driver");
-
-
-    Connection conn = DriverManager.getConnection("jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul", "test", "1234");
-    Statement stmt = conn.createStatement();
-
-    int count = stmt.executeUpdate(sql);
-    if (count == 1) {
-        out.println("이벤트 등록이 완료되었습니다.");
+    // 현재 세션 상태를 체크한다
+    String userID = null;
+    if(session.getAttribute("userID") != null){
+        userID = (String)session.getAttribute("userID");
     }
-    else {
-        out.println("이벤트 등록 중 오류가 발생하었습니다.");
-    }
-    stmt.close(); conn.close();
+    // 로그인을 한 사람만 글을 쓸 수 있도록 코드를 수정한다
+    if(userID == null){
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('로그인을 하세요')");
+        script.println("location.href='login.html'");
+        script.println("</script>");
+    }else{
+        // 입력이 안 된 부분이 있는지 체크한다
+        if( bbs.getEvent_Title() == null|| bbs.getEvent_Content() == null){
+            PrintWriter script = response.getWriter();
+            script.println("<script>");
+            script.println("alert('입력이 안 된 사항이 있습니다')");
+            script.println("history.back()");
+            script.println("</script>");
+        }else{
+            // 정상적으로 입력이 되었다면 글쓰기 로직을 수행한다
+            //PrintWriter script = response.getWriter();
+            BbsDAO bbsDAO = new BbsDAO();
 
-    } catch (Exception e){
-        e.printStackTrace();
+
+            int result = bbsDAO.write(userID,bbs.getEvent_Title(), bbs.getEvent_Preview(),bbs.getEvent_Address(),bbs.getEvent_Phone()
+                    ,"", bbs.getEvent_StartDate(), bbs.getEvent_EndDate(),bbs.getEvent_Intro(), bbs.getEvent_Content());
+
+
+            // 데이터베이스 오류인 경우
+            if(result==-1){
+                PrintWriter script= response.getWriter();
+                script.println("<script>");
+                script.println("alert('글쓰기에 실패했습니다.')");
+                script.println("history.back()");
+                script.println("</script>");
+            }
+            else{
+                PrintWriter script= response.getWriter();
+                script.println("<script>");
+                script.println("location.href='main.html'");
+                script.println("</script>");
+            }
+        }
     }
+
 %>
+</body>
 </html>
