@@ -266,8 +266,8 @@ Page Header End -->
                 <!--1번째 --> <!-- 서울 리스트 for문 -->
                 <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
                     <%
-                        //    ArrayList<Bbs> list= bbsDAO.getList("서울");
-                        ArrayList<Bbs> list= bbsDAO.getList("seoul");
+                            ArrayList<Bbs> list= bbsDAO.getList("서울");
+                      //  ArrayList<Bbs> list= bbsDAO.getList("seoul");
                         for(int i=list.size()-1;i>=0;i--){
                     %>
                     <%System.out.println("event_list.jsp list.size()-i 값: "+(list.size()-i));%>
@@ -371,7 +371,8 @@ Page Header End -->
                         }
                     %>
                     <div class="text-end" style="padding: 10px">
-                        <a type="button" class="btn btn-primary" href="event_register.html">등록</a>
+                       <%-- <a type="button" class="btn btn-primary" href="event_register.html">등록</a>--%>
+                           <a type="button" class="btn btn-primary" id="rg_evt_bt" href="login_check.jsp">등록</a>
                     </div>
                 </div>
 

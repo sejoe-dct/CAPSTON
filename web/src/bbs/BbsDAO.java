@@ -12,7 +12,7 @@ public class BbsDAO {
     //기본 생성자
     public BbsDAO() {
         try {
-            String dbURL = "jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul";
+            String dbURL = "jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
             String dbID = "test";
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver");
