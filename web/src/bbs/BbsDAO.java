@@ -3,9 +3,9 @@ package bbs;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 public class BbsDAO {
 
+    private Statement stmt;
     private Connection conn;
     private ResultSet rs;
 
@@ -22,21 +22,6 @@ public class BbsDAO {
         }
     }
 
-    //작성일자 메소드
-   /* public String getDate() {
-        String sql = "select now()";
-        try {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            if(rs.next()) {
-                return rs.getString(1);
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ""; //데이터베이스 오류
-    }
-*/
     //게시글 번호 부여 메소드
     public int getNext() {
         //현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
@@ -176,4 +161,63 @@ public class BbsDAO {
         //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
 
     }
+
+    public ArrayList<Bbs> getList_detail(String event_title){
+
+            StringBuffer query = new StringBuffer();
+            query.append("SELECT * FROM event WHERE event_title = ?");
+
+            ArrayList<Bbs> list =new ArrayList<Bbs>();
+            try {
+                PreparedStatement psmt=conn.prepareStatement(query.toString());
+                psmt.setString(1, "%"+event_title+"%"); //"KSC5601"),"8859_1"//1트
+                rs=psmt.executeQuery();
+                while(rs.next()) {
+                    Bbs bbs=new Bbs();
+                    bbs.setEventID(rs.getString(1));
+                    bbs.setUserID(rs.getString(2));
+                    bbs.setEvent_Title(rs.getString(3));
+                    bbs.setEvent_Preview(rs.getString(4));
+                    bbs.setEvent_Picture(rs.getString(5));
+                    bbs.setEvent_Address(rs.getString(6));
+                    bbs.setEvent_Intro(rs.getString(7));
+                    bbs.setEvent_Content(rs.getString(8));
+                    bbs.setEvent_Phone(rs.getString(9));
+                    bbs.setEvent_StartDate(rs.getString(10));
+                    bbs.setEvent_EndDate(rs.getString(11));
+                    bbs.setEvent_Like(rs.getInt(12));
+                    bbs.setEvent_manager(rs.getString(13));
+                    bbs.setEvent_type(rs.getInt(14));
+                    list.add(bbs);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return list;
+
+        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
+
+    }
+
+
+    public int checkType(String id) {
+        int type=0;
+        String SQL = "SELECT user_type FROM user WHERE user_id='"+ id + "'";
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+            if (rs.next()) { //rs.next()를 통해 다음행을 내려갈 수 있으면 true를 반환하고, 커서를 한칸 내린다. 다음행이 없으면 false를 반환한다.
+                type = rs.getInt("user_type");
+
+            }
+            return type;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return -2;
+
+
+    }
+
 }

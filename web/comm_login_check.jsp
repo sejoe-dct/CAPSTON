@@ -18,17 +18,17 @@
         if(session.getAttribute("userID") != null){
             userID = (String)session.getAttribute("userID");
         }
-        // 로그인을 한 사람만 글을 쓸 수 있도록 코드를 수정한다
-        if(userID == null){
-            PrintWriter script = response.getWriter();
-            script.println("<script>");
-            script.println("alert('로그인을 하세요')");
-            script.println("location.href='login.html'");
-            script.println("</script>");
-        }else{
 
-            response.sendRedirect("event_register.html");
-        }
+        // 로그인을 한 사람만 글을 쓸 수 있도록 코드를 수정한다
+            if(userID == null){
+                PrintWriter script = response.getWriter();
+                script.println("<script>");
+                script.println("alert('로그인을 하세요')");
+                script.println("location.href='login.html'");
+                script.println("</script>");
+            }else{
+                response.sendRedirect("comm_reg.html");
+            }
 %>
 </body>
 </html>

@@ -287,7 +287,7 @@
                         }
                     %>
                     <div class="text-end" style="padding: 10px">
-                        <a type="button" class="btn btn-primary" href="comm_reg.html">등록</a>
+                        <a type="button" class="btn btn-primary" href="comm_login_check.jsp">등록</a>
                     </div>
                 </div>
 
