@@ -38,7 +38,7 @@
             }else{
                 PrintWriter script = response.getWriter();
                 script.println("<script>");
-                script.println("alert('등록할 수 없습니다.')");
+                script.println("alert('권한이 없습니다.')");
                 script.println("location.href='event_main.jsp'");
                 script.println("</script>");
             }
