@@ -272,7 +272,7 @@ Page Header End -->
                     %>
                     <%System.out.println("event_list.jsp list.size()-i 값: "+(list.size()-i));%>
                     <%System.out.println("i값 : "+i);%>
-<%--                    <%=   list.size()-i %>--%>
+                    <%--                    <%=   list.size()-i %>--%>
                     <li class="li1">
                         <div class="w1">
                             <!-- 이미지 -->
