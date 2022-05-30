@@ -27,7 +27,7 @@
                 script.println("location.href='../login.jsp'");
                 script.println("</script>");
             }else{
-                response.sendRedirect("comm_reg.html");
+                response.sendRedirect("comm_reg.jsp");
             }
 %>
 </body>

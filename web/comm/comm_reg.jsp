@@ -1,44 +1,16 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en" xmlns:jsp="http://java.sun.com/JSP/Page">
 
 <head>
-    <meta charset="utf-8">
-    <title>Cloud - 지역문화살리기</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="../static/img/cloud.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
-
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="../static/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="../static/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../static/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="../static/css/style.css" rel="stylesheet">
-
-<!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<!--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
-<!--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
-
+    <jsp:directive.include file="../fragment/head.jsp"/>
 </head>
 
 <body>
-<jsp:directive.include file="comm_head.jsp"/>
+<jsp:directive.include file="../fragment/spinnertopbar.jsp"/>
+<jsp:directive.include file="comm_nav.jsp"/>
+
 
 
 <!-- Page Header Start -->
@@ -64,7 +36,7 @@
             <h1 class="mb-4">맛집 및 명소를 등록해주세요.</h1>
         </div>
 
-        <form action="comm.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
+        <form action="comm_reg_back.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
             <div class="row g-3">
                 <div class="col-12 ">
                     <input type="text" class="form-control border-0" name="comm_title" placeholder="제목" style="height: 55px;">
