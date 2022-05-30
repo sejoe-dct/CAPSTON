@@ -16,7 +16,7 @@ public class Bbs {
     private String event_EndDate;
     private int event_Like;
     private String event_manager;
-    private String event_type;
+    private int event_type;
 
     public String getEvent_picName() {
         return event_picName;
@@ -75,11 +75,11 @@ public class Bbs {
         this.event_manager = event_manager;
     }
 
-    public String getEvent_type() {
+    public int getEvent_type() {
         return event_type;
     }
 
-    public void setEvent_type(String event_type) {
+    public void setEvent_type(int event_type) {
         this.event_type = event_type;
     }
 

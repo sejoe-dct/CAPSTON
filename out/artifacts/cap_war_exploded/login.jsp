@@ -10,6 +10,7 @@
 <body>
 
 <jsp:directive.include file="fragment/spinnertopbar.jsp"/>
+<jsp:directive.include file="fragment/nav.jsp"/>
 
 <!-- Login Start -->
 <div id="logreg-forms">

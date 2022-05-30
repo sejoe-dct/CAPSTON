@@ -93,7 +93,7 @@
                             <!-- 설명 -->
                             <div class="w1c2">
                                 <div class="texts">
-                                    <a href="?amode=view&amp;idx=191&amp;category=F0100" class="tg1">
+                                    <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
                                         <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()-i%></em>
                                         <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
 

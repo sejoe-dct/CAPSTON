@@ -9,6 +9,7 @@
 
 <body>
 <jsp:directive.include file="fragment/spinnertopbar.jsp"/>
+<jsp:directive.include file="fragment/nav.jsp"/>
 
 <form action="signup_back.jsp" method="post">
     <section class="gradient-custom">

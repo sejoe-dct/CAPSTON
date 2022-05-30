@@ -1,6 +1,4 @@
 package comm;
-
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +26,7 @@ public class CommDAO {
 
     public int write(String user_id, String comm_title
             , String comm_preview, String comm_picture, String comm_picName
-            , String comm_address, String comm_info, double comm_score
+            , String comm_address, String comm_info , int comm_score
     ) {
         int comm_like = 0;
 
@@ -45,12 +43,12 @@ public class CommDAO {
             pstmt.setString(3, comm_title);
             pstmt.setString(4, comm_preview);
             pstmt.setString(5, comm_picture);
-            pstmt.setString(6, comm_address);
-            pstmt.setString(7, comm_info);
+            pstmt.setString(6, comm_info);
+            pstmt.setString(7, comm_address);
             pstmt.setInt(8, comm_like);
             pstmt.setDate(9, cDate);
             pstmt.setString(10, comm_picName);
-            pstmt.setDouble(11, comm_score);
+            pstmt.setInt(8, comm_score);
 
             //rs = pstmt.executeQuery();
             //System.out.println(SQL);
@@ -110,8 +108,8 @@ public class CommDAO {
                     comm.setcomm_address(rs.getString(7));
                     comm.setcomm_like(rs.getInt(8));
                     comm.setcomm_date(rs.getString(9));
-                    comm.setComm_picName(rs.getString(10));
-                    comm.setcomm_score(rs.getDouble(11));
+                    comm.setcomm_picName(rs.getString(10));
+                    comm.setcomm_score(rs.getInt(11));
 
                     list.add(comm);
                 }
@@ -152,8 +150,8 @@ public class CommDAO {
                     comm.setcomm_address(rs.getString(7));
                     comm.setcomm_like(rs.getInt(8));
                     comm.setcomm_date(rs.getString(9));
-                    comm.setComm_picName(rs.getString(10));
-                    comm.setcomm_score(rs.getDouble(11));
+                    comm.setcomm_picName(rs.getString(10));
+                    comm.setcomm_score(rs.getInt(11));
                     list.add(comm);
                 }
             } catch (Exception e) {
@@ -165,4 +163,41 @@ public class CommDAO {
 
     }
 
+    public Comm getCommDetail(int commID) {
+        String sql = "select * from community where comm_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, commID);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                Comm comm=new Comm();
+
+                comm.setcomm_id(rs.getString(1));
+                comm.setuser_id(rs.getString(2));
+                comm.setcomm_title(rs.getString(3));
+                comm.setcomm_preview(rs.getString(4));
+                comm.setcomm_picture(rs.getString(5));
+                comm.setcomm_info(rs.getString(6));
+                comm.setcomm_address(rs.getString(7));
+                comm.setcomm_like(rs.getInt(8));
+                comm.setcomm_date(rs.getString(9));
+                comm.setcomm_picName(rs.getString(10));
+                comm.setcomm_score(rs.getInt(11));
+
+
+
+
+                return comm;
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
+
+
+
+
+
