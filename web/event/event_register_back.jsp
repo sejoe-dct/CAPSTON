@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+
 <% request.setCharacterEncoding("euc-kr"); %>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="bbs.BbsDAO"%>
@@ -25,7 +26,7 @@
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('로그인을 하세요')");
-        script.println("location.href='login.html'");
+        script.println("location.href='login.jsp'");
         script.println("</script>");
     }else{
         int size = 1024 * 1024 * 20; //20MB
@@ -50,9 +51,9 @@
                 // 정상적으로 입력이 되었다면 글쓰기 로직을 수행한다
                 BbsDAO bbsDAO = new BbsDAO();
 
-                int result = bbsDAO.write(userID, multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
+                int result = bbsDAO.write(userID, multiRequest.getParameter("event_type"), multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
                         multiRequest.getParameter("event_Address") + " " + multiRequest.getParameter("event_detailAddress")
-                        , multiRequest.getParameter("event_Phone"), path + "\\" + original_filename
+                        , multiRequest.getParameter("event_Phone"), path + "\\" + original_filename , original_filename
                         , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"), multiRequest.getParameter("event_Intro")
                         , multiRequest.getParameter("event_Content"));
 

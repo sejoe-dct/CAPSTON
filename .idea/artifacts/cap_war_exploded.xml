@@ -12,6 +12,8 @@
           <element id="file-copy" path="$PROJECT_DIR$/../apache-tomcat-9.0.59/lib/tomcat-api.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/cos.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/web/WEB-INF/mysql-connector-java-8.0.19.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../tomcat/apache-tomcat-9.0.62/lib/tomcat-api.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../tomcat/apache-tomcat-9.0.62/lib/tomcat-jdbc.jar" />
         </element>
       </element>
     </root>

@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+" pageEncoding="utf-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:jsp="http://java.sun.com/JSP/Page">
 
 <head>
-    <meta charset="utf-8">
-    <title>Cloud - ÏßÄÏó≠Î¨∏ÌôîÏÇ¥Î¶¨Í∏∞</title>
+    <meta charset="UTF-8">
+    <title>Cloud - ¡ˆø™πÆ»≠ªÏ∏Æ±‚</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -33,124 +36,84 @@
 </head>
 
 <body>
-<!-- Spinner Start -->
-<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<!-- Spinner End -->
 
+<jsp:directive.include file="event_head.jsp"/>
 
-<!-- Topbar Start -->
-<div class="container-fluid bg-dark p-0">
-    <div class="row gx-0 d-none d-lg-flex">
-        <div class="col-lg-7 px-5 text-start">
-            <div class="h-100 d-inline-flex align-items-center me-4">
-                <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                <small>123 Street, New York, USA</small>
-            </div>
-            <div class="h-100 d-inline-flex align-items-center">
-                <small class="far fa-clock text-primary me-2"></small>
-                <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
-            </div>
-        </div>
-        <div class="col-lg-5 px-5 text-end">
-            <div class="h-100 d-inline-flex align-items-center me-4">
-                <small class="fa fa-phone-alt text-primary me-2"></small>
-                <small>+012 345 6789</small>
-            </div>
-            <div class="h-100 d-inline-flex align-items-center mx-n2">
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-square btn-link rounded-0 border-0 border-end border-secondary" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-square btn-link rounded-0" href=""><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Topbar End -->
-
-
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-    <a href="index.html" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
-        <h2 class="m-0 text-primary">CLOUD</h2>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="map.html" class="nav-item nav-link">ÏßÄÎèÑ</a>
-                <a href="event_main.jsp" class="nav-item nav-link">ÌñâÏÇ¨/Ï∂ïÏ†ú</a>
-                <a href="comm_main.jsp" class="nav-item nav-link">ÎßõÏßë</a>
-                <a href="project.html" class="nav-item nav-link">ÏΩîÎ°úÎÇòÌòÑÌô©/ÎÇ†Ïî®</a>
-
-            </div>
-
-        </div>
-
-    </div>
-    <a href="login.html" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
-    </div>
-</nav>
-<!-- Navbar End -->
-
-
-<!-- Page Header Start -->
-<div class="container-fluid page-header py-5 mb-5">
-    <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Projects</h1>
-        <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Projects</li>
-            </ol>
-        </nav>
-    </div>
-</div>
 
 
 <div class="container-xxl py-5">
     <div class="container">
-        <!-- Ï†úÎ™© / ÏÜåÏ†úÎ™© -->
+        <!-- ¡¶∏Ò / º“¡¶∏Ò -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">Ïª§ÎÆ§ÎãàÌã∞</h6>
-            <h1 class="mb-4">Ïª§ÎÆ§ÎãàÌã∞ Í≤åÏãúÎ¨º Îì±Î°ù</h1>
+            <h6 class="text-primary">√‡¡¶ π◊ «‡ªÁ µÓ∑œ«œ±‚</h6>
+            <h1 class="mb-4">«‡ªÁ π◊ √‡¡¶, ø¯µ•¿Ã≈¨∑°Ω∫ µÓ∑œ</h1>
         </div>
 
-        <form action="comm.jsp" method="post" enctype="multipart/form-data" accept-charset="UTF-8" >
+        <form action="event_register_back.jsp" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+                    <!--                                    <h6 class="mb-2 pb-1">Gender: </h6>-->
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="E_TypeRadioOptions" id="fetivaltype"
+                               value="ceo" checked />
+                        <label class="form-check-label" for="fetivaltype">«‡ªÁ π◊ √‡¡¶</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="E_TypeRadioOptions" id="classtype"
+                               value="member" />
+                        <label class="form-check-label" for="classtype">ø¯µ•¿Ã≈¨∑°Ω∫ π◊ √º«Ë»∞µø</label>
+                    </div>
+
+                </div>
             <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <input type="text" class="form-control border-0" name="event_Title" placeholder="«‡ªÁ ¡¶∏Ò"
+                           style="height: 55px;" required="">
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control border-0" name="event_Preview" placeholder="«‡ªÁ «—¡Ÿ º“∞≥"
+                           style="height: 55px;">
+                </div>
+                <div class="col-12 col-sm-6">
+                    <input type="text" class="form-control border-0" id="address" name="event_Address" placeholder="«‡ªÁ ¿Âº“"
+                           style="height: 55px;" readonly>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <button class="btn btn-outline-success btn-sm py-3 px-5" id="adBtn" onclick="Postcode()" type="button"
+                            placeholder="¡÷º“ ∞Àªˆ">¡÷º“∞Àªˆ
+                    </button>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <input type="text" class="form-control border-0" id="detailAddress" name= "event_detailAddress" placeholder="ªÛºº ¡÷º“"
+                           style="height: 55px;">
+                </div>
+
                 <div class="col-12 ">
-                    <input type="text" class="form-control border-0" name="comm_title" placeholder="Ï†úÎ™©" style="height: 55px;">
-                </div>
-                <div class="col-12">
-                    <input type="text" class="form-control border-0" name="comm_preview" placeholder="ÌïúÏ§Ñ ÏÜåÍ∞ú" style="height: 55px;">
-                </div>
-                <div class="col-12 col-sm-6">
-                    <input type="file" class="form-control border-0" name="comm_picture" placeholder="Ï≤®Î∂Ä Ìï† Ïù¥ÎØ∏ÏßÄ" style="height: 55px;">
-                </div>
-                <div class="col-12 col-sm-6">
-
+                    <input type="text" class="form-control border-0" name="event_Phone" placeholder="¿¸»≠π¯»£"
+                           style="height: 55px;">
                 </div>
 
                 <div class="col-12">
-                    <input type="text" name="comm_address" class="form-control border-0" id="comm_address" placeholder="Ïû•ÏÜå" style="height: 55px;">
-                    <!--                        <input type="file" name="file">-->
-                    <!--                        <input type="submit" value="Upload">-->
+                    <input type="file" class="form-control border-0" name="event_Picture" placeholder="«‡ªÁº“∞≥ ¿ÃπÃ¡ˆ"
+                           style="height: 55px;">
                 </div>
-
-                <div class="col-12">
-                    <textarea class="form-control border-0" name="comm_info" placeholder="ÏÜåÍ∞úÎÇ¥Ïö©"></textarea>
-                </div>
-
                 <div class="col-12 col-sm-6">
-                    <textarea class="form-control border-0" name="comm_score" placeholder="ÌèâÏ†ê"></textarea>
+                    <input type="date" class="form-control border-0" name="event_StartDate" placeholder="«‡ªÁ Ω√¿€ ≥Ø¬•"
+                           style="height: 55px;">
                 </div>
-                <div class="col-12" >
+                <div class="col-12 col-sm-6">
+                    <input type="date" class="form-control border-0" name="event_EndDate" placeholder="«‡ªÁ ¡æ∑· ≥Ø¬•"
+                           style="height: 55px;">
+                </div>
+                <div class="col-12">
+                    <textarea class="form-control border-0" name="event_Intro" placeholder="«‡ªÁ º“∞≥"></textarea>
+                </div>
+                <div class="col-12">
+                    <textarea class="form-control border-0" name="event_Content" placeholder="«‡ªÁ ≥ªøÎ"></textarea>
+                </div>
+                <div class="col-12">
                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>
                 </div>
             </div>
@@ -158,6 +121,30 @@
     </div>
 </div>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    //∫ª øπ¡¶ø°º≠¥¬ µµ∑Œ∏Ì ¡÷º“ «•±‚ πÊΩƒø° ¥Î«— π˝∑…ø° µ˚∂Û, ≥ª∑¡ø¿¥¬ µ•¿Ã≈Õ∏¶ ¡∂«’«œø© ø√πŸ∏• ¡÷º“∏¶ ±∏º∫«œ¥¬ πÊπ˝¿ª º≥∏Ì«’¥œ¥Ÿ.
+    function Postcode() {
+        daum.postcode.load(function () {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    var addr = "";
+                    if(data.userSelectedType === 'R'){
+                        addr = data.roadAddress;
+                    }else{
+                        addr = data.jibunAddress;
+                    }
+                    document.getElementById("address").value = addr;
+                    document.getElementById("detailAddress").focus();
+                }
+
+
+            }).open();
+        });
+
+
+    }
+</script>
 
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-body footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -223,7 +210,7 @@
                     &copy; <a href="#">Your Site Name</a>, All Right Reserved.
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <!--/*** This template is free as long as you keep the footer author‚Äôs credit link/attribution link/backlink. If you'd like to use the template without the footer author‚Äôs credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                    <!--/*** This template is free as long as you keep the footer author°Øs credit link/attribution link/backlink. If you'd like to use the template without the footer author°Øs credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                     Designed By <a href="https://htmlcodex.com">HTML Codex</a>
                     <br>Distributed By: <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
                 </div>
@@ -238,7 +225,7 @@
 <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
 
-<!‚Äî JavaScript Libraries ‚Äî>
+<!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../static/lib/wow/wow.min.js"></script>
@@ -249,7 +236,7 @@
 <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
 <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
 
-<!‚Äî Template Javascript ‚Äî>
+<!-- Template Javascript -->
 <script src="../static/js/main.js"></script>
 </body>
 

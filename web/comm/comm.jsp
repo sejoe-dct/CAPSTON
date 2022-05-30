@@ -24,7 +24,7 @@
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('로그인을 하세요')");
-        script.println("location.href='login.html'");
+        script.println("location.href='login.jsp'");
         script.println("</script>");
     } else {
         int size = 1024 * 1024 * 20; //20MB
@@ -41,7 +41,7 @@
 
 
             // 입력이 안 된 부분이 있는지 체크한다
-            if ( multiRequest.getParameter("comm_title")== null || multiRequest.getParameter("comm_info") == null) {
+            if ( multiRequest.getParameter("comm_title")== null || multiRequest.getParameter("comm_address") == null) {
                 PrintWriter script = response.getWriter();
                 script.println("<script>");
                 script.println("alert('입력이 안 된 사항이 있습니다')");
@@ -52,10 +52,14 @@
                 //PrintWriter script = response.getWriter();
                 CommDAO commDAO = new CommDAO();
 
+
                 int result = commDAO.write(user_id, multiRequest.getParameter("comm_title"),
-                        multiRequest.getParameter("comm_preview"), path+"\\"+original_filename
+                        multiRequest.getParameter("comm_preview"), path+"\\"+original_filename,original_filename
                         , multiRequest.getParameter("comm_address"), multiRequest.getParameter("comm_info")
-                        , Integer.parseInt(multiRequest.getParameter("comm_score")));
+                        , Double.parseDouble(multiRequest.getParameter("comm_score")));
+
+
+
                 // 데이터베이스 오류인 경우
                 if (result == -1) {
                     PrintWriter script = response.getWriter();
@@ -66,7 +70,7 @@
                 } else {
                     PrintWriter script = response.getWriter();
                     script.println("<script>");
-                    script.println("location.href='main.html'");
+                    script.println("location.href='comm_main.jsp'");
                     script.println("</script>");
                 }
             }

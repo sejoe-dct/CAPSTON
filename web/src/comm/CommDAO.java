@@ -12,7 +12,7 @@ public class CommDAO {
 
     public CommDAO() {
         try {
-            String dbURL = "jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul";
+            String dbURL = "jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
             String dbID = "test";
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 로드
@@ -27,19 +27,17 @@ public class CommDAO {
     }
 
     public int write(String user_id, String comm_title
-            , String comm_preview, String comm_picture
-            , String comm_address, String comm_info
-            , int comm_score) {
+            , String comm_preview, String comm_picture, String comm_picName
+            , String comm_address, String comm_info, double comm_score
+    ) {
         int comm_like = 0;
-        /*String sDdate= getDate();
-        Date cDate=Date.valueOf(sDdate);//converting string into sql date*/
+
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         // 포맷 적용
         String formatedNow = now.format(formatter);
-        //String sDdate= getDate();
         Date cDate=Date.valueOf(formatedNow);
-        String SQL = "insert into community values(?,?,?,?,?,?,?,?,?,?)";
+        String SQL = "insert into community values(?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             pstmt.setInt(1, getNext());
@@ -49,9 +47,10 @@ public class CommDAO {
             pstmt.setString(5, comm_picture);
             pstmt.setString(6, comm_address);
             pstmt.setString(7, comm_info);
-            pstmt.setInt(8, comm_score);
-            pstmt.setInt(9, comm_like);
-            pstmt.setDate(10, cDate);
+            pstmt.setInt(8, comm_like);
+            pstmt.setDate(9, cDate);
+            pstmt.setString(10, comm_picName);
+            pstmt.setDouble(11, comm_score);
 
             //rs = pstmt.executeQuery();
             //System.out.println(SQL);
@@ -109,9 +108,10 @@ public class CommDAO {
                     comm.setcomm_picture(rs.getString(5));
                     comm.setcomm_info(rs.getString(6));
                     comm.setcomm_address(rs.getString(7));
-                    comm.setcomm_score(rs.getInt(8));
-                    comm.setcomm_like(rs.getInt(9));
-                    comm.setcomm_date(rs.getString(10));
+                    comm.setcomm_like(rs.getInt(8));
+                    comm.setcomm_date(rs.getString(9));
+                    comm.setComm_picName(rs.getString(10));
+                    comm.setcomm_score(rs.getDouble(11));
 
                     list.add(comm);
                 }
@@ -150,9 +150,10 @@ public class CommDAO {
                     comm.setcomm_picture(rs.getString(5));
                     comm.setcomm_info(rs.getString(6));
                     comm.setcomm_address(rs.getString(7));
-                    comm.setcomm_score(rs.getInt(8));
-                    comm.setcomm_like(rs.getInt(9));
-                    comm.setcomm_date(rs.getString(10));
+                    comm.setcomm_like(rs.getInt(8));
+                    comm.setcomm_date(rs.getString(9));
+                    comm.setComm_picName(rs.getString(10));
+                    comm.setcomm_score(rs.getDouble(11));
                     list.add(comm);
                 }
             } catch (Exception e) {

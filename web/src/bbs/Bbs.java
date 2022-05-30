@@ -16,8 +16,17 @@ public class Bbs {
     private String event_EndDate;
     private int event_Like;
     private String event_manager;
-    private int event_type;
+    private String event_type;
 
+    public String getEvent_picName() {
+        return event_picName;
+    }
+
+    public void setEvent_picName(String event_picName) {
+        this.event_picName = event_picName;
+    }
+
+    private String event_picName;
     public String getEvent_Title() {
         return event_Title;
     }
@@ -66,11 +75,11 @@ public class Bbs {
         this.event_manager = event_manager;
     }
 
-    public int getEvent_type() {
+    public String getEvent_type() {
         return event_type;
     }
 
-    public void setEvent_type(int event_type) {
+    public void setEvent_type(String event_type) {
         this.event_type = event_type;
     }
 

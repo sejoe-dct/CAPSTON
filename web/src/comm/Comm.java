@@ -9,10 +9,19 @@ public class Comm {
     private String comm_picture;
     private String comm_address;
     private String comm_info;
-    private int comm_score;
+    private double comm_score;
     private int comm_like;
     private String comm_date;
 
+    public String getComm_picName() {
+        return comm_picName;
+    }
+
+    public void setComm_picName(String comm_picName) {
+        this.comm_picName = comm_picName;
+    }
+
+    private  String comm_picName;
 
     public String getcomm_id() {
         return comm_id;
@@ -52,10 +61,10 @@ public class Comm {
     }
     public String getcomm_address(){return comm_address;}
     public void setcomm_address(String comm_address){this.comm_address=comm_address;}
-    public int getcomm_score() {
+    public double getcomm_score() {
         return comm_score;
     }
-    public void setcomm_score(int comm_score) {
+    public void setcomm_score(double comm_score) {
         this.comm_score = comm_score;
     }
     public int getcomm_like() {
