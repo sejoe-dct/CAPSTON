@@ -33,7 +33,7 @@
         -->
         <hr>
         <!-- <p>Don't have an account!</p>  -->
-        <button class="btn btn-primary btn-block" type="button" onclick="location='signup.html'" id="btn-signup"><i class="fas fa-user-plus"></i> 회원가입</button>
+        <button class="btn btn-primary btn-block" type="button" onclick="location='signup.jsp'" id="btn-signup"><i class="fas fa-user-plus"></i> 회원가입</button>
     </form>
 
     <form action="/reset/password/" class="form-reset">

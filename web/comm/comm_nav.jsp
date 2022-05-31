@@ -23,11 +23,22 @@
       <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
       <a href="/comm_main.jsp" class="nav-item nav-link">맛집</a>
       <a href="../project.html" class="nav-item nav-link">코로나현황/날씨</a>
+      <%
+        if(session.getAttribute("userID") != null){
+      %>
+      <%--      <a href="mypage.jsp" class="nav-item nav-link">마이페이지</a>--%>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          마이페이지
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="../mypage/mypage_main.jsp">내 정보</a></li>
+          <li><a class="dropdown-item" href="../mypage/mypage_list.jsp">작성한 게시글</a></li>
+          <li><a class="dropdown-item" href="../mypage/my_map.jsp">나만의 지도</a></li>
+        </ul>
+      </li>
     </div>
-    <%
-      if(session.getAttribute("userID") != null){
-    %>
-    <%--        <%=id %> 님--%>
+
     <a href="../logout.jsp" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
     <%
     }else {

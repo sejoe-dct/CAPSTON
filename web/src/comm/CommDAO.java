@@ -1,4 +1,6 @@
 package comm;
+import user.User;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -127,17 +129,9 @@ public class CommDAO {
             //     String sql = "select * from event where event_address like %" +localName +"%";
             ArrayList<Comm> list =new ArrayList<Comm>();
             try {
-                System.out.println("try문 들어옴");
                 PreparedStatement psmt=conn.prepareStatement(query.toString());
-                //     PreparedStatement psmt=  conn.prepareStatement(new String(query.toString().getBytes("KSC5601"), "8859_1")+"%");
-                System.out.println("try문 들어옴 local name = "+localName);
                 psmt.setString(1, "%"+localName+"%"); //"KSC5601"),"8859_1"//1트
-                //psmt.setString(1, "%"+new String(localName.getBytes("8859_1"), "euc-kr")+"%");
-                //         String ppssmmtt=new String( psmt.setString(1, "%"+localName+"%").getBytes("8859_1"), "euc-kr")+"%");
-                System.out.println("try문 들어옴");
-                //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
                 rs=psmt.executeQuery();
-                System.out.println("try문 들어옴");
                 while(rs.next()) {
                     System.out.println("while문");
                     Comm comm=new Comm();
@@ -163,6 +157,41 @@ public class CommDAO {
 
     }
 
+    public ArrayList<Comm> getUserlist(String user_id){
+        StringBuffer query = new StringBuffer();
+        query.append("Select * from community where user_id=?");
+
+        ArrayList<Comm> list = new ArrayList<Comm>();
+
+        try {
+            PreparedStatement psmt=conn.prepareStatement(query.toString());
+            psmt.setString(1, user_id); //"KSC5601"),"8859_1"//1트
+            rs=psmt.executeQuery();
+
+            while(rs.next()) {
+                System.out.println("while문");
+                Comm user_comm=new Comm();
+                user_comm.setcomm_id(rs.getString(1));
+                user_comm.setuser_id(rs.getString(2));
+                user_comm.setcomm_title(rs.getString(3));
+                user_comm.setcomm_preview(rs.getString(4));
+                user_comm.setcomm_picture(rs.getString(5));
+                user_comm.setcomm_info(rs.getString(6));
+                user_comm.setcomm_address(rs.getString(7));
+                user_comm.setcomm_like(rs.getInt(8));
+                user_comm.setcomm_date(rs.getString(9));
+                user_comm.setcomm_picName(rs.getString(10));
+                user_comm.setcomm_score(rs.getInt(11));
+
+                list.add(user_comm);
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
     public Comm getCommDetail(int commID) {
         String sql = "select * from community where comm_id = ?";
         try {

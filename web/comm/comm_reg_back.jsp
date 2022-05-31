@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <jsp:directive.include file="../fragment/head.jsp"/>
+    <jsp:directive.include file="comm_head.jsp"/>
 </head>
 <body>
 

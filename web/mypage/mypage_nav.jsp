@@ -20,7 +20,7 @@
 
       <a href="../my_map.jsp" class="nav-item nav-link">나만의 지도</a>
       <a href="../map.jsp" class="nav-item nav-link">지도</a>
-      <a href="./event_main.jsp" class="nav-item nav-link">행사/축제</a>
+      <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
       <a href="../comm/comm_main.jsp" class="nav-item nav-link">맛집</a>
       <a href="../project.html" class="nav-item nav-link">코로나현황/날씨</a>
       <%
@@ -32,12 +32,13 @@
           마이페이지
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li><a class="dropdown-item" href="../mypage/mypage_main.jsp">내 정보</a></li>
-          <li><a class="dropdown-item" href="../mypage/mypage_list.jsp">작성한 게시글</a></li>
-          <li><a class="dropdown-item" href="my_map.jsp">나만의 지도</a></li>
+          <li><a class="dropdown-item" href="./mypage_main.jsp">내 정보</a></li>
+          <li><a class="dropdown-item" href="./mypage_list.jsp">작성한 게시글</a></li>
+          <li><a class="dropdown-item" href="./my_map.jsp">나만의 지도</a></li>
         </ul>
       </li>
     </div>
+
     <a href="../logout.jsp" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
     <%
     }else {

@@ -4,17 +4,25 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
-<%@page import="comm.Comm"%>
-<%@page import="comm.CommDAO"%>
+<%@page import="comm.Comm" %>
+<%@page import="comm.CommDAO" %>
 <%@ page import="java.util.ArrayList" %>
 
 <html lang="en">
 <head>
-    <jsp:directive.include file="../fragment/head.jsp"/>
+    <jsp:directive.include file="comm_head.jsp"/>
+
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .checked {
+            color: orange;
+        }
+    </style>
 </head>
 
 <body>
-
+<jsp:directive.include file="../fragment/spinnertopbar.jsp"/>
 <jsp:directive.include file="comm_nav.jsp"/>
 
 <!-- 게시판 Start -->
@@ -52,51 +60,47 @@
                 </div>
             </div>
         </form>
-        <div class="cp33list1">
-                <%
+        <div class="cp33list1"
+            <%
 
-    System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
-    Connection conn =null;
-    Statement stmt =null;
-    ResultSet rs =null;
+                System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
+                Connection conn =null;
+                Statement stmt =null;
+                ResultSet rs =null;
 
-  CommDAO commDAO=new CommDAO();
-%>
+                CommDAO commDAO=new CommDAO();
+            %>
 
             <ul class="lst1">
-
                 <!--1번째 --> <!-- 서울 리스트 for문 -->
                 <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
                     <%
-                        //    ArrayList<Bbs> list= bbsDAO.getList("서울");
-                        ArrayList<Comm> list= commDAO.getList("seoul");
-                        for(int i=list.size()-1;i>=0;i--){
+                        ArrayList<Comm> list = commDAO.getList("seoul");
+                        for (int i = list.size() - 1; i >= 0; i--) {
                     %>
-                    <%System.out.println("comm_main.jsp list.size()-i 값: "+(list.size()-i));%>
-                    <%System.out.println("i값 : "+i);%>
-<%--                    <%=   list.size()-i %>--%>
+                    <%System.out.println("comm_main.jsp list.size()-i 값: " + (list.size() - i));%>
+                    <%System.out.println("i값 : " + i);%>
                     <li class="li1">
                         <div class="w1">
                             <!-- 이미지 -->
                             <div class="w1c1">
                                 <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
-              <span class="f1">
-                  <%System.out.println("comm_main.jsp 리스트 html문 for문 안 ");%>
-                <span class="f1p1">
-          <!--      <img src="../static/img/test/맥주1.JPG.400x400.jpg" alt="독일마을 맥주축제1">-->
-<%--                    <img src="<%=list.get(i).getcomm_picture()%>" alt="<%=list.get(i).getcomm_title()%>>">--%>
-                <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>" alt="<%=list.get(i).getcomm_title()%>">
-                </span>
-              </span>
+                                    <span class="f1">
+                                        <span class="f1p1">
+                                            <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>"
+                                                alt="<%=list.get(i).getcomm_title()%>">
+                                        </span>
+                                    </span>
                                 </a>
                             </div>
                             <!-- 설명 -->
                             <div class="w1c2">
                                 <div class="texts">
                                     <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
-                                        <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()-i%></em>
+                                        <em class="ic1 bsContain "
+                                            style="background-size: contain;"><%=list.size() - i%>
+                                        </em>
                                         <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
-
                                         <div class="t2"><%=list.get(i).getcomm_preview()%></div>
                                     </a>
                                     <div class="cp33dlist1">
@@ -105,33 +109,46 @@
                                                 <b class="dt">
                                                     <i class="ic1"></i>
                                                     <span class="t1">위치</span>
-                                                    <span class="sep">:</span></b>
+                                                    <span class="sep">:</span>
+                                                </b>
                                                 <span class="dd">
-                      <span class="t2"> <%=list.get(i).getcomm_address()%></span>
-                    </span>
+                                                    <span class="t2"> <%=list.get(i).getcomm_address()%></span>
+                                                </span>
                                             </li>
                                         </ul>
                                     </div>
-
                                 </div>
                             </div>
                             <!-- 별점 -->
                             <div class="w1c3">
                                 <div class="ratings">
                                     <strong class="t1 blind">별점</strong>
-                                    <i class="cp33rating1star5">
-                                        <i class="st-on" style="width:100.0%;"><i class="ic1 bsCover"
-                                                                                  style="background-size: cover;"></i><i
-                                                class="ic2 bsCover" style="background-size: cover;"></i></i>
-                                        <!-- ☆★(3.5/5) -->
-                                        <i class="st-off"><i class="ic2"></i></i>
-                                    </i>
+
+                                    <div class="row">
+                                    <div>
+                                        <%
+                                            for (int star = 0; star <list.get(i).getcomm_score(); star++) {
+                                        %>
+                                    <span class="fa fa-star checked"></span>
+                                        <%
+                                            }
+                                            for (int star_em = 0; star_em <5-list.get(i).getcomm_score(); star_em++) {
+                                        %>
+                                        <span class="fa fa-star"></span>
+                                        <%
+                                            }
+                                        %>
+                                        </div>
+                                    </div>
+
+
+
                                     <span class="t2">
-                <span class="blind">점수</span>
-                <span class="t2t1"><%=list.get(i).getcomm_score()%></span>
-                <span class="sep">/</span>
-                <span class="t2t2">5.0</span>
-              </span>
+                                        <span class="blind">점수</span>
+                                        <span class="t2t1"><%=list.get(i).getcomm_score()%></span>
+                                        <span class="sep">/</span>
+                                        <span class="t2t2">5.0</span>
+                                      </span>
                                     <span class="t3">(총 <em class="em">1개</em> 후기)</span>
                                 </div>
                                 <!-- 버튼 두개 -->
@@ -154,26 +171,29 @@
                 </div>
             </ul>
 
-<!-- Footer Start -->
-<jsp:directive.include file="../fragment/footer.jsp"/>
-<!-- Footer End -->
+            <!-- Footer Start -->
+            <jsp:directive.include file="../fragment/footer.jsp"/>
+            <!-- Footer End -->
 
-<!-- Back to Top -->
-<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+                    class="bi bi-arrow-up"></i></a>
 
 
-<!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../static/lib/wow/wow.min.js"></script>
-<script src="../static/lib/easing/easing.min.js"></script>
-<script src="../static/lib/waypoints/waypoints.min.js"></script>
-<script src="../static/lib/counterup/counterup.min.js"></script><script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
-<script src="../static/lib/lightbox/js/lightbox.min.js"></script>
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="../static/lib/wow/wow.min.js"></script>
+            <script src="../static/lib/easing/easing.min.js"></script>
+            <script src="../static/lib/waypoints/waypoints.min.js"></script>
+            <script src="../static/lib/counterup/counterup.min.js"></script>
+            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
+            <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
 
-<!-- Template Javascript -->
-<script src="../static/js/main.js"></script>
+            <!-- Template Javascript -->
+            <script src="../static/js/main.js"></script>
+            <script src="../static/js/rating.js"></script>
 </body>
 
 </html>

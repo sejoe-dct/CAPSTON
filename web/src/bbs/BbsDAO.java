@@ -125,19 +125,10 @@ public class BbsDAO {
             //     String sql = "select * from event where event_address like %" +localName +"%";
             ArrayList<Bbs> list =new ArrayList<Bbs>();
             try {
-                System.out.println("try문 들어옴");
                 PreparedStatement psmt=conn.prepareStatement(query.toString());
-                //     PreparedStatement psmt=  conn.prepareStatement(new String(query.toString().getBytes("KSC5601"), "8859_1")+"%");
-                System.out.println("try문 들어옴 local name = "+localName);
                 psmt.setString(1, "%"+localName+"%"); //"KSC5601"),"8859_1"//1트
-                //psmt.setString(1, "%"+new String(localName.getBytes("8859_1"), "euc-kr")+"%");
-                //         String ppssmmtt=new String( psmt.setString(1, "%"+localName+"%").getBytes("8859_1"), "euc-kr")+"%");
-                System.out.println("try문 들어옴");
-                //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
                 rs=psmt.executeQuery();
-                System.out.println("try문 들어옴");
                 while(rs.next()) {
-                    System.out.println("while문");
                     Bbs bbs=new Bbs();
                     bbs.setEventID(rs.getString(1));
                     bbs.setUserID(rs.getString(2));

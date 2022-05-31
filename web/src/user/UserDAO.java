@@ -1,9 +1,9 @@
 package user;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import bbs.Bbs;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDAO {
 
@@ -22,7 +22,7 @@ public class UserDAO {
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 로드
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword); // 연결 얻기
-            System.out.println("디비연결성공");
+            //System.out.println("디비연결성공");
             // Type mismatch: cannot convert from java.sql.Connection to com.sun.corba.se.pept.transport.Connection
             // import 확인 하기
 
@@ -52,6 +52,42 @@ public class UserDAO {
             // TODO: handle exception
         }
         return -2;
+    }
+
+    public ArrayList<User> getUserinfo(String user_id){
+        StringBuffer query = new StringBuffer();
+        query.append("Select * from user where user_id=?");
+
+        ArrayList<User> list = new ArrayList<User>();
+
+        try {
+            PreparedStatement psmt=conn.prepareStatement(query.toString());
+            psmt.setString(1, user_id); //"KSC5601"),"8859_1"//1트
+            rs=psmt.executeQuery();
+
+            while(rs.next()) {
+                System.out.println("while문");
+                User user=new User();
+                user.setUserID(rs.getString(1));
+                user.setUserName(rs.getString(2));
+                user.setUserPassword(rs.getString(3));
+                user.setUserNickname(rs.getString(4));
+                user.setUserEmail(rs.getString(5));
+                user.setUserType(rs.getInt(6));
+                user.setUserSex(rs.getString(7));
+                user.setUserAge(rs.getInt(8));
+                user.setUserFv1(rs.getString(9));
+                user.setUserFv2(rs.getString(10));
+                user.setUserFv3(rs.getString(11));
+
+                list.add(user);
+            }
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 }
 
