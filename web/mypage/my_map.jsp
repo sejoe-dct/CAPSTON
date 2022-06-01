@@ -1,4 +1,6 @@
-<%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="comm.Comm_data" %>
+<%@ page import="bbs.*" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
 <%--         pageEncoding="UTF-8" %>--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -13,7 +15,14 @@
 <body>
 <jsp:directive.include file="../fragment/spinnertopbar.jsp"/>
 <jsp:directive.include file="mypage_nav.jsp"/>
-
+<%
+  String session_userID = String.valueOf(session.getAttribute("userID"));
+  // 만약 넘어온 데이터가 없다면
+  // 유효한 글이라면 구체적인 정보를 'evnet'라는 인스턴스에 담는다
+  ArrayList<Event_data> eventlist= new Event_dataDAO().getEventUserID(session_userID);
+  ArrayList<Comm_data> commlist= new bbs.Comm_dataDAO().getCommUserID(session_userID);
+  System.out.println("세션 userID: "+session_userID);
+%>
 <!-- Map Start -->
 <div class="container-xxl py-5">
   <div class="container">
@@ -59,7 +68,8 @@
       const mapContainer = document.getElementById('map'), // 지도를 표시할 div
               mapOption = {
                 center: new kakao.maps.LatLng(37.5666805, 126.9784147), // 지도의 중심좌표
-                level: 5 // 지도의 확대 레벨
+                level: 4
+             //   level: 5 // 지도의 확대 레벨
               };
       // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
       /*    var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),
@@ -77,10 +87,12 @@
       map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
 
       var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+    //  var imageSrc2 = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png";
+      var imageSrc2 = "../static/img/marker_blue.png";
       /*  var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);*/
       var imageSize = new kakao.maps.Size(24, 35);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
+      var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize);
       /*for (var i = 0; i < positions.length; i ++) { //-> db셀렉트 갯수 가지고 for문 돌리면 될듯
 
           // 마커 이미지의 이미지 크기 입니다
@@ -111,10 +123,36 @@
           map.setCenter(coords);
         }
       };
+      var doneCallback2 = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+            image : markerImage2
+          });
+          map.setCenter(coords);
+        }
+      };
       // 주소-좌표 변환 객체를 생성합니다
-
-      geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', doneCallback);
-      geocoder.addressSearch('제주특별자치도 제주시 첨단로 241', doneCallback);
+      <%
+                      //  ArrayList<Bbs> list= bbsDAO.getList("서울"); commlist
+                    //  BbsDAO bbsDAO=new BbsDAO();
+                //      Event_dataDAO bbsDAO=new Event_dataDAO();
+               //       ArrayList<Bbs> list= bbsDAO.getEventUserID(session.getAttribute("userID"));
+                      for(int i=eventlist.size()-1;i>=0;i--){
+                          %>
+      geocoder.addressSearch('<%=eventlist.get(i).getevent_address()%>', doneCallback);
+      <%
+        }
+                      for(int j=commlist.size()-1;j>=0;j--){
+                          %>
+      geocoder.addressSearch('<%=commlist.get(j).getcomm_address()%>', doneCallback2);
+      <%
+        }
+      %>
+      /*geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', doneCallback);
+      geocoder.addressSearch('제주특별자치도 제주시 첨단로 241', doneCallback);*/
 
     </script>
   </div>

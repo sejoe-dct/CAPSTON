@@ -33,14 +33,14 @@
                 <div class="col-12 text-center">
                     <ul class="list-inline mb-5" id="portfolio-flters">
                         <li class="mx-2 active" data-filter="*" name="localNum" value="0">전국</li>
-                        <li class="mx-2" data-filter=".seoul" name="localNum" value="1">서울</li>
-                        <li class="mx-2" data-filter=".busan" name="localNum" value="2">부산</li>
-                        <li class="mx-2" data-filter=".dajeon" name="localNum" value="3">대전</li>
-                        <li class="mx-2" data-filter=".incheon" name="localNum" value="4">인천</li>
-                        <li class="mx-2" data-filter=".gwangju" name="localNum" value="5">광주</li>
-                        <li class="mx-2" data-filter=".ulsan" name="localNum" value="6">울산</li>
+                        <li class="mx-2" data-filter=".seoul" name="localNum" value="1">경기도</li>
+                        <li class="mx-2" data-filter=".busan" name="localNum" value="2">강원도</li>
+                        <li class="mx-2" data-filter=".dajeon" name="localNum" value="3">충청도</li>
+                        <li class="mx-2" data-filter=".incheon" name="localNum" value="4">전라도</li>
+                        <li class="mx-2" data-filter=".gwangju" name="localNum" value="5">경상도</li>
+                        <li class="mx-2" data-filter=".ulsan" name="localNum" value="6">제주</li>
                         <li class="mx-2" data-filter=".sejong" name="localNum" value="7">세종</li>
-                        <li class="mx-2" data-filter=".gyeonggi" name="localNum" value="8">경기</li>
+                    <%--    <li class="mx-2" data-filter=".gyeonggi" name="localNum" value="8">경기</li>
                         <li class="mx-2" data-filter=".gangwon" name="localNum" value="9">강원</li>
                         <li class="mx-2" data-filter=".choongbuk" name="localNum" value="10">충북</li>
                         <li class="mx-2" data-filter=".choongnam" name="localNum" value="11">충남</li>
@@ -48,8 +48,9 @@
                         <li class="mx-2" data-filter=".jeonnam" name="localNum" value="13">전남</li>
                         <li class="mx-2" data-filter=".gyeongbuk" name="localNum" value="14">경북</li>
                         <li class="mx-2" data-filter=".gyeongnam" name="localNum" value="15">경남</li>
-                        <li class="mx-2" data-filter=".jeju" name="localNum" value="16">제주</li>
+                        <li class="mx-2" data-filter=".jeju" name="localNum" value="16">제주</li>--%>
                     </ul>
+
                 </div>
             </div>
         </form>
@@ -166,7 +167,7 @@
                                                class="t1">길찾기</span></a>-->
                                 </div>
                             </div>
-                        </div>
+                       <%-- </div>--%>
                     </li>
                     <%
                         }
