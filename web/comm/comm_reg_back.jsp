@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@page import="java.io.PrintWriter" %>
 <%@page import="comm.CommDAO" %>
@@ -56,7 +56,7 @@
                 int result = commDAO.write(user_id, multiRequest.getParameter("comm_title"),
                         multiRequest.getParameter("comm_preview"), path+"\\"+original_filename,original_filename
                         , multiRequest.getParameter("comm_address"), multiRequest.getParameter("comm_info")
-                        , Double.parseDouble(multiRequest.getParameter("comm_score")));
+                        , (int) Double.parseDouble(multiRequest.getParameter("comm_score")));
 
 
 

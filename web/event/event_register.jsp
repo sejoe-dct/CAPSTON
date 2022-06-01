@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-" pageEncoding="utf-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 
 <!DOCTYPE html>
 <html lang="en" xmlns:jsp="http://java.sun.com/JSP/Page">
@@ -15,10 +15,10 @@
 
 <div class="container-xxl py-5">
     <div class="container">
-        <!-- Á¦¸ñ / ¼ÒÁ¦¸ñ -->
+        <!-- ì œëª© / ì†Œì œëª© -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">ÃàÁ¦ ¹× Çà»ç µî·ÏÇÏ±â</h6>
-            <h1 class="mb-4">Çà»ç ¹× ÃàÁ¦, ¿øµ¥ÀÌÅ¬·¡½º µî·Ï</h1>
+            <h6 class="text-primary">ì¶•ì œ ë° í–‰ì‚¬ ë“±ë¡í•˜ê¸°</h6>
+            <h1 class="mb-4">í–‰ì‚¬ ë° ì¶•ì œ, ì›ë°ì´í´ëž˜ìŠ¤ ë“±ë¡</h1>
         </div>
 
         <form action="event_register_back.jsp" method="post" enctype="multipart/form-data" accept-charset="utf-8">
@@ -29,61 +29,61 @@
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="E_TypeRadioOptions" id="fetivaltype"
                                value="ceo" checked />
-                        <label class="form-check-label" for="fetivaltype">Çà»ç ¹× ÃàÁ¦</label>
+                        <label class="form-check-label" for="fetivaltype">í–‰ì‚¬ ë° ì¶•ì œ</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="E_TypeRadioOptions" id="classtype"
                                value="member" />
-                        <label class="form-check-label" for="classtype">¿øµ¥ÀÌÅ¬·¡½º ¹× Ã¼ÇèÈ°µ¿</label>
+                        <label class="form-check-label" for="classtype">ì›ë°ì´í´ëž˜ìŠ¤ ë° ì²´í—˜í™œë™</label>
                     </div>
 
                 </div>
             <div class="row g-3">
                 <div class="col-12 col-sm-6">
-                    <input type="text" class="form-control border-0" name="event_Title" placeholder="Çà»ç Á¦¸ñ"
+                    <input type="text" class="form-control border-0" name="event_Title" placeholder="í–‰ì‚¬ ì œëª©"
                            style="height: 55px;" required="">
                 </div>
                 <div class="col-12">
-                    <input type="text" class="form-control border-0" name="event_Preview" placeholder="Çà»ç ÇÑÁÙ ¼Ò°³"
+                    <input type="text" class="form-control border-0" name="event_Preview" placeholder="í–‰ì‚¬ í•œì¤„ ì†Œê°œ"
                            style="height: 55px;">
                 </div>
                 <div class="col-12 col-sm-6">
-                    <input type="text" class="form-control border-0" id="address" name="event_Address" placeholder="Çà»ç Àå¼Ò"
+                    <input type="text" class="form-control border-0" id="address" name="event_Address" placeholder="í–‰ì‚¬ ìž¥ì†Œ"
                            style="height: 55px;" readonly>
                 </div>
                 <div class="col-12 col-sm-6">
                     <button class="btn btn-outline-success btn-sm py-3 px-5" id="adBtn" onclick="Postcode()" type="button"
-                            placeholder="ÁÖ¼Ò °Ë»ö">ÁÖ¼Ò°Ë»ö
+                            placeholder="ì£¼ì†Œ ê²€ìƒ‰">ì£¼ì†Œê²€ìƒ‰
                     </button>
                 </div>
                 <div class="col-12 col-sm-6">
-                    <input type="text" class="form-control border-0" id="detailAddress" name= "event_detailAddress" placeholder="»ó¼¼ ÁÖ¼Ò"
+                    <input type="text" class="form-control border-0" id="detailAddress" name= "event_detailAddress" placeholder="ìƒì„¸ ì£¼ì†Œ"
                            style="height: 55px;">
                 </div>
 
                 <div class="col-12 ">
-                    <input type="text" class="form-control border-0" name="event_Phone" placeholder="ÀüÈ­¹øÈ£"
+                    <input type="text" class="form-control border-0" name="event_Phone" placeholder="ì „í™”ë²ˆí˜¸"
                            style="height: 55px;">
                 </div>
 
                 <div class="col-12">
-                    <input type="file" class="form-control border-0" name="event_Picture" placeholder="Çà»ç¼Ò°³ ÀÌ¹ÌÁö"
+                    <input type="file" class="form-control border-0" name="event_Picture" placeholder="í–‰ì‚¬ì†Œê°œ ì´ë¯¸ì§€"
                            style="height: 55px;">
                 </div>
                 <div class="col-12 col-sm-6">
-                    <input type="date" class="form-control border-0" name="event_StartDate" placeholder="Çà»ç ½ÃÀÛ ³¯Â¥"
+                    <input type="date" class="form-control border-0" name="event_StartDate" placeholder="í–‰ì‚¬ ì‹œìž‘ ë‚ ì§œ"
                            style="height: 55px;">
                 </div>
                 <div class="col-12 col-sm-6">
-                    <input type="date" class="form-control border-0" name="event_EndDate" placeholder="Çà»ç Á¾·á ³¯Â¥"
+                    <input type="date" class="form-control border-0" name="event_EndDate" placeholder="í–‰ì‚¬ ì¢…ë£Œ ë‚ ì§œ"
                            style="height: 55px;">
                 </div>
                 <div class="col-12">
-                    <textarea class="form-control border-0" name="event_Intro" placeholder="Çà»ç ¼Ò°³"></textarea>
+                    <textarea class="form-control border-0" name="event_Intro" placeholder="í–‰ì‚¬ ì†Œê°œ"></textarea>
                 </div>
                 <div class="col-12">
-                    <textarea class="form-control border-0" name="event_Content" placeholder="Çà»ç ³»¿ë"></textarea>
+                    <textarea class="form-control border-0" name="event_Content" placeholder="í–‰ì‚¬ ë‚´ìš©"></textarea>
                 </div>
                 <div class="col-12">
                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>
@@ -95,7 +95,7 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-    //º» ¿¹Á¦¿¡¼­´Â µµ·Î¸í ÁÖ¼Ò Ç¥±â ¹æ½Ä¿¡ ´ëÇÑ ¹ý·É¿¡ µû¶ó, ³»·Á¿À´Â µ¥ÀÌÅÍ¸¦ Á¶ÇÕÇÏ¿© ¿Ã¹Ù¸¥ ÁÖ¼Ò¸¦ ±¸¼ºÇÏ´Â ¹æ¹ýÀ» ¼³¸íÇÕ´Ï´Ù.
+    //ë³¸ ì˜ˆì œì—ì„œëŠ” ë„ë¡œëª… ì£¼ì†Œ í‘œê¸° ë°©ì‹ì— ëŒ€í•œ ë²•ë ¹ì— ë”°ë¼, ë‚´ë ¤ì˜¤ëŠ” ë°ì´í„°ë¥¼ ì¡°í•©í•˜ì—¬ ì˜¬ë°”ë¥¸ ì£¼ì†Œë¥¼ êµ¬ì„±í•˜ëŠ” ë°©ë²•ì„ ì„¤ëª…í•©ë‹ˆë‹¤.
     function Postcode() {
         daum.postcode.load(function () {
             new daum.Postcode({

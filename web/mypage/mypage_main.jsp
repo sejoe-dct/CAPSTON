@@ -190,7 +190,7 @@
                                 <div class="form-outline">
                                     <%--                                    <input type="text" name="id" class="form-control form-control-lg" disabled/>--%>
                                     <p  class="form-control" id="id" ><%= list.get(0).getUserFv1() %></p>
-                                    <label class="form-label" for="id">ID</label>
+                                    <label class="form-label" for="id">타입1</label>
                                 </div>
 
                             </div>
@@ -198,7 +198,7 @@
                                 <div class="form-outline">
                                     <%--                                    <input type="password" name="ps" class="form-control form-control-lg" disabled/>--%>
                                     <p  class="form-control" id="ps" ><%= list.get(0).getUserFv2() %></p>
-                                    <label class="form-label" for="ps">Password</label>
+                                    <label class="form-label" for="ps">타입2</label>
                                 </div>
 
                             </div>
@@ -207,7 +207,7 @@
                                 <div class="form-outline">
                                     <%--                                    <input type="text" name="id" class="form-control form-control-lg" disabled/>--%>
                                     <p  class="form-control" id="id" ><%= list.get(0).getUserFv3() %></p>
-                                    <label class="form-label" for="id">ID</label>
+                                    <label class="form-label" for="id">타입3</label>
                                 </div>
 
                             </div>
