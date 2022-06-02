@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
@@ -30,7 +30,6 @@
     }
     UserDAO userDAO = new UserDAO();
     int result =userDAO.login(user.getUserID(),user.getUserPassword());
-    System.out.println("로그인2 : "+ user.getUserID()+ " "+user.getUserPassword());
     if(result==1){
         session.setAttribute("userID", user.getUserID());
         PrintWriter script=response.getWriter();

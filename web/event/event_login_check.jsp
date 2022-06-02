@@ -1,17 +1,11 @@
-<%@ page import="java.io.PrintWriter" %><%--
-  Created by IntelliJ IDEA.
-  User: imdo5
-  Date: 2022-05-26
-  Time: 오전 2:18
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="user.UserDAO" %>
 <%@ page import="bbs.BbsDAO" %>
 <jsp:useBean id="user" class="user.User" scope="page"/>
 <html>
 <head>
-    <title>Title</title>
+
 </head>
 <body>
 

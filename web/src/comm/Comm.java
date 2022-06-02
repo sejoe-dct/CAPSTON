@@ -53,9 +53,7 @@ public class Comm {
     public void setcomm_picture(String comm_picture) {
         this.comm_picture = comm_picture;
     }
-    public String getcomm_info() {
-        return comm_info;
-    }
+    public String getcomm_info() {return comm_info;}
     public void setcomm_info(String comm_info) {
         this.comm_info = comm_info;
     }

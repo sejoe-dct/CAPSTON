@@ -50,12 +50,20 @@
             } else {
                 // 정상적으로 입력이 되었다면 글쓰기 로직을 수행한다
                 BbsDAO bbsDAO = new BbsDAO();
+                int e_type=-1;
 
-                int result = bbsDAO.write(userID, multiRequest.getParameter("event_type"), multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
+                String event_type = multiRequest.getParameter("E_TypeRadioOptions");
+                if (event_type.equals("fetivaltype")){
+                    e_type=1;
+                }else {
+                    e_type = 2;
+                }
+
+                int result = bbsDAO.write(userID, multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
                         multiRequest.getParameter("event_Address") + " " + multiRequest.getParameter("event_detailAddress")
                         , multiRequest.getParameter("event_Phone"), path + "\\" + original_filename , original_filename
                         , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"), multiRequest.getParameter("event_Intro")
-                        , multiRequest.getParameter("event_Content"));
+                        , multiRequest.getParameter("event_Content"),e_type);
 
                 // 데이터베이스 오류인 경우
                 if(result==-1){

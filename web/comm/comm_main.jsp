@@ -60,7 +60,7 @@
                 </div>
             </div>
         </form>
-        <div class="cp33list1"
+        <div class="cp33list1">
             <%
 
                 System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
@@ -75,7 +75,7 @@
                 <!--1번째 --> <!-- 서울 리스트 for문 -->
                 <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
                     <%
-                        ArrayList<Comm> list = commDAO.getList("seoul");
+                        ArrayList<Comm> list = commDAO.getList("전국");
                         for (int i = list.size() - 1; i >= 0; i--) {
                     %>
                     <%System.out.println("comm_main.jsp list.size()-i 값: " + (list.size() - i));%>
@@ -153,11 +153,11 @@
                                 </div>
                                 <!-- 버튼 두개 -->
                                 <div class="cp33btns1">
-                                    <!--<a href="?amode=rn%5Ename%5Eins&amp;rn_url=category%3DF0100%26amp%3Bamode%3Dview%26amp%3Bidx%3D191" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>-->
-                                    <!--   <a href="http://map.daum.net/link/to/%EB%8F%85%EC%9D%BC%EB%A7%88%EC%9D%84+%EB%A7%A5%EC%A3%BC%EC%B6%95%EC%A0%9C,34.798675,128.04251009999996"
+                                    <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>
+                                    <a href="http://map.daum.net/link/to/%EB%8F%85%EC%9D%BC%EB%A7%88%EC%9D%84+%EB%A7%A5%EC%A3%BC%EC%B6%95%EC%A0%9C,34.798675,128.04251009999996"
                                           target="_blank" rel="noopener" title="새 창"
                                           class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
-                                               class="t1">길찾기</span></a> -->
+                                               class="t1">길찾기</span></a>
                                 </div>
                             </div>
                         </div>
@@ -170,30 +170,34 @@
                     </div>
                 </div>
             </ul>
+        </div>
+    </div>
+</div>
 
-            <!-- Footer Start -->
-            <jsp:directive.include file="../fragment/footer.jsp"/>
-            <!-- Footer End -->
+<!-- Footer Start -->
+<jsp:directive.include file="../fragment/footer.jsp"/>
+<!-- Footer End -->
 
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-                    class="bi bi-arrow-up"></i></a>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+        class="bi bi-arrow-up"></i></a>
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="../static/lib/wow/wow.min.js"></script>
-            <script src="../static/lib/easing/easing.min.js"></script>
-            <script src="../static/lib/waypoints/waypoints.min.js"></script>
-            <script src="../static/lib/counterup/counterup.min.js"></script>
-            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
-            <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/lib/wow/wow.min.js"></script>
+<script src="../static/lib/easing/easing.min.js"></script>
+<script src="../static/lib/waypoints/waypoints.min.js"></script>
+<script src="../static/lib/counterup/counterup.min.js"></script>
+<script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
+<script src="../static/lib/lightbox/js/lightbox.min.js"></script>
 
-            <!-- Template Javascript -->
-            <script src="../static/js/main.js"></script>
-            <script src="../static/js/rating.js"></script>
+<!-- Template Javascript -->
+<script src="../static/js/main.js"></script>
+<script src="../static/js/rating.js"></script>
+
 </body>
 
 </html>

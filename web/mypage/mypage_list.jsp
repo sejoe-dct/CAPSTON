@@ -126,11 +126,12 @@
                             </div>
                             <!-- 버튼 두개 -->
                             <div class="cp33btns1">
-                                <!--<a href="?amode=rn%5Ename%5Eins&amp;rn_url=category%3DF0100%26amp%3Bamode%3Dview%26amp%3Bidx%3D191" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>-->
-                                <!--   <a href="http://map.daum.net/link/to/%EB%8F%85%EC%9D%BC%EB%A7%88%EC%9D%84+%EB%A7%A5%EC%A3%BC%EC%B6%95%EC%A0%9C,34.798675,128.04251009999996"
-                                      target="_blank" rel="noopener" title="새 창"
-                                      class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
-                                           class="t1">길찾기</span></a> -->
+<%--                                <div class="col-12" >--%>
+<%--                                    <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>--%>
+<%--                                </div>--%>
+                                    <a type="button" class="btn btn-outline-secondary" href="mypage_modify.jsp?commID=<%= list.get(i).getcomm_id() %>">수정</a>
+                                    <a type="button" class="btn btn-outline-danger" href="mypage_del.jsp?commID=<%= list.get(i).getcomm_id() %>">삭제</a>
+
                             </div>
                         </div>
                     </div>
@@ -138,9 +139,7 @@
                 <%
                     }
                 %>
-                <div class="text-end" style="padding: 10px">
-                    <a type="button" class="btn btn-primary" href="comm_login_check.jsp">등록</a>
-                </div>
+
             </div>
         </ul>
 
