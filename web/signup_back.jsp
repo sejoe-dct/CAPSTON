@@ -28,12 +28,10 @@
 
     String sql = "INSERT INTO user(user_id, user_name, user_pswd, user_nickname, user_email, " +
             "user_type, user_sex, user_age, user_fv1, user_fv2, user_fv3) VALUES";
-    //sql += "('" + uemail + "', '" + uid + "', '" + uname + "', '" + upswd + "', '" + unickname + "')";
 
     sql += "('"  + uid + "', '" + uname + "', '" + upswd + "', '" + unickname + "', '" + uemail + "', '"
             + utype + "', '" + ugender + "', '" + uage + "', '" + ufv1 + "', '" + ufv2 + "', '" + ufv3 + "')";
 
-    out.println(sql);
 
     Class.forName("com.mysql.cj.jdbc.Driver");
 

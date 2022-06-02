@@ -60,7 +60,7 @@
                 </div>
             </div>
         </form>
-        <div class="cp33list1"
+        <div class="cp33list1">
             <%
 
                 System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
@@ -170,30 +170,34 @@
                     </div>
                 </div>
             </ul>
+        </div>
+    </div>
+</div>
 
-            <!-- Footer Start -->
-            <jsp:directive.include file="../fragment/footer.jsp"/>
-            <!-- Footer End -->
+<!-- Footer Start -->
+<jsp:directive.include file="../fragment/footer.jsp"/>
+<!-- Footer End -->
 
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
-                    class="bi bi-arrow-up"></i></a>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i
+        class="bi bi-arrow-up"></i></a>
 
 
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="../static/lib/wow/wow.min.js"></script>
-            <script src="../static/lib/easing/easing.min.js"></script>
-            <script src="../static/lib/waypoints/waypoints.min.js"></script>
-            <script src="../static/lib/counterup/counterup.min.js"></script>
-            <script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
-            <script src="../static/lib/lightbox/js/lightbox.min.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../static/lib/wow/wow.min.js"></script>
+<script src="../static/lib/easing/easing.min.js"></script>
+<script src="../static/lib/waypoints/waypoints.min.js"></script>
+<script src="../static/lib/counterup/counterup.min.js"></script>
+<script src="../static/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../static/lib/isotope/isotope.pkgd.min.js"></script>
+<script src="../static/lib/lightbox/js/lightbox.min.js"></script>
 
-            <!-- Template Javascript -->
-            <script src="../static/js/main.js"></script>
-            <script src="../static/js/rating.js"></script>
+<!-- Template Javascript -->
+<script src="../static/js/main.js"></script>
+<script src="../static/js/rating.js"></script>
+
 </body>
 
 </html>

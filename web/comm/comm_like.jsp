@@ -59,11 +59,6 @@
                     script.println("</script>");
                 }
 
-
-        // 입력이 안 된 부분이 있는지 체크한다
-
-
-
 %>
 </body>
 </html>

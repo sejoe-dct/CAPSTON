@@ -14,6 +14,13 @@
 </head>
 <body>
 <%
+    //선택한 게시물 ID 받아오기
+    String commID = null;
+    if(request.getParameter("commID") != null){
+        System.out.println("이벤트 아이디 : "+commID);
+        commID = (request.getParameter("commID"));
+    }
+
     int size = 1024 * 1024 * 20; //20MB
     String path = request.getRealPath("uploadedFiles");
     String str, filename, original_filename;
@@ -39,12 +46,6 @@
             //PrintWriter script = response.getWriter();
             CommDAO commDAO = new CommDAO();
 
-
-            String commID = null;
-            if(request.getParameter("commID") != null){
-                System.out.println("이벤트 아이디 : "+commID);
-                commID = (request.getParameter("commID"));
-            }
 
             // 만약 넘어온 데이터가 없다면
             if(commID.equals(null)){

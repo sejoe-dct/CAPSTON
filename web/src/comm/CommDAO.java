@@ -299,7 +299,23 @@ public class CommDAO {
         return null;
     }
 
+    public int delete(String commID) {
+        int comm_id = Integer.parseInt(commID);
+        //실제 데이터를 삭제하는 것이 아니라 게시글 유효숫자를 '0'으로 수정한다
+        String sql = "delete from community where comm_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, comm_id);
+            return pstmt.executeUpdate();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1; //데이터베이스 오류
+    }
+
 }
+
+
 
 
 

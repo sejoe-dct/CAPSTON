@@ -166,6 +166,7 @@
                                                class="t1">길찾기</span></a>
                                 </div>
                             </div>
+                        </div>
                     </li>
                     <%
                         }

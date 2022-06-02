@@ -26,7 +26,6 @@
     // 'eventID'라는 데이터가 넘어온 것이 존재한다면 캐스팅을 하여 변수에 담는다
     String eventID = null;
     if(request.getParameter("eventID") != null){
-        System.out.println("이벤트 아이디 : "+eventID);
         eventID = (String)request.getParameter("eventID");
     }
 
@@ -46,7 +45,7 @@
     if(result==-1){
                     PrintWriter script= response.getWriter();
                     script.println("<script>");
-                    script.println("alert('글쓰기에 실패했습니다.')");
+                    script.println("alert('담기에 실패했습니다..')");
                     script.println("history.back()");
                     script.println("</script>");
                 }
@@ -57,11 +56,6 @@
                     script.println("location.href='event_main.jsp'");
                     script.println("</script>");
                 }
-
-
-        // 입력이 안 된 부분이 있는지 체크한다
-
-
 
 %>
 </body>

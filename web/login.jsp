@@ -28,11 +28,8 @@
             <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
         </div>
 
-        <!--
-        <a href="#" id="forgot_pswd">비밀번호찾기</a>
-        -->
         <hr>
-        <!-- <p>Don't have an account!</p>  -->
+
         <button class="btn btn-primary btn-block" type="button" onclick="location='signup.jsp'" id="btn-signup"><i class="fas fa-user-plus"></i> 회원가입</button>
     </form>
 
