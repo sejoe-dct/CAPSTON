@@ -18,7 +18,6 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav ms-auto p-4 p-lg-0">
 
-      <a href="../my_map.jsp" class="nav-item nav-link">나만의 지도</a>
       <a href="../map.jsp" class="nav-item nav-link">지도</a>
       <a href="./event_main.jsp" class="nav-item nav-link">행사/축제</a>
       <a href="../comm/comm_main.jsp" class="nav-item nav-link">맛집</a>

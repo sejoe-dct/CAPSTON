@@ -288,9 +288,6 @@ public class CommDAO {
                 comm.setcomm_picName(rs.getString(10));
                 comm.setcomm_score(rs.getInt(11));
 
-
-
-
                 return comm;
             }
         }catch (Exception e) {

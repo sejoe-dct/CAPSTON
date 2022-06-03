@@ -23,7 +23,7 @@
 <%
   String session_userID = String.valueOf(session.getAttribute("userID"));
 
-  ArrayList<Event_data> eventlist= new Event_dataDAO().getEventUserID(session_userID);
+  ArrayList<Event_data> eventlist_map= new Event_dataDAO().getEventUserID(session_userID);
   ArrayList<Comm_data> commlist= new Comm_dataDAO().getCommUserID(session_userID);
   System.out.println("세션 userID: "+session_userID);
 %>
@@ -110,9 +110,9 @@
                     //  BbsDAO bbsDAO=new BbsDAO();
                 //      Event_dataDAO bbsDAO=new Event_dataDAO();
                //       ArrayList<Bbs> list= bbsDAO.getEventUserID(session.getAttribute("userID"));
-                      for(int i=eventlist.size()-1;i>=0;i--){
+                      for(int i=eventlist_map.size()-1;i>=0;i--){
                           %>
-      geocoder.addressSearch('<%=eventlist.get(i).getevent_address()%>', doneCallback);
+      geocoder.addressSearch('<%=eventlist_map.get(i).getevent_address()%>', doneCallback);
       <%
         }
                       for(int j=commlist.size()-1;j>=0;j--){
@@ -147,12 +147,13 @@
         ResultSet rs =null;
 
         Comm_dataDAO commdataDAO=new Comm_dataDAO();
+        Event_dataDAO eventdataDAO = new Event_dataDAO();
 
       %>
       <form method="get" action="like_map.jsp">
         <ul class="lst1">
-        <!--1번째 --> <!-- 서울 리스트 for문 -->
-        <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
+          <!--comm like list Start-->
+          <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
           <%
             ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
             System.out.println(session_userID);
@@ -210,6 +211,97 @@
             }
           %>
         </div>
+          <!--comm like list End-->
+
+          <!--event like list Start-->
+          <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
+            <%
+              ArrayList<Bbs> eventlist = eventdataDAO.getEvent_data(session_userID);
+              System.out.println(session_userID);
+              for (int i = list.size() - 1; i >= 0; i--) {
+            %>
+            <
+            <li class="li1">
+              <div class="w1">
+                <!-- 이미지 -->
+                <div class="w1c1">
+                  <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
+                                    <span class="f1">
+                                        <span class="f1p1">
+                                            <img src="<%="http://localhost:8888//uploadedFiles/"+eventlist.get(i).getEvent_picName()%>" alt="<%=eventlist.get(i).getEvent_Title()%>">
+                                        </span>
+                                    </span>
+                  </a>
+                </div>
+                <!-- 설명 -->
+                <div class="w1c2">
+                  <div class="texts">
+                    <a href="event_detail.jsp?eventID=<%= eventlist.get(i).getEventID() %>" class="tg1">
+                      <em class="ic1 bsContain " style="background-size: contain;"><%=eventlist.size()-i%></em>
+                      <strong class="t1"><%=eventlist.get(i).getEvent_Title()%></strong>
+
+                      <div class="t2"><%=eventlist.get(i).getEvent_Preview()%></div>
+                    </a>
+                    <div class="cp33dlist1">
+                      <ul class="dl1">
+                        <li class="di place">
+                          <b class="dt">
+                            <i class="ic1"></i>
+                            <span class="t1">위치</span>
+                            <span class="sep">:</span>
+                          </b>
+                          <span class="dd">
+                                                    <span class="t2"> <%=eventlist.get(i).getEvent_Address()%></span>
+                                                </span>
+                        </li>
+                        <li class="di calendar">
+                          <b class="dt">
+                            <i class="ic1"></i>
+                            <span class="t1">기간</span>
+                            <span class="sep">:</span>
+                          </b>
+                          <span class="dd">
+                                                    <span class="t2"><%=eventlist.get(i).getEvent_StartDate()%> ~ <%=eventlist.get(i).getEvent_EndDate()%></span>
+                                                </span>
+                        </li>
+                        <li class="di agency">
+                          <b class="dt">
+                            <i class="ic1"></i>
+                            <span class="t1">문의</span>
+                            <span class="sep">:</span>
+                          </b>
+                          <span class="dd">
+                                                    <span class="t2"><%=eventlist.get(i).getEvent_manager()%></span>
+                                                </span>
+                        </li>
+                        <li class="di phone">
+                          <b class="dt">
+                            <i class="ic1"></i>
+                            <span class="t1">전화번호</span>
+                            <span class="sep">:</span>
+                          </b>
+                          <span class="dd">
+                                                    <span class="t2"><%=eventlist.get(i).getEvent_Phone()%></span>
+                                                </span>
+                        </li>
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
+                <!-- 체크박스 -->
+                <div class="cp33btns1" style="text-align: center">
+                  <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
+                  <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=eventlist.get(i).getEvent_Address()%>">
+                </div>
+
+              </div>
+            </li>
+            <%
+              }
+            %>
+          </div>
+          <!--event like list End-->
       </ul>
         <div style="text-align: right">
           <input type="submit" class="btn btn-primary" style="margin: 10px" value="확인">

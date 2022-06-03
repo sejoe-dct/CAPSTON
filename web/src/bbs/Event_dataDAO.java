@@ -1,9 +1,8 @@
 package bbs;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import comm.Comm;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Event_dataDAO {
@@ -73,40 +72,106 @@ public class Event_dataDAO {
         //  return null;
     }
 
-    public ArrayList<Event_data> getEvent_data(String user_id, String event_id) {
-        String SQL = "SELECT * FROM event_data WHERE user_id = ? AND event_id = ?";
+//    public ArrayList<Event_data> getEvent_data(String user_id, String event_id) {
+//        String SQL = "SELECT * FROM event_data WHERE user_id = ? AND event_id = ?";
+//        ArrayList<Event_data> list = new ArrayList<Event_data>();
+//        try {
+//            PreparedStatement pstmt = conn.prepareStatement(SQL);
+//            pstmt.setString(1,  user_id);
+//            pstmt.setString(2,  event_id);
+//            rs = pstmt.executeQuery();
+//            while (rs.next()) {
+//                Event_data event_data = new Event_data();
+//                event_data.setuser_id(rs.getString(1));
+//                event_data.setevent_id(rs.getString(2));
+//                list.add(event_data);
+//            }
+//        }catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
+
+    public ArrayList<Bbs> getEvent_data(String user_id) throws SQLException {
+        String SQL = "SELECT * FROM event_data WHERE user_id = ?";
         ArrayList<Event_data> list = new ArrayList<Event_data>();
+        ArrayList<Bbs> like_list = null;
         try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
-            pstmt.setString(1,  user_id);
-            pstmt.setString(2,  event_id);
+            pstmt.setString(1, user_id);
             rs = pstmt.executeQuery();
+
+
             while (rs.next()) {
                 Event_data event_data = new Event_data();
+
                 event_data.setuser_id(rs.getString(1));
                 event_data.setevent_id(rs.getString(2));
                 list.add(event_data);
             }
-        }catch(Exception e) {
+
+            String like_eventid = null;
+            String SQL2 = "SELECT * FROM event WHERE event_id = ?";
+            like_list = new ArrayList<Bbs>();
+
+
+            for (int i = 0; i < list.size(); i++) {
+                like_eventid = list.get(i).getevent_id();
+
+                PreparedStatement pstmt2 = conn.prepareStatement(SQL2);
+                pstmt2.setString(1, like_eventid);
+                rs2 = pstmt2.executeQuery();
+
+                while (rs2.next()) {
+                    Bbs bbs2 = new Bbs();
+                    bbs2.setEventID(rs2.getString(1));
+                    bbs2.setUserID(rs2.getString(2));
+                    bbs2.setEvent_Title(rs2.getString(3));
+                    bbs2.setEvent_Preview(rs2.getString(4));
+                    bbs2.setEvent_Picture(rs2.getString(5));
+                    bbs2.setEvent_Address(rs2.getString(6));
+                    bbs2.setEvent_Intro(rs2.getString(7));
+                    bbs2.setEvent_Content(rs2.getString(8));
+                    bbs2.setEvent_Phone(rs2.getString(9));
+                    bbs2.setEvent_StartDate(rs2.getString(10));
+                    bbs2.setEvent_EndDate(rs2.getString(11));
+                    bbs2.setEvent_Like(rs2.getInt(12));
+                    bbs2.setEvent_manager(rs2.getString(13));
+                    bbs2.setEvent_type(rs2.getInt(14));
+                    bbs2.setEvent_picName(rs2.getString(15));
+                    like_list.add(bbs2);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return list;
+        return like_list;
     }
 
 
-    public int write(String user_id, String event_id) {
+    public int write(String user_id, String event_id) throws SQLException {
         String sql = "INSERT INTO event_data VALUES(?, ?)";
+        String sql2 = "update event set event_like= event_like+1 where event_id=?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user_id);
             pstmt.setString(2, event_id);
             pstmt.executeUpdate();
+
+            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setString(1, event_id);
+            pstmt2.executeUpdate();
+
             return 1;
+
         }catch(Exception e) {
             e.printStackTrace();
         }
+
         return -1; //데이터베이스 오류
     }
+
+
     public ArrayList<Bbs> getList(String userID,String eventID) {
         String SQL = "SELECT * FROM event WHERE event_id = (select event_id from event_data where user_id =?)order by event_id desc limit 10";
         ArrayList<Bbs> list = new ArrayList<Bbs>();
@@ -139,17 +204,39 @@ public class Event_dataDAO {
     }
 
 
-    public int delete(String user_id,String event_id) {
+    public int delete(String user_id, String event_id) {
         String SQL = "DELETE FROM event_data WHERE user_id = ? AND event_id = ?";
         try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
-            pstmt.setInt(1, Integer.parseInt(user_id));
+            pstmt.setString(1, (user_id));
             pstmt.setString(2, event_id);
             return pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -1; // 데이터베이스 오류
+    }
+
+    public int check(String user_id, String event_id) throws SQLException {
+        String sql = "select * from event_data where user_id=? and event_id=?";
+        ArrayList<Event_data> list = new ArrayList<Event_data>();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user_id);
+            pstmt.setString(2, event_id);
+
+
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                return 2;
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1; //데이터베이스 오류
     }
 
 

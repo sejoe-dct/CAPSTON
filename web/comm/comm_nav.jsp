@@ -21,7 +21,7 @@
       <a href="../my_map.jsp" class="nav-item nav-link">나만의 지도</a>
       <a href="../map.jsp" class="nav-item nav-link">지도</a>
       <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
-      <a href="/comm_main.jsp" class="nav-item nav-link">맛집</a>
+      <a href="./comm_main.jsp" class="nav-item nav-link">맛집</a>
       <a href="../project.html" class="nav-item nav-link">코로나현황/날씨</a>
       <%
         if(session.getAttribute("userID") != null){

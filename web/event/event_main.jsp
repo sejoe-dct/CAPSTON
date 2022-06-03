@@ -8,6 +8,7 @@
 <%@page import="bbs.BbsDAO"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Event_dataDAO" %>
 <html lang="en">
 
 <head>
@@ -28,7 +29,7 @@
         </div>
         <!-- 카테고리 -->
         <!-- <form method="post" action="event_detail.jsp">-->
-        <form method="post" action="test.jsp">
+        <!--<form method="post" action="test.jsp">
             <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="col-12 text-center">
                     <ul class="list-inline mb-5" id="portfolio-flters">
@@ -52,28 +53,23 @@
                     </ul>
                 </div>
             </div>
-        </form>
+        </form>-->
         <div class="cp33list1">
-                <%
- //   request.getParameter("localNum");
-    System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
-    Connection conn =null;
-    Statement stmt =null;
-    ResultSet rs =null;
+            <%
+                Connection conn =null;
+                Statement stmt =null;
+                ResultSet rs =null;
 
-  BbsDAO bbsDAO=new BbsDAO();
-%>
+                BbsDAO bbsDAO=new BbsDAO();
+            %>
             <ul class="lst1">
                 <!--1번째 --> <!-- 서울 리스트 for문 -->
                 <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
                     <%
-                        //    ArrayList<Bbs> list= bbsDAO.getList("서울");
-                        ArrayList<Bbs> list= bbsDAO.getList("seoul");
+                        ArrayList<Bbs> list= bbsDAO.getList("전국");
                         for(int i=list.size()-1;i>=0;i--){
                     %>
-                    <%System.out.println("event_list.jsp list.size()-i 값: "+(list.size()-i));%>
-                    <%System.out.println("i값 : "+i);%>
-                    <%--                    <%=   list.size()-i %>--%>
+
                     <li class="li1">
                         <div class="w1">
                             <!-- 이미지 -->
@@ -92,7 +88,6 @@
                                     <a href="event_detail.jsp?eventID=<%= list.get(i).getEventID() %>" class="tg1">
                                         <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()-i%></em>
                                             <strong class="t1"><%=list.get(i).getEvent_Title()%></strong>
-
                                             <div class="t2"><%=list.get(i).getEvent_Preview()%></div>
                                     </a>
                                     <div class="cp33dlist1">
@@ -104,7 +99,7 @@
                                                     <span class="sep">:</span>
                                                 </b>
                                                 <span class="dd">
-                                                    <span class="t2"> <%=list.get(i).getEvent_Address()%></span>
+                                                    <span class="t2"> f</span>
                                                 </span>
                                             </li>
                                             <li class="di calendar">
@@ -147,20 +142,43 @@
                                 <div class="ratings">
                                     <strong class="t1 blind">좋아요</strong>
                                     <div style="padding: 5px;">
-                                        <button type="button" class="btn btn-default">
-                                            <span class="bi bi-hand-thumbs-up" style="font-size: 3rem; color: cornflowerblue;"></span>
-                                        </button>
+                                        <button type = "button" class="btn btn-default" >
+                                            <span class="bi bi-hand-thumbs-up"
+                                                style = "font-size: 3rem; color: cornflowerblue;" ></span >
+                                        </button >
+
                                     </div>
                                     <span class="t2">
                                         <span class="t2t1"><%=list.get(i).getEvent_Like()%></span>
-                                        <span class="blind">개</span>
                                     </span>
+
+
                                 </div>
 
                                 <!-- 버튼 두개 -->
                                 <div class="cp33btns1">
-                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>
-                                    <a href="http://map.daum.net/link/to/%EB%8F%85%EC%9D%BC%EB%A7%88%EC%9D%84+%EB%A7%A5%EC%A3%BC%EC%B6%95%EC%A0%9C,34.798675,128.04251009999996"
+                                    <%
+                                        Event_dataDAO event_data = new Event_dataDAO();
+                                        String userid= (String) session.getAttribute("userID");
+                                        int result = event_data.check(userid, list.get(i).getEventID());
+
+                                        System.out.println(list.get(i).getEventID());
+                                        System.out.println(result);
+
+                                        if (result==-1){
+                                    %>
+                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">담기</span></a>
+
+                                    <%
+                                        }
+
+                                        else if (result==2){
+                                    %>
+                                    <a href="event_likecancel.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">담기취소</span></a>
+                                    <%
+                                        }
+                                    %>
+                                    <a href="https://map.kakao.com/link/search/<%=list.get(i).getEvent_Address()%>"
                                           target="_blank" rel="noopener" title="새 창"
                                           class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
                                                class="t1">길찾기</span></a>
