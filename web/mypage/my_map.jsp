@@ -1,8 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="comm.Comm_data" %>
 <%@ page import="bbs.*" %>
-<%@ page import="comm.Comm_dataDAO" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
-<%--         pageEncoding="UTF-8" %>--%>
+<%@ page import="comm.Comm_dataDAO" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="comm.CommDAO" %>
+<%@ page import="comm.Comm" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -18,8 +22,7 @@
 <jsp:directive.include file="mypage_nav.jsp"/>
 <%
   String session_userID = String.valueOf(session.getAttribute("userID"));
-  // 만약 넘어온 데이터가 없다면
-  // 유효한 글이라면 구체적인 정보를 'evnet'라는 인스턴스에 담는다
+
   ArrayList<Event_data> eventlist= new Event_dataDAO().getEventUserID(session_userID);
   ArrayList<Comm_data> commlist= new Comm_dataDAO().getCommUserID(session_userID);
   System.out.println("세션 userID: "+session_userID);
@@ -29,41 +32,14 @@
   <div class="container">
     <!-- 제목 / 소제목 -->
     <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-      <h6 class="text-primary">지도</h6>
-      <h1 class="mb-4">나의 지도</h1>
+      <h6 class="text-primary">나만의 지도</h6>
+      <h1 class="mb-4">지도</h1>
     </div>
     <div class="map_wrap">
       <div id="map" style="width:100%;height:400px;position:relative;overflow:hidden;"></div>
-      <ul id="category">
-        <li id="BK9" data-order="0">
-          <span class="category_bg bank"></span>
-          은행
-        </li>
-        <li id="MT1" data-order="1">
-          <span class="category_bg mart"></span>
-          마트
-        </li>
-        <li id="PM9" data-order="2">
-          <span class="category_bg pharmacy"></span>
-          약국
-        </li>
-        <li id="OL7" data-order="3">
-          <span class="category_bg oil"></span>
-          주유소
-        </li>
-        <li id="CE7" data-order="4">
-          <span class="category_bg cafe"></span>
-          카페
-        </li>
-        <li id="CS2" data-order="5">
-          <span class="category_bg store"></span>
-          편의점
-        </li>
-      </ul>
     </div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cbe730d167d2c649182403cd8299759f&libraries=services"></script>
-    <%-- <div id="map" style="width:100%;height:350px;"></div>--%>
 
     <script>
       const mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -72,13 +48,6 @@
                 level: 4
                 //   level: 5 // 지도의 확대 레벨
               };
-      // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-      /*    var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),
-              contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
-              markers = [], // 마커를 담을 배열입니다
-              currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
-       */   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-      //const map = new kakao.maps.Map(mapContainer, mapOption);
 
 
       // 지도를 생성합니다
@@ -159,6 +128,99 @@
   </div>
 </div>
 <!-- Map End -->
+
+<!-- 리스트 Strat -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <!-- 제목 / 소제목 -->
+    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+      <h6 class="text-primary">나만의 지도</h6>
+      <h1 class="mb-4">좋아요 누른 게시물</h1>
+    </div>
+
+    <div class="cp33list1">
+      <%
+
+        System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
+        Connection conn =null;
+        Statement stmt =null;
+        ResultSet rs =null;
+
+        Comm_dataDAO commdataDAO=new Comm_dataDAO();
+
+      %>
+      <form method="get" action="like_map.jsp">
+        <ul class="lst1">
+        <!--1번째 --> <!-- 서울 리스트 for문 -->
+        <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
+          <%
+            ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
+            System.out.println(session_userID);
+            for (int i = list.size() - 1; i >= 0; i--) {
+          %>
+          <
+          <li class="li1">
+            <div class="w1">
+              <!-- 이미지 -->
+              <div class="w1c1">
+                <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
+                  <span class="f1">
+                    <span class="f1p1">
+                      <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>"
+                           alt="<%=list.get(i).getcomm_title()%>">
+                    </span>
+                  </span>
+                </a>
+              </div>
+              <!-- 설명 -->
+              <div class="w1c2">
+                <div class="texts">
+                  <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
+                    <em class="ic1 bsContain "
+                        style="background-size: contain;"><%=list.size() - i%>
+                    </em>
+                    <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
+                    <div class="t2"><%=list.get(i).getcomm_preview()%></div>
+                  </a>
+                  <div class="cp33dlist1">
+                    <ul class="dl1">
+                      <li class="di place">
+                        <b class="dt">
+                          <i class="ic1"></i>
+                          <span class="t1">위치</span>
+                          <span class="sep">:</span>
+                        </b>
+                        <span class="dd">
+                          <span class="t2"> <%=list.get(i).getcomm_address()%></span>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+                <!-- 체크박스 -->
+                <div class="cp33btns1" style="text-align: center">
+<%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
+                  <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=list.get(i).getcomm_address()%>">
+                </div>
+              </div>
+          </li>
+          <%
+            }
+          %>
+        </div>
+      </ul>
+        <div style="text-align: right">
+          <input type="submit" class="btn btn-primary" style="margin: 10px" value="확인">
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- 리스트 End -->
 
 
 <!-- Footer Start -->

@@ -159,7 +159,7 @@
 
                                 <!-- 버튼 두개 -->
                                 <div class="cp33btns1">
-                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>
+                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기</span></a>
                                     <a href="http://map.daum.net/link/to/%EB%8F%85%EC%9D%BC%EB%A7%88%EC%9D%84+%EB%A7%A5%EC%A3%BC%EC%B6%95%EC%A0%9C,34.798675,128.04251009999996"
                                           target="_blank" rel="noopener" title="새 창"
                                           class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
