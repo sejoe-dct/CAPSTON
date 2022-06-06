@@ -1,17 +1,5 @@
 package bbs;
 
-<<<<<<< HEAD
-import java.sql.*;
-import java.util.ArrayList;
-
-public class Event_dataDAO {
-
-    private Statement stmt;
-    private Connection conn;
-    private ResultSet rs;
-    private ResultSet rs2;
-
-=======
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,12 +7,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Event_dataDAO {
-    private Connection conn;	//db에 접근하는 객체
+    private Connection conn;   //db에 접근하는 객체
     private ResultSet rs;
     private ResultSet rs2;
 
 
->>>>>>> 5138c45918205937bcef68fbf016abe54ef55c2e
     public Event_dataDAO() {
         try {
             String dbURL = "jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8";
@@ -32,11 +19,7 @@ public class Event_dataDAO {
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
-<<<<<<< HEAD
-        } catch (Exception e) {
-=======
         }catch (Exception e) {
->>>>>>> 5138c45918205937bcef68fbf016abe54ef55c2e
             e.printStackTrace();
         }
     }
@@ -65,18 +48,6 @@ public class Event_dataDAO {
                 //이벤트 아이디 바로넣어서 주소 받아오기
                 /*try {*/
 
-<<<<<<< HEAD
-                    pstmt2.setString(1, eventid);
-                    rs2 = pstmt2.executeQuery();
-                    if (rs2.next()) {
-                        System.out.println("if (rs2.next()) {" );
-                        bbs.setevent_address(rs2.getString(1));
-                        String addr = rs2.getString(1);
-                        System.out.println("if (rs2.next()) {" + addr);
-
-
-                    }
-=======
                 pstmt2.setString(1, eventid);
                 rs2 = pstmt2.executeQuery();
                 if (rs2.next()) {
@@ -87,7 +58,6 @@ public class Event_dataDAO {
 
 
                 }
->>>>>>> 5138c45918205937bcef68fbf016abe54ef55c2e
                 list.add(bbs);
                 System.out.println("list.add(bbs); ");
                 /*} catch (Exception e2) {
@@ -103,8 +73,6 @@ public class Event_dataDAO {
         //  return null;
     }
 
-<<<<<<< HEAD
-=======
     public ArrayList<Event_data> getEvent_data(String user_id, String event_id) {
         String SQL = "SELECT * FROM event_data WHERE user_id = ? AND event_id = ?";
         ArrayList<Event_data> list = new ArrayList<Event_data>();
@@ -185,6 +153,5 @@ public class Event_dataDAO {
     }
 
 
->>>>>>> 5138c45918205937bcef68fbf016abe54ef55c2e
 
 }

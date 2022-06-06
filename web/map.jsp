@@ -71,7 +71,7 @@
 
     <script type="text/javascript"
             src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cbe730d167d2c649182403cd8299759f&libraries=services"></script>
-    <%-- <div id="map" style="width:100%;height:350px;"></div>--%>
+    <%-- <div id="Map" style="width:100%;height:350px;"></div>--%>
 
     <script>
       const mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -86,11 +86,11 @@
               markers = [], // 마커를 담을 배열입니다
               currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
        */   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-      //const map = new kakao.maps.Map(mapContainer, mapOption);
+      //const Map = new kakao.maps.Map(mapContainer, mapOption);
 
 
       // 지도를 생성합니다
-      var map = new kakao.maps.Map(mapContainer, mapOption);
+      var Map = new kakao.maps.Map(mapContainer, mapOption);
       // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
       var zoomControl = new kakao.maps.ZoomControl();
       map.addControl(zoomControl, kakao.maps.ControlPosition.LEFT);
@@ -112,7 +112,7 @@
 
           // 마커를 생성합니다
           var marker = new kakao.maps.Marker({
-              map: map, // 마커를 표시할 지도
+              Map: Map, // 마커를 표시할 지도
               position: positions[i].latlng, // 마커를 표시할 위치
               title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
               image : markerImage // 마커 이미지
