@@ -17,10 +17,7 @@
 <html lang="en">
 <%
     // 메인 페이지로 이동했을 때 세션에 값이 담겨있는지 체크
-    String userID = null;
-    if(session.getAttribute("userID") != null){
-        userID = (String)session.getAttribute("userID");
-    }
+
 
     // eventID를 초기화 시키고
     // 'eventID'라는 데이터가 넘어온 것이 존재한다면 캐스팅을 하여 변수에 담는다
@@ -65,7 +62,8 @@
                     <div class="row" >
                         <div class="col-md-6">
                             <div class="pro-img-details" >
-                                <%--                                <img src="<%=list.get(0).getEvent_Picture()%>" alt="<%=list.get(0).getEvent_Title()%>>">--%>
+                                <img src="<%="http://localhost:8888//uploadedFiles/"+event.getEvent_picName()%>" alt="<%=event.getEvent_Title()%>"
+                                     width=100%, height=100%>
                             </div>
                         </div>
                         <div class="col-sm-6 push-bit" style="padding: 10px;">

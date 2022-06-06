@@ -13,15 +13,13 @@
 
 <form action="signup_back.jsp" method="post">
     <section class="gradient-custom">
-        <div class="container py-5 mh-100">
-            <div class="row justify-content-center align-items-center mh-100">
-                <div class="card-body p-4 p-md-5">
+        <div class="container py-5 ">
+            <div class="row justify-content-center align-items-center">
+<%--                <div class="card-body p-4 p-md-5">--%>
                     <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="text-align: center">회원가입</h3>
                     <form>
                         <div class="row">
-
                             <div class="col-md-6 mb-4">
-                                <!--                                    <h6 class="mb-2 pb-1">Gender: </h6>-->
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="TypeRadioOptions" id="ceotype"
                                            value="ceo" checked />
@@ -101,7 +99,7 @@
                             </div>
                             <div class="col-md-6 mb-4 pb-2">
                                 <div class="form-outline">
-                                    <input type="password" name="ps" class="form-control form-control-lg" required="required"/>
+                                    <%--@declare id="ps"--%><input type="password" name="ps" class="form-control form-control-lg" required="required"/>
                                     <label class="form-label" for="ps">Password</label>
                                 </div>
 
@@ -111,23 +109,25 @@
                         <div class="row">
                             <div class="col-md-3 mb-4 form-outline ">
                                 <select class="btn-sm select form-control-lg" name="fv1">
-                                    <option value="Subject 1">Subject 1</option>
-                                    <option value="Subject 2">Subject 2</option>
-                                    <option value="Subject 3">Subject 3</option>
+                                    <option value="Subject 1">나홀로</option>
+                                    <option value="Subject 2">친구</option>
+                                    <option value="Subject 3">가족</option>
+                                    <option value="Subject 4">연인</option>
                                 </select>
                             </div>
+
                             <div class="col-md-3 mb-4 form-outline">
                                 <select class="btn-sm select form-control-lg" name="fv2">
-                                    <option value="Subject 1">Subject 1</option>
-                                    <option value="Subject 2">Subject 2</option>
-                                    <option value="Subject 3">Subject 3</option>
+                                    <option value="Subject 1">자연경치</option>
+                                    <option value="Subject 2">인스타핫플</option>
+                                    <option value="Subject 3">액티비티.체험활동</option>
                                 </select>
                             </div>
                             <div class="col-md-3 mb-4 form-outline">
                                 <select class="btn-sm select form-control-lg" name="fv3">
-                                    <option value="Subject 1">Subject 1</option>
-                                    <option value="Subject 2">Subject 2</option>
-                                    <option value="Subject 3">Subject 3</option>
+                                    <option value="Subject 1">자기계발</option>
+                                    <option value="Subject 2">힐링</option>
+                                    <option value="Subject 3">여가활동</option>
                                 </select>
                             </div>
 
@@ -139,7 +139,7 @@
                         </div>
 
                     </form>
-                </div>
+<%--                </div>--%>
             </div>
         </div>
     </section>

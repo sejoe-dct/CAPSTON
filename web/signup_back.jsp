@@ -34,7 +34,7 @@
 
 
     Class.forName("com.mysql.cj.jdbc.Driver");
-
+ㅣ
 
     Connection conn = DriverManager.getConnection("jdbc:mysql://101.101.209.72:3306/cap?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8", "test", "1234");
     Statement stmt = conn.createStatement();
@@ -44,7 +44,7 @@
         PrintWriter script=response.getWriter();
         script.println("<script>");
         script.println("alert('회원가입이 완료되었습니다.')");
-        script.println("location.href='login.html'");
+        script.println("location.href='login.jsp'");
         script.println("</script>");
     }
     else {

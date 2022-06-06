@@ -218,7 +218,8 @@
             <%
               ArrayList<Bbs> eventlist = eventdataDAO.getEvent_data(session_userID);
               System.out.println(session_userID);
-              for (int i = list.size() - 1; i >= 0; i--) {
+              for (int i = eventlist.size() - 1; i >= 0; i--) {
+                System.out.println(list.size());
             %>
             <
             <li class="li1">

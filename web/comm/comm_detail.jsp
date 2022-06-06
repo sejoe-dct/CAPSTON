@@ -232,7 +232,8 @@ comm_detail.jsp
                     <div class="row">
                         <div class="col-md-6">
                             <div class="pro-img-details">
-                                <%--                                <img src="<%=list.get(0).getEvent_Picture()%>" alt="<%=list.get(0).getEvent_Title()%>>">--%>
+                                <img src="<%="http://localhost:8888//uploadedFiles/"+comm.getComm_picName()%>" alt="<%=comm.getcomm_title()%>"
+                                     width=100%, height=100%>
                             </div>
 
                         </div>
