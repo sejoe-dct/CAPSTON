@@ -78,8 +78,7 @@
                         ArrayList<Comm> list = commDAO.getList("전국");
                         for (int i = list.size() - 1; i >= 0; i--) {
                     %>
-                    <%System.out.println("comm_main.jsp list.size()-i 값: " + (list.size() - i));%>
-                    <%System.out.println("i값 : " + i);%>
+
                     <li class="li1">
                         <div class="w1">
                             <!-- 이미지 -->

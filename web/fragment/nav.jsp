@@ -20,7 +20,7 @@
       <a href="map.jsp" class="nav-item nav-link">지도</a>
       <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
       <a href="../comm/comm_main.jsp" class="nav-item nav-link">맛집</a>
-      <a href="project.html" class="nav-item nav-link">코로나현황/날씨</a>
+      <a href="../recommend/recommend.jsp" class="nav-item nav-link">여행지 추천</a>
       <%
         if(session.getAttribute("userID") != null){
       %>

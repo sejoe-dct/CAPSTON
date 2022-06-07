@@ -9,6 +9,9 @@ import java.util.ArrayList;
 public class CommDAO {
     private Connection conn;
     private ResultSet rs;
+    private ResultSet rs2;
+    private ResultSet rs3;
+    private ResultSet rs4;
 
     public CommDAO() {
         try {
@@ -311,7 +314,109 @@ public class CommDAO {
     }
 
 
+    public ArrayList<Comm> getComm_recom(String user_id) {
+        String sql = "select * from user where user_id = ? ";
+        ArrayList<User> session_user_list = new ArrayList<User>();
 
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,user_id);
+            //pstmt0.setString(1, user_id);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                User user=new User();
+                //user.setUserID(rs.getString(1));
+                //user.setUserName(rs.getString(2));
+                //user.setUserPassword(rs.getString(3));
+                //user.setUserNickname(rs.getString(4));
+                //user.setUserEmail(rs.getString(5));
+                //user.setUserType(rs.getInt(6));
+                user.setUserSex(rs.getString(7));
+                user.setUserAge(rs.getInt(8));
+                user.setUserFv1(rs.getString(9));
+                user.setUserFv2(rs.getString(10));
+                user.setUserFv3(rs.getString(11));
+
+                session_user_list.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql2 = "select user_id from user " +
+                "where user_sex=? and user_fv1=? and user_fv2=? and user_fv3=? and user_id != ?";
+        ArrayList<User> sm_user_list = new ArrayList<User>();
+
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql2);
+
+            pstmt.setString(1, String.valueOf(session_user_list.get(0).getUserSex()));
+            pstmt.setString(2, String.valueOf(session_user_list.get(0).getUserFv1()));
+            pstmt.setString(3, String.valueOf(session_user_list.get(0).getUserFv2()));
+            pstmt.setString(4, String.valueOf(session_user_list.get(0).getUserFv3()));
+            pstmt.setString(5, user_id);
+
+
+            rs2=pstmt.executeQuery();
+            while(rs2.next()){
+                User sm_user = new User();
+                sm_user.setUserID(rs2.getString(1));
+                sm_user_list.add(sm_user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql3 = "select comm_id from comm_data where user_id=?";
+        ArrayList<Comm_data> sm_user_like_list = new ArrayList<Comm_data>();
+
+        try{
+            for(int i=0; i<sm_user_list.size(); i++) {
+                PreparedStatement pstmt = conn.prepareStatement(sql3);
+                pstmt.setString(1, String.valueOf(sm_user_list.get(i).getUserID()));
+
+                rs3 = pstmt.executeQuery();
+                while (rs3.next()) {
+                    Comm_data rc_comm_id = new Comm_data();
+                    rc_comm_id.setcomm_id(rs3.getString(1));
+                    sm_user_like_list.add(rc_comm_id);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql4 = "select * from community where comm_id=?";
+        ArrayList<Comm> rc_comm_list = new ArrayList<Comm>();
+
+        try{
+            for(int i=0; i<sm_user_like_list.size(); i++) {
+                PreparedStatement pstmt = conn.prepareStatement(sql4);
+                pstmt.setString(1, String.valueOf(sm_user_like_list.get(i).getcomm_id()));
+
+                rs4 = pstmt.executeQuery();
+                while (rs4.next()) {
+                    Comm rc_comm = new Comm();
+                    rc_comm.setcomm_id(rs4.getString(1));
+                    rc_comm.setuser_id(rs4.getString(2));
+                    rc_comm.setcomm_title(rs4.getString(3));
+                    rc_comm.setcomm_preview(rs4.getString(4));
+                    rc_comm.setcomm_picture(rs4.getString(5));
+                    rc_comm.setcomm_info(rs4.getString(6));
+                    rc_comm.setcomm_address(rs4.getString(7));
+                    rc_comm.setcomm_like(rs4.getInt(8));
+                    rc_comm.setcomm_date(rs4.getString(9));
+                    rc_comm.setcomm_picName(rs4.getString(10));
+                    rc_comm.setcomm_score(rs4.getInt(11));
+
+                    rc_comm_list.add(rc_comm);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rc_comm_list;
+    }
 }
 
 

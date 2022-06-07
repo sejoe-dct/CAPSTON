@@ -1,5 +1,9 @@
 package bbs;
 
+import comm.Comm;
+import comm.Comm_data;
+import user.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -8,6 +12,12 @@ public class BbsDAO {
     private Statement stmt;
     private Connection conn;
     private ResultSet rs;
+
+    private ResultSet rs2;
+
+    private ResultSet rs3;
+    private ResultSet rs4;
+
 
     //기본 생성자
     public BbsDAO() {
@@ -223,6 +233,110 @@ public class BbsDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public ArrayList<Bbs> getEvent_recom(String user_id) {
+        String sql = "select * from user where user_id = ? ";
+        ArrayList<User> session_user_list = new ArrayList<User>();
+
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,user_id);
+            //pstmt0.setString(1, user_id);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                User user=new User();
+
+                user.setUserSex(rs.getString(7));
+                user.setUserAge(rs.getInt(8));
+                user.setUserFv1(rs.getString(9));
+                user.setUserFv2(rs.getString(10));
+                user.setUserFv3(rs.getString(11));
+
+                session_user_list.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql2 = "select user_id from user " +
+                "where user_sex=? and user_fv1=? and user_fv2=? and user_fv3=? and user_id != ?";
+        ArrayList<User> sm_user_list = new ArrayList<User>();
+
+        try{
+            PreparedStatement pstmt = conn.prepareStatement(sql2);
+
+            pstmt.setString(1, String.valueOf(session_user_list.get(0).getUserSex()));
+            pstmt.setString(2, String.valueOf(session_user_list.get(0).getUserFv1()));
+            pstmt.setString(3, String.valueOf(session_user_list.get(0).getUserFv2()));
+            pstmt.setString(4, String.valueOf(session_user_list.get(0).getUserFv3()));
+            pstmt.setString(5, user_id);
+
+
+            rs2=pstmt.executeQuery();
+            while(rs2.next()){
+                User sm_user = new User();
+                sm_user.setUserID(rs2.getString(1));
+                sm_user_list.add(sm_user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql3 = "select event_id from event_data where user_id=?";
+        ArrayList<Event_data> sm_user_like_list = new ArrayList<Event_data>();
+
+        try{
+            for(int i=0; i<sm_user_list.size(); i++) {
+                PreparedStatement pstmt = conn.prepareStatement(sql3);
+                pstmt.setString(1, String.valueOf(sm_user_list.get(i).getUserID()));
+
+                rs3 = pstmt.executeQuery();
+                while (rs3.next()) {
+                    Event_data rc_event_id = new Event_data();
+                    rc_event_id.setevent_id(rs3.getString(1));
+                    sm_user_like_list.add(rc_event_id);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        String sql4 = "select * from event where event_id=?";
+        ArrayList<Bbs> rc_event_list = new ArrayList<Bbs>();
+
+        try{
+            for(int i=0; i<sm_user_like_list.size(); i++) {
+                PreparedStatement pstmt = conn.prepareStatement(sql4);
+                pstmt.setString(1, String.valueOf(sm_user_like_list.get(i).getevent_id()));
+
+                rs4 = pstmt.executeQuery();
+                while (rs4.next()) {
+                    Bbs rc_event = new Bbs();
+                    rc_event.setEventID(rs4.getString(1));
+                    rc_event.setUserID(rs4.getString(2));
+                    rc_event.setEvent_Title(rs4.getString(3));
+                    rc_event.setEvent_Preview(rs4.getString(4));
+                    rc_event.setEvent_Picture(rs4.getString(5));
+                    rc_event.setEvent_Address(rs4.getString(6));
+                    rc_event.setEvent_Intro(rs4.getString(7));
+                    rc_event.setEvent_Content(rs4.getString(8));
+                    rc_event.setEvent_Phone(rs4.getString(9));
+                    rc_event.setEvent_StartDate(rs4.getString(10));
+                    rc_event.setEvent_EndDate(rs4.getString(11));
+                    rc_event.setEvent_Like(rs4.getInt(12));
+                    rc_event.setEvent_manager(rs4.getString(13));
+                    rc_event.setEvent_type(rs4.getInt(14));
+                    rc_event.setEvent_picName(rs4.getString(15));
+
+                    rc_event_list.add(rc_event);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rc_event_list;
     }
 
 

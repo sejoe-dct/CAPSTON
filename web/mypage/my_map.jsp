@@ -15,6 +15,22 @@
 
 <head>
   <jsp:directive.include file="mypage_head.jsp"/>
+  <style>
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+  </style>
 </head>
 
 <body>
@@ -25,7 +41,17 @@
 
   ArrayList<Event_data> eventlist_map= new Event_dataDAO().getEventUserID(session_userID);
   ArrayList<Comm_data> commlist= new Comm_dataDAO().getCommUserID(session_userID);
-  System.out.println("세션 userID: "+session_userID);
+
+  Connection conn =null;
+  Statement stmt =null;
+  ResultSet rs =null;
+
+  Comm_dataDAO commdataDAO=new Comm_dataDAO();
+  Event_dataDAO eventdataDAO = new Event_dataDAO();
+
+  ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
+  ArrayList<Bbs> eventlist = eventdataDAO.getEvent_data(session_userID);
+
 %>
 <!-- Map Start -->
 <div class="container-xxl py-5">
@@ -38,7 +64,7 @@
     <div class="map_wrap">
       <div id="map" style="width:100%;height:400px;position:relative;overflow:hidden;"></div>
     </div>
-
+    <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="markUPUP(latlngList)">마크 한눈에 보기</button>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cbe730d167d2c649182403cd8299759f&libraries=services"></script>
 
     <script>
@@ -63,6 +89,7 @@
       var imageSize = new kakao.maps.Size(24, 35);
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize);
+      var dats=[];
       /*for (var i = 0; i < positions.length; i ++) { //-> db셀렉트 갯수 가지고 for문 돌리면 될듯
 
           // 마커 이미지의 이미지 크기 입니다
@@ -79,51 +106,122 @@
               image : markerImage // 마커 이미지
           });
       }*/
+      var Title = [];
+      <% for(int i=eventlist.size()-1;i>=0;i--){
+      ArrayList title = new ArrayList<>();
+      title.add(eventlist.get(i).getEvent_Title()); %>
+      Title.push('<%=title%>');
+      <% } %>
 
+
+      /*
+            geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+              if (status === daum.maps.services.Status.OK) {
+                var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+                var marker = new daum.maps.Marker({
+                  map: map,
+                  position: coords
+                });
+              }
+            });*/
+      var bounds = new kakao.maps.LatLngBounds();
+      var latlngList =[];
       var geocoder = new kakao.maps.services.Geocoder();
       // 주소로 좌표를 검색합니다
-      var doneCallback = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-            image : markerImage
-          });
-          map.setCenter(coords);
-        }
-      };
-      var doneCallback2 = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          marker = new kakao.maps.Marker({
-            map: map,
-            position: coords,
-            image : markerImage2
-          });
-          map.setCenter(coords);
-        }
-      };
-      // 주소-좌표 변환 객체를 생성합니다
-      <%
-                      //  ArrayList<Bbs> list= bbsDAO.getList("서울"); commlist
-                    //  BbsDAO bbsDAO=new BbsDAO();
-                //      Event_dataDAO bbsDAO=new Event_dataDAO();
-               //       ArrayList<Bbs> list= bbsDAO.getEventUserID(session.getAttribute("userID"));
-                      for(int i=eventlist_map.size()-1;i>=0;i--){
-                          %>
-      geocoder.addressSearch('<%=eventlist_map.get(i).getevent_address()%>', doneCallback);
-      <%
-        }
-                      for(int j=commlist.size()-1;j>=0;j--){
-                          %>
-      geocoder.addressSearch('<%=commlist.get(j).getcomm_address()%>', doneCallback2);
-      <%
-        }
-      %>
-      /*geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', doneCallback);
-      geocoder.addressSearch('제주특별자치도 제주시 첨단로 241', doneCallback);*/
+      <% for(int i=eventlist.size()-1;i>=0;i--){
+       %>
 
+      geocoder.addressSearch('<%=eventlist.get(i).getEvent_Address()%>' ,function(result,status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+            image: markerImage
+          });
+          latlngList.push(coords);
+          infowindow = new kakao.maps.InfoWindow({
+            content: '    <div class="info">' +
+                    '        <div class="title">' +
+                    '            <%=eventlist.get(i).getEvent_Title()%>' +
+                    '        </div>' +
+                    '        <div class="body">' +
+                    '            <div class="img">' +
+                    '                <img src="http://localhost:8888//uploadedFiles/<%=eventlist.get(i).getEvent_picName()%>" width="73" height="70">' +
+                    '           </div>' +
+                    '            <div class="desc">' +
+                    '                <div class="ellipsis"><%=eventlist.get(i).getEvent_Address()%></div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>'// 인포윈도우에 표시할 내용
+            /* map: map,
+             position: marker.getPosition()*/
+          });
+          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+          kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+          map.setCenter(coords);
+          bounds.extend(coords);
+
+        }
+
+      });   <%}
+
+         for(int i=list.size()-1;i>=0;i--){
+      %>
+
+      geocoder.addressSearch('<%=list.get(i).getcomm_address()%>' ,function(result,status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+            image: markerImage2
+          });
+          latlngList.push(coords);
+          infowindow = new kakao.maps.InfoWindow({
+            content: '    <div class="info">' +
+                    '        <div class="title">' +
+                    '            <%=list.get(i).getcomm_title()%>' +
+                    '        </div>' +
+                    '        <div class="body">' +
+                    '            <div class="img">' +
+                    '                <img src="http://localhost:8888//uploadedFiles/<%=list.get(i).getComm_picName()%>" width="73" height="70">' +
+                    '           </div>' +
+                    '            <div class="desc">' +
+                    '                <div class="ellipsis"><%=list.get(i).getcomm_address()%></div>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>'// 인포윈도우에 표시할 내용
+            /* map: map,
+             position: marker.getPosition()*/
+          });
+          kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+          kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+
+          map.setCenter(coords);
+          console.log("result, title 값: " + result + title);
+
+          bounds.extend(coords);
+        }
+
+      });   <%}
+        %>
+
+      function makeOverListener(map, marker, infowindow) {
+        return function() {
+          infowindow.open(map, marker);
+        };
+      }
+      function makeOutListener(infowindow) {
+        return function() {
+          infowindow.close();
+        };
+      }
+      function markUPUP(latlngList){
+        console.log("mymap ::::: latlngList 값2 "+latlngList);
+        map.setBounds(bounds);
+      }
     </script>
   </div>
 </div>
@@ -139,89 +237,77 @@
     </div>
 
     <div class="cp33list1">
-      <%
 
-        System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
-        Connection conn =null;
-        Statement stmt =null;
-        ResultSet rs =null;
-
-        Comm_dataDAO commdataDAO=new Comm_dataDAO();
-        Event_dataDAO eventdataDAO = new Event_dataDAO();
-
-      %>
       <form method="get" action="like_map.jsp">
         <ul class="lst1">
           <!--comm like list Start-->
           <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
-          <%
-            ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
-            System.out.println(session_userID);
-            for (int i = list.size() - 1; i >= 0; i--) {
-          %>
-          <
-          <li class="li1">
-            <div class="w1">
-              <!-- 이미지 -->
-              <div class="w1c1">
-                <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
+            <%
+              // ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
+              System.out.println(session_userID);
+              for (int i = list.size() - 1; i >= 0; i--) {
+            %>
+
+            <li class="li1">
+              <div class="w1">
+                <!-- 이미지 -->
+                <div class="w1c1">
+                  <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
                   <span class="f1">
                     <span class="f1p1">
                       <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>"
                            alt="<%=list.get(i).getcomm_title()%>">
                     </span>
                   </span>
-                </a>
-              </div>
-              <!-- 설명 -->
-              <div class="w1c2">
-                <div class="texts">
-                  <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
-                    <em class="ic1 bsContain "
-                        style="background-size: contain;"><%=list.size() - i%>
-                    </em>
-                    <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
-                    <div class="t2"><%=list.get(i).getcomm_preview()%></div>
                   </a>
-                  <div class="cp33dlist1">
-                    <ul class="dl1">
-                      <li class="di place">
-                        <b class="dt">
-                          <i class="ic1"></i>
-                          <span class="t1">위치</span>
-                          <span class="sep">:</span>
-                        </b>
-                        <span class="dd">
+                </div>
+                <!-- 설명 -->
+                <div class="w1c2">
+                  <div class="texts">
+                    <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
+                      <em class="ic1 bsContain "
+                          style="background-size: contain;"><%=list.size() - i%>
+                      </em>
+                      <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
+                      <div class="t2"><%=list.get(i).getcomm_preview()%></div>
+                    </a>
+                    <div class="cp33dlist1">
+                      <ul class="dl1">
+                        <li class="di place">
+                          <b class="dt">
+                            <i class="ic1"></i>
+                            <span class="t1">위치</span>
+                            <span class="sep">:</span>
+                          </b>
+                          <span class="dd">
                           <span class="t2"> <%=list.get(i).getcomm_address()%></span>
                         </span>
-                      </li>
-                    </ul>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
 
                 <!-- 체크박스 -->
                 <div class="cp33btns1" style="text-align: center">
-<%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
+                  <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
                   <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=list.get(i).getcomm_address()%>">
+                  <input type="hidden" name="liketitle"  value="<%=list.get(i).getcomm_title()%>">
                 </div>
               </div>
-          </li>
-          <%
-            }
-          %>
-        </div>
+            </li>
+            <%
+              }
+            %>
+          </div>
           <!--comm like list End-->
 
           <!--event like list Start-->
           <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
             <%
-              ArrayList<Bbs> eventlist = eventdataDAO.getEvent_data(session_userID);
-              System.out.println(session_userID);
               for (int i = eventlist.size() - 1; i >= 0; i--) {
-                System.out.println(list.size());
             %>
-            <
+
             <li class="li1">
               <div class="w1">
                 <!-- 이미지 -->
@@ -294,6 +380,7 @@
                 <div class="cp33btns1" style="text-align: center">
                   <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
                   <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=eventlist.get(i).getEvent_Address()%>">
+                  <%--      <input type="hidden" name="liketitle"  value="<%=eventlist.get(i).getEvent_Title()%>">--%>
                 </div>
 
               </div>
@@ -303,7 +390,7 @@
             %>
           </div>
           <!--event like list End-->
-      </ul>
+        </ul>
         <div style="text-align: right">
           <input type="submit" class="btn btn-primary" style="margin: 10px" value="확인">
         </div>

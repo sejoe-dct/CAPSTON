@@ -9,7 +9,7 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-  <a href="index.jsp" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+  <a href="../index.jsp" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
     <h2 class="m-0 text-primary">CLOUD</h2>
   </a>
   <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -18,11 +18,10 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <div class="navbar-nav ms-auto p-4 p-lg-0">
 
-      <a href="../my_map.jsp" class="nav-item nav-link">나만의 지도</a>
       <a href="../map.jsp" class="nav-item nav-link">지도</a>
       <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
       <a href="../comm/comm_main.jsp" class="nav-item nav-link">맛집</a>
-      <a href="../project.html" class="nav-item nav-link">코로나현황/날씨</a>
+      <a href="../recommend/recommend.jsp" class="nav-item nav-link">여행지 추천</a>
       <%
         if(session.getAttribute("userID") != null){
       %>

@@ -12,8 +12,8 @@ comm_detail.jsp
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="comm.CommDAO" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="comment.CommentDAO" %>
-<%@ page import="comment.Comment" %>
+<%@ page import="bbs.comment.CommentDAO" %>
+<%@ page import="bbs.comment.Comment" %>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,5 +1,7 @@
 package comm;
 
+import user.User;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -7,7 +9,6 @@ public class Comm_dataDAO {
 
     private Connection conn;//db에 접근하는 객체
     private ResultSet rs;
-
     private ResultSet rs2;
 
 
@@ -32,7 +33,6 @@ public class Comm_dataDAO {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             PreparedStatement pstmt2 = conn.prepareStatement(sql2);
             pstmt.setString(1, userID);
-            System.out.println("comm- pstmt.setString(1, userID); :" + userID );
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 System.out.println("comm- if (rs.next()) {" );
@@ -182,4 +182,5 @@ public class Comm_dataDAO {
         return -1; // 데이터베이스 오류
     }
 
-    }
+
+}

@@ -1,6 +1,8 @@
 package user;
 
 import bbs.Bbs;
+import comm.Comm;
+import comm.Comm_data;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +12,10 @@ public class UserDAO {
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet rs;
+
+    private ResultSet rs2;
+    private ResultSet rs3;
+    private ResultSet rs4;
 
     //	Class.forName() 을 이용해서 드라이버 로드
 //	DriverManager.getConnection() 으로 연결 얻기
@@ -89,5 +95,7 @@ public class UserDAO {
         }
         return list;
     }
+
+
 }
 

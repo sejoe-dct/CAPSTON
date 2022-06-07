@@ -1,4 +1,4 @@
-package comment;
+package bbs.comment;
 
 import java.sql.Date;
 

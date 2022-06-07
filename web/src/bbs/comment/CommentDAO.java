@@ -1,11 +1,6 @@
-package comment;
-
-import bbs.Bbs;
-import comment.Comment;
+package bbs.comment;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class CommentDAO {

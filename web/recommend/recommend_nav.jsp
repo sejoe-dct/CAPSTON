@@ -20,8 +20,8 @@
 
       <a href="../map.jsp" class="nav-item nav-link">지도</a>
       <a href="../event/event_main.jsp" class="nav-item nav-link">행사/축제</a>
-      <a href="./comm_main.jsp" class="nav-item nav-link">맛집</a>
-      <a href="../recommend/recommend.jsp" class="nav-item nav-link">여행지 추천</a>
+      <a href="../comm/comm_main.jsp" class="nav-item nav-link">맛집</a>
+      <a href="./recommend.html" class="nav-item nav-link">여행지 추천</a>
       <%
         if(session.getAttribute("userID") != null){
       %>
@@ -31,9 +31,9 @@
           마이페이지
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <li><a class="dropdown-item" href="../mypage/mypage_main.jsp">내 정보</a></li>
-          <li><a class="dropdown-item" href="../mypage/mypage_list.jsp">작성한 게시글</a></li>
-          <li><a class="dropdown-item" href="../mypage/my_map.jsp">나만의 지도</a></li>
+          <li><a class="dropdown-item" href="./mypage_main.jsp">내 정보</a></li>
+          <li><a class="dropdown-item" href="./mypage_list.jsp">작성한 게시글</a></li>
+          <li><a class="dropdown-item" href="./my_map.jsp">나만의 지도</a></li>
         </ul>
       </li>
     </div>

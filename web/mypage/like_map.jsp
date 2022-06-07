@@ -46,7 +46,7 @@
         <div class="map_wrap">
             <div id="map" style="width:100%;height:400px;position:relative;overflow:hidden;"></div>
         </div>
-        <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="drawPolyline(latlngList)">검색</button>
+        <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="drawPolyline(latlngList)">거리 한눈에보기</button>
         <button type="button" class="btn btn-lg btn-light" id="search_button" onclick="removePoly()">선지우기</button>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cbe730d167d2c649182403cd8299759f&libraries=services"></script>
         <%-- <div id="map" style="width:100%;height:350px;"></div>--%>
@@ -71,7 +71,7 @@
             const mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                     center: new kakao.maps.LatLng(37.5666805, 126.9784147), // 지도의 중심좌표
-                    level: 4
+                    level: 8
                     //   level: 5 // 지도의 확대 레벨
                 };
             // 마우스 드래그로 그려지고 있는 선의 총거리 정보를 표시하거
@@ -137,17 +137,42 @@
                     image : markerImage // 마커 이미지
                 });
             }*/
+            /*function makeOverListener(map, marker, infowindow) {
+                return function() {
+                    infowindow.open(map, marker);
+                };
+            }
+            function makeOutListener(infowindow) {
+                return function() {
+                    infowindow.close();
+                };
+            }*/
+            <%
+                     String[] likelangs = request.getParameterValues("likeitem");
+             //       String[] liketitle = request.getParameterValues("liketitle");
+
+
+                 //배열 to 리스트
+              //   ArrayList<String> liketitleList = new ArrayList<String>(Arrays.asList(liketitle));
+                 ArrayList<String> likelist = new ArrayList<String>(Arrays.asList(likelangs));
+            //     System.out.println("지도 title 값: " +liketitleList);
+                 System.out.println("지도 likelist 값: " +likelist);
+                           %>
             polyline.setMap(null);
+            var bounds = new kakao.maps.LatLngBounds(); //지도 마커범위 맞춰서 재설정
             var latlngList =[];
+            var addrList=[];
             var geocoder = new kakao.maps.services.Geocoder();
-            // 주소로 좌표를 검색합니다
-            var doneCallback = function(result, status) {
+            <%   for(int i=likelist.size()-1;i>=0;i--){
+                                  %>
+            // 주소로 좌표를 검색합니다'
+            geocoder.addressSearch('<%=likelist.get(i)%>' ,function(result,status) {
 
                 if (status === kakao.maps.services.Status.OK) {
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     //이전에 그려져있던 경로 삭제
                     latlngList.push(coords);
-                    console.log("latlngList 값 "+latlngList);
+                    console.log("event 콜백함수 안 latlngList 값 "+latlngList);
 
                     //     polyline.setMap(map);
                     marker = new kakao.maps.Marker({
@@ -155,55 +180,65 @@
                         position: coords,
                         image : markerImage
                     });
-                    map.setCenter(coords);
-                }
-            };
-            var doneCallback2 = function(result, status) {
-                if (status === kakao.maps.services.Status.OK) {
-                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                    //   $("input[name=lat]").val(result[0].y);
-                    marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords,
-                        image : markerImage2
+                    infowindow = new kakao.maps.InfoWindow({
+                        content: '<div class="info"><%=likelist.get(i)%></div>'
+                        // 인포윈도우에 표시할 내용
+                        /* map: map,
+                         position: marker.getPosition()*/
                     });
+                    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
                     map.setCenter(coords);
+                    bounds.extend(coords);
+
+                    // 마커에 이벤트를 등록하는 함수 만들고 즉시 호출하여 클로저를 만듭니다
+                    // 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+
                 }
-            };
-            /*      var callback = function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                      const coX = new kakao.maps.LatLng(result[0].x);
-                      const coY = new kakao.maps.LatLng(result[0].y);
-                   //   $("input[name=lat]").val(result[0].y);
-                      console.log(coX,coY);
-                    }
-                  };*/
-            // 주소-좌표 변환 객체를 생성합니다
-            <%
-                            //  ArrayList<Bbs> list= bbsDAO.getList("서울"); commlist
-                          //  BbsDAO bbsDAO=new BbsDAO();
-                      //      Event_dataDAO bbsDAO=new Event_dataDAO();
-                     //       ArrayList<Bbs> list= bbsDAO.getEventUserID(session.getAttribute("userID"));
+                /*kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+                kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));*/
+            }); <%}%>
+            function makeOverListener(map, marker, infowindow) {
+                return function() {
+                    infowindow.open(map, marker);
+                };
+            }
+            function makeOutListener(infowindow) {
+                return function() {
+                    infowindow.close();
+                };
+            }
+            /* var doneCallback2 = function(result, status) {
+                 if (status === kakao.maps.services.Status.OK) {
+                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                     //   $("input[name=lat]").val(result[0].y);
+                     latlngList.push(coords);
+                     console.log("comm콜백함수 안 latlngList 값 "+latlngList);
 
-                     String[] likelangs = request.getParameterValues("likeitem");
+                     marker = new kakao.maps.Marker({
+                         map: map,
+                         position: coords,
+                         image : markerImage2
+                     });
+                     map.setCenter(coords);
+                 }
+             };
+                   var callback = function(result, status) {
+                     if (status === kakao.maps.services.Status.OK) {
+                       const coX = new kakao.maps.LatLng(result[0].x);
+                       const coY = new kakao.maps.LatLng(result[0].y);
+                    //   $("input[name=lat]").val(result[0].y);
+                       console.log(coX,coY);
+                     }
+                   };*/
 
-                  //배열 to 리스트
-                  ArrayList<String> likelist = new ArrayList<String>(Arrays.asList(likelangs));
-                  System.out.println(likelist);
-                            for(int i=likelist.size()-1;i>=0;i--){
-                                %>
-            <%--geocoder.addressSearch('<%=likelist.get(i).getevent_address()%>', doneCallback);--%>
-            geocoder.addressSearch('<%=likelist.get(i)%>', doneCallback);
+            //                            for(int j=commlist.size()-1;j>=0;j--){
 
-
-            <%
-              }
-//                            for(int j=commlist.size()-1;j>=0;j--){
-                                %>
             <%--geocoder.addressSearch('<%=commlist.get(j).getcomm_address()%>', doneCallback2);--%>
-<%--            <%--%>
-<%--//              }--%>
-<%--            %>--%>
+            <%--            <%--%>
+            <%--//              }--%>
+            <%--            %>--%>
+
             function getTimeHTML(distance) {
 
                 // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
@@ -249,16 +284,18 @@
                 console.log("distance : "+distance);
                 content = getTimeHTML(distance);
                 console.log("content 값: " + content);
-                // infowindow.setContent("<div class='path_info'>" + shortDis + "m<br>" + "도보 약 " + shortTime + "분</div>");
-                //  infowindow.open(map, finishMarker);
                 var lastPosition = latlngList.length-1;
                 showDistance(content, latlngList[lastPosition]);
-
+                map.setBounds(bounds);
             }
-            function  removePoly(){
+
+            function  removePoly() {
                 polyline.setMap(null);
+                if (distanceOverlay) {
+                    distanceOverlay.setMap(null);
+                    distanceOverlay = null;
+                }
             }
-
             /*geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', doneCallback);
             geocoder.addressSearch('제주특별자치도 제주시 첨단로 241', doneCallback);*/
 
