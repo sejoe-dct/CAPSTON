@@ -4,11 +4,11 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
-<%@page import="comm.bbs.Bbs" %>
-<%@page import="comm.bbs.BbsDAO" %>
+<%@page import="bbs.Bbs" %>
+<%@page import="bbs.BbsDAO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="comm.bbs.BbsDAO" %>
-<%@ page import="comm.bbs.Event_dataDAO" %>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Event_dataDAO" %>
 <html lang="en">
 
 <head>

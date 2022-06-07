@@ -1,4 +1,4 @@
-package comm.bbs;
+package bbs;
 
 public class Bbs {
 

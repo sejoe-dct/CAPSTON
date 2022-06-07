@@ -1,4 +1,4 @@
-package comm.bbs;
+package bbs;
 
 public class Event_data {
     private String user_id;

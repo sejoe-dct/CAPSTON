@@ -7,10 +7,10 @@
 <%@page import="comm.Comm" %>
 <%@page import="comm.CommDAO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="comm.bbs.Bbs" %>
+<%@ page import="bbs.Bbs" %>
 <%@ page import="comm.Comm_dataDAO" %>
-<%@ page import="comm.bbs.Event_dataDAO" %>
-<%@ page import="comm.bbs.BbsDAO" %>
+<%@ page import="bbs.Event_dataDAO" %>
+<%@ page import="bbs.BbsDAO" %>
 
 <html lang="en">
 <head>

@@ -7,9 +7,9 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="comm.CommDAO" %>
 <%@ page import="comm.Comm" %>
-<%@ page import="comm.bbs.Event_dataDAO" %>
-<%@ page import="comm.bbs.Bbs" %>
-<%@ page import="comm.bbs.Event_data" %>
+<%@ page import="bbs.Event_dataDAO" %>
+<%@ page import="bbs.Bbs" %>
+<%@ page import="bbs.Event_data" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 

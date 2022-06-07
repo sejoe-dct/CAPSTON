@@ -1,4 +1,4 @@
-package comm.bbs;
+package bbs;
 
 import user.User;
 

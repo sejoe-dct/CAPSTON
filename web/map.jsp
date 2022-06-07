@@ -3,8 +3,8 @@
 <%@ page import="bbs.*" %>
 <%@ page import="comm.CommDAO" %>
 <%@ page import="comm.Comm" %>
-<%@ page import="comm.bbs.BbsDAO" %>
-<%@ page import="comm.bbs.Bbs" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Bbs" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
 <%--         pageEncoding="UTF-8" %>--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

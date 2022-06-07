@@ -2,11 +2,11 @@
 
 <% request.setCharacterEncoding("euc-kr"); %>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="comm.bbs.BbsDAO"%>
+<%@page import="bbs.BbsDAO"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="java.util.Enumeration" %>
-<%@ page import="comm.bbs.Event_dataDAO" %>
+<%@ page import="bbs.Event_dataDAO" %>
 <%@ page import="comm.Comm_dataDAO" %>
 
 

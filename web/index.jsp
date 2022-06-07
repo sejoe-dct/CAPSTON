@@ -1,6 +1,6 @@
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="comm.bbs.BbsDAO" %>
-<%@ page import="comm.bbs.Bbs" %>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Bbs" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
