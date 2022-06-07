@@ -1,10 +1,27 @@
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="comm.bbs.BbsDAO" %>
+<%@ page import="comm.bbs.Bbs" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <jsp:directive.include file="fragment/head.jsp"/>
+    <style>
+        .img-fluidd {
+            object-fit:cover; /* ☆ */
+            width: 100%;
+            height:270px;
+        }
+
+        .col-lg-44 {
+            flex: 0 0 auto;
+            width: 33.33333%;
+            height : 410px;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -62,23 +79,6 @@
 </div>
 <!-- Carousel End -->
 
-<!-- Map Start -->
-
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">행사/축제 지도</h6>
-            <h1 class="mb-4">각 지역의 행사 및 축제 위치 보기</h1>
-        </div>
-
-        <!-- 지도 -->
-        <div>
-            <iframe style="border:0; width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <!-- 지도 끝 -->
-    </div>
-</div>
-<!-- Map End -->
 
 <!-- 행사/축제 미리보기 -->
 <div class="container-xxl py-5">
@@ -88,85 +88,105 @@
             <h1 class="mb-4">각 지역의 행사 및 축제 소개</h1>
         </div>
 
+        <%
+            BbsDAO bbsDAO=new BbsDAO();
+            ArrayList<Bbs> list= bbsDAO.getPreviewList();
+        %>
+
+
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+            <%
+                for (int i = 0; i<6; i++) {
+            %>
+            <div class="col-md-6 col-lg-44 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/낙화.jpg" alt="">
+                    <img class="img-fluidd" src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getEvent_picName()%>"
+                         alt="<%=list.get(i).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
-                        <div class="service-icon">
-                            <i class="bi bi-hand-thumbs-up"></i>
-                        </div>
-                        <h4 class="mb-3">함안 낙화놀이</h4>
-                        <p>매년 석가탄신일에 무진정 일대에서 열리는 함안 낙화놀이</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+<%--                        <div class="service-icon">--%>
+<%--                            <i class="bi bi-hand-thumbs-up"></i>--%>
+<%--                        </div>--%>
+                        <h4 class="mb-3" style="padding-top: 10px"><%=list.get(i).getEvent_Title()%></h4>
+                        <p><%=list.get(i).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(i).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
+            <%
+                }
+            %>
+            <!--
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/해운대빛축제.jpg" alt="">
+                    <img class="img-fluid" src="<%="http://localhost:8888//uploadedFiles/"+list.get(1).getEvent_picName()%>"
+                         alt="<%=list.get(1).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="bi bi-hand-thumbs-up"></i>
                         </div>
-                        <h4 class="mb-3">해운대 빛축제</h4>
-                        <p>해운대 전설, 빛으로 담다</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        <h4 class="mb-3"><%=list.get(1).getEvent_Title()%></h4>
+                        <p><%=list.get(1).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(1).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/석조전.jpg" alt="">
+                    <img class="img-fluid" src="<%="http://localhost:8888//uploadedFiles/"+list.get(2).getEvent_picName()%>"
+                         alt="<%=list.get(2).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="bi bi-hand-thumbs-up"></i>
                         </div>
-                        <h4 class="mb-3">밤의 석조전</h4>
-                        <p>덕수궁이 밤빛에 물드는 시간, 석조전으로 초대합니다.</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        <h4 class="mb-3"><%=list.get(2).getEvent_Title()%></h4>
+                        <p><%=list.get(2).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(2).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/img-600x400-4.jpg" alt="">
+                    <img class="img-fluid" src="<%="http://localhost:8888//uploadedFiles/"+list.get(3).getEvent_picName()%>"
+                         alt="<%=list.get(3).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="fa fa-good fa-2x"></i>
                         </div>
-                        <h4 class="mb-3">Solar Panels</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        <h4 class="mb-3"><%=list.get(3).getEvent_Title()%></h4>
+                        <p><%=list.get(3).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(3).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/img-600x400-5.jpg" alt="">
+                    <img class="img-fluid" src="<%="http://localhost:8888//uploadedFiles/"+list.get(4).getEvent_picName()%>"
+                         alt="<%=list.get(4).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="fa fa-wind fa-2x"></i>
                         </div>
-                        <h4 class="mb-3">Wind Turbines</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        <h4 class="mb-3"><%=list.get(4).getEvent_Title()%></h4>
+                        <p><%=list.get(4).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(4).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="../static/img/img-600x400-6.jpg" alt="">
+                    <img class="img-fluid" src="<%="http://localhost:8888//uploadedFiles/"+list.get(5).getEvent_picName()%>"
+                         alt="<%=list.get(5).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
-                            <i class="fa fa-lightbulb fa-2x"></i>
+                            <i class="fa fa-wind fa-2x"></i>
                         </div>
-                        <h4 class="mb-3">Hydropower Plants</h4>
-                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                        <a class="small fw-medium" href="">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+                        <h4 class="mb-3"><%=list.get(5).getEvent_Title()%></h4>
+                        <p><%=list.get(5).getEvent_Preview()%></p>
+                        <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(5).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>

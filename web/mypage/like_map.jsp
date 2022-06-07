@@ -2,7 +2,9 @@
 <%@ page import="comm.Comm_data" %>
 <%@ page import="bbs.*" %>
 <%@ page import="comm.Comm_dataDAO" %>
-<%@ page import="java.util.Arrays" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="comm.bbs.Event_dataDAO" %>
+<%@ page import="comm.bbs.Event_data" %><%--<%@ page language="java" contentType="text/html;charset=UTF-8"--%>
 <%--         pageEncoding="UTF-8" %>--%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

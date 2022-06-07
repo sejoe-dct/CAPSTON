@@ -1,4 +1,4 @@
-package bbs.comment;
+package comment;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -143,6 +143,24 @@ public class CommentDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int commentCount(String comm_id) {
+        int comment_id = Integer.parseInt(comm_id);
+        //실제 데이터를 삭제하는 것이 아니라 게시글 유효숫자를 '0'으로 수정한다
+        String sql = "Select count(*) from comment where comm_id = ?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, comm_id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int countCMT = rs.getInt(1);
+                return countCMT;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 

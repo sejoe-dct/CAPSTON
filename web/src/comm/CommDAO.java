@@ -132,68 +132,41 @@ public class CommDAO {
         return ""; //데이터베이스 오류
     }
 
-    public ArrayList<Comm> getList(String localName){
-        if (localName == "전국") {
-            String sql = String.format("SELECT * FROM community");
-            ArrayList<Comm> list =new ArrayList<Comm>();
-            try {
-                PreparedStatement pstmt=conn.prepareStatement(sql);
-
-                rs=pstmt.executeQuery();
-                while(rs.next()) {
-                    Comm comm=new Comm();
-                    comm.setcomm_id(rs.getString(1));
-                    comm.setuser_id(rs.getString(2));
-                    comm.setcomm_title(rs.getString(3));
-                    comm.setcomm_preview(rs.getString(4));
-                    comm.setcomm_picture(rs.getString(5));
-                    comm.setcomm_info(rs.getString(6));
-                    comm.setcomm_address(rs.getString(7));
-                    comm.setcomm_like(rs.getInt(8));
-                    comm.setcomm_date(rs.getString(9));
-                    comm.setcomm_picName(rs.getString(10));
-                    comm.setcomm_score(rs.getInt(11));
-
-                    list.add(comm);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return list;
-        }else{ //기본 값이 아니라 지역명 선택했을 때
-            //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
-            StringBuffer query = new StringBuffer();
-            System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
-            query.append("SELECT * FROM community WHERE comm_address LIKE ?");
-
-
-            //     String sql = "select * from event where event_address like %" +localName +"%";
-            ArrayList<Comm> list =new ArrayList<Comm>();
-            try {
-                PreparedStatement psmt=conn.prepareStatement(query.toString());
-                psmt.setString(1, "%"+localName+"%"); //"KSC5601"),"8859_1"//1트
-                rs=psmt.executeQuery();
-                while(rs.next()) {
-                    System.out.println("while문");
-                    Comm comm=new Comm();
-                    comm.setcomm_id(rs.getString(1));
-                    comm.setuser_id(rs.getString(2));
-                    comm.setcomm_title(rs.getString(3));
-                    comm.setcomm_preview(rs.getString(4));
-                    comm.setcomm_picture(rs.getString(5));
-                    comm.setcomm_info(rs.getString(6));
-                    comm.setcomm_address(rs.getString(7));
-                    comm.setcomm_like(rs.getInt(8));
-                    comm.setcomm_date(rs.getString(9));
-                    comm.setcomm_picName(rs.getString(10));
-                    comm.setcomm_score(rs.getInt(11));
-                    list.add(comm);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return list;
+    public ArrayList<Comm> getList(String localName, String search) {
+        if (localName.equals("전국")) {
+            localName = "";
         }
+        StringBuffer query = new StringBuffer();
+        System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
+        query.append("SELECT * FROM community WHERE comm_address LIKE ? AND CONCAT(comm_title, comm_preview, comm_info) LIKE ?");
+        //     String sql = "select * from event where event_address like %" +localName +"%";
+        ArrayList<Comm> list = new ArrayList<Comm>();
+        try {
+            PreparedStatement psmt = conn.prepareStatement(query.toString());
+            psmt.setString(1, "%" + localName + "%"); //"KSC5601"),"8859_1"//1트
+            psmt.setString(2, "%" + search + "%");
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                System.out.println("while문");
+                Comm comm = new Comm();
+                comm.setcomm_id(rs.getString(1));
+                comm.setuser_id(rs.getString(2));
+                comm.setcomm_title(rs.getString(3));
+                comm.setcomm_preview(rs.getString(4));
+                comm.setcomm_picture(rs.getString(5));
+                comm.setcomm_info(rs.getString(6));
+                comm.setcomm_address(rs.getString(7));
+                comm.setcomm_like(rs.getInt(8));
+                comm.setcomm_date(rs.getString(9));
+                comm.setcomm_picName(rs.getString(10));
+                comm.setcomm_score(rs.getInt(11));
+                list.add(comm);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
         //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
 
     }
@@ -417,6 +390,8 @@ public class CommDAO {
         }
         return rc_comm_list;
     }
+
+
 }
 
 

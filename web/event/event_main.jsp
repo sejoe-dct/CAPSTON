@@ -4,11 +4,11 @@
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.SQLException" %>
-<%@page import="bbs.Bbs"%>
-<%@page import="bbs.BbsDAO"%>
+<%@page import="comm.bbs.Bbs" %>
+<%@page import="comm.bbs.BbsDAO" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="bbs.BbsDAO" %>
-<%@ page import="bbs.Event_dataDAO" %>
+<%@ page import="comm.bbs.BbsDAO" %>
+<%@ page import="comm.bbs.Event_dataDAO" %>
 <html lang="en">
 
 <head>
@@ -18,7 +18,24 @@
 <body>
 <jsp:directive.include file="../fragment/spinnertopbar.jsp"/>
 <jsp:directive.include file="event_nav.jsp"/>
+<% request.setCharacterEncoding("UTF-8");
+    String localDivide = "전국";
+    String searchType = "최신순";
+    String search = "";
+    int pageNumber = 0;
+    if (request.getParameter("localDivide") != null) {
+        localDivide = request.getParameter("localDivide");
+        System.out.println("localDivide 값 : "+localDivide);
+    }
+    if (request.getParameter("searchType") != null) {
+        searchType = request.getParameter("searchType");
+    }
+    if (request.getParameter("search") != null) {
+        search = request.getParameter("search");
+    }
 
+    ArrayList<Bbs> list = new ArrayList<Bbs>();
+%>
 <!-- 게시판 Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -29,46 +46,68 @@
         </div>
         <!-- 카테고리 -->
         <!-- <form method="post" action="event_detail.jsp">-->
-        <!--<form method="post" action="test.jsp">
+        <form method="get" action="./event_main.jsp">
             <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="col-12 text-center">
-                    <ul class="list-inline mb-5" id="portfolio-flters">
-                        <li class="mx-2 active" data-filter="*" name="localNum" value="0">전국</li>
-                        <li class="mx-2" data-filter=".seoul" name="localNum" value="1">서울</li>
-                        <li class="mx-2" data-filter=".busan" name="localNum" value="2">부산</li>
-                        <li class="mx-2" data-filter=".dajeon" name="localNum" value="3">대전</li>
-                        <li class="mx-2" data-filter=".incheon" name="localNum" value="4">인천</li>
-                        <li class="mx-2" data-filter=".gwangju" name="localNum" value="5">광주</li>
-                        <li class="mx-2" data-filter=".ulsan" name="localNum" value="6">울산</li>
-                        <li class="mx-2" data-filter=".sejong" name="localNum" value="7">세종</li>
-                        <li class="mx-2" data-filter=".gyeonggi" name="localNum" value="8">경기</li>
-                        <li class="mx-2" data-filter=".gangwon" name="localNum" value="9">강원</li>
-                        <li class="mx-2" data-filter=".choongbuk" name="localNum" value="10">충북</li>
-                        <li class="mx-2" data-filter=".choongnam" name="localNum" value="11">충남</li>
-                        <li class="mx-2" data-filter=".jeonbuk" name="localNum" value="12">전북</li>
-                        <li class="mx-2" data-filter=".jeonnam" name="localNum" value="13">전남</li>
-                        <li class="mx-2" data-filter=".gyeongbuk" name="localNum" value="14">경북</li>
-                        <li class="mx-2" data-filter=".gyeongnam" name="localNum" value="15">경남</li>
-                        <li class="mx-2" data-filter=".jeju" name="localNum" value="16">제주</li>
-                    </ul>
+
+
+                    <select name="localDivide" class="mx-1 mt-2 mb-1" id="portfolio-flters">
+                        <option class="mx-2" value="전국">전국
+                        </option>
+                        <option class="mx-2" value="부산" <%if (localDivide.equals("부산")) out.println("selected");%>>부산
+                        </option>
+                        <option class="mx-2" value="경기" <%if (localDivide.equals("경기")) out.println("selected");%>>경기
+                        </option>
+                        <option class="mx-2" value="강원" <%if (localDivide.equals("강원")) out.println("selected");%>>강원
+                        </option>
+                        <option class="mx-2" value="충북" <%if (localDivide.equals("충북")) out.println("selected");%>>충북
+                        </option>
+                        <option class="mx-2" value="충남" <%if (localDivide.equals("충남")) out.println("selected");%>>충남
+                        </option>
+                        <option class="mx-2" value="전북" <%if (localDivide.equals("전북")) out.println("selected");%>>전북
+                        </option>
+                        <option class="mx-2" value="전남"  <%if (localDivide.equals("전남")) out.println("selected");%>>전남
+                        </option>
+                        <option class="mx-2" value="경북"  <%if (localDivide.equals("경북")) out.println("selected");%>>경북
+                        </option>
+                        <option class="mx-2" value="경남"  <%if (localDivide.equals("경남")) out.println("selected");%>>경남
+                        </option>
+                        <option class="mx-2" value="제주"  <%if (localDivide.equals("제주")) out.println("selected");%>>제주
+                        </option>
+                        <option class="mx-2" value="세종"  <%if (localDivide.equals("세종")) out.println("selected");%>>세종
+                        </option>
+                        <%--    <li class="mx-2" data-filter=".gyeonggi" name="localNum" value="8">경기</li>
+                            <li class="mx-2" data-filter=".gangwon" name="localNum" value="9">강원</li>
+                            <li class="mx-2" data-filter=".choongbuk" name="localNum" value="10">충북</li>
+                            <li class="mx-2" data-filter=".choongnam" name="localNum" value="11">충남</li>
+                            <li class="mx-2" data-filter=".jeonbuk" name="localNum" value="12">전북</li>
+                            <li class="mx-2" data-filter=".jeonnam" name="localNum" value="13">전남</li>
+                            <li class="mx-2" data-filter=".gyeongbuk" name="localNum" value="14">경북</li>
+                            <li class="mx-2" data-filter=".gyeongnam" name="localNum" value="15">경남</li>
+                            <li class="mx-2" data-filter=".jeju" name="localNum" value="16">제주</li>--%>
+                    </select>
+
                 </div>
             </div>
-        </form>-->
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="search" class="form-control mr-sm-2" value="<%= search %>"
+                           placeholder="내용을 입력하세요."></div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mx-1 mt-2">조회</button>
+                </div></div>
+        </form>
         <div class="cp33list1">
             <%
-                Connection conn =null;
-                Statement stmt =null;
-                ResultSet rs =null;
+                //      BbsDAO bbsDAO = new BbsDAO();
+                list = new BbsDAO().getList(localDivide, search);
 
-                BbsDAO bbsDAO=new BbsDAO();
+                for (int i = list.size() - 1; i >= 0; i--) {
             %>
             <ul class="lst1">
                 <!--1번째 --> <!-- 서울 리스트 for문 -->
-                <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
-                    <%
-                        ArrayList<Bbs> list= bbsDAO.getList("전국");
-                        for(int i=list.size()-1;i>=0;i--){
-                    %>
+                <div class="country-item portfolio-item"> <!-- 카테고리 구분 -->
+
 
                     <li class="li1">
                         <div class="w1">
@@ -77,7 +116,8 @@
                                 <a href="?amode=view&amp;idx=191&amp;category=F0100" class="figs">
                                     <span class="f1">
                                         <span class="f1p1">
-                                            <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getEvent_picName()%>" alt="<%=list.get(i).getEvent_Title()%>">
+                                            <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getEvent_picName()%>"
+                                                 alt="<%=list.get(i).getEvent_Title()%>">
                                         </span>
                                     </span>
                                 </a>
@@ -86,9 +126,13 @@
                             <div class="w1c2">
                                 <div class="texts">
                                     <a href="event_detail.jsp?eventID=<%= list.get(i).getEventID() %>" class="tg1">
-                                        <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()-i%></em>
-                                            <strong class="t1"><%=list.get(i).getEvent_Title()%></strong>
-                                            <div class="t2"><%=list.get(i).getEvent_Preview()%></div>
+                                        <em class="ic1 bsContain "
+                                            style="background-size: contain;"><%=list.size() - i%>
+                                        </em>
+                                        <strong class="t1"><%=list.get(i).getEvent_Title()%>
+                                        </strong>
+                                        <div class="t2"><%=list.get(i).getEvent_Preview()%>
+                                        </div>
                                     </a>
                                     <div class="cp33dlist1">
                                         <ul class="dl1">
@@ -99,7 +143,7 @@
                                                     <span class="sep">:</span>
                                                 </b>
                                                 <span class="dd">
-                                                    <span class="t2"> f</span>
+                                                    <span class="t2"> <%=list.get(i).getEvent_Address()%></span>
                                                 </span>
                                             </li>
                                             <li class="di calendar">
@@ -142,10 +186,10 @@
                                 <div class="ratings">
                                     <strong class="t1 blind">좋아요</strong>
                                     <div style="padding: 5px;">
-                                        <button type = "button" class="btn btn-default" >
+                                        <button type="button" class="btn btn-default">
                                             <span class="bi bi-hand-thumbs-up"
-                                                style = "font-size: 3rem; color: cornflowerblue;" ></span >
-                                        </button >
+                                                  style="font-size: 3rem; color: cornflowerblue;"></span>
+                                        </button>
 
                                     </div>
                                     <span class="t2">
@@ -159,32 +203,33 @@
                                 <div class="cp33btns1">
                                     <%
                                         Event_dataDAO event_data = new Event_dataDAO();
-                                        String userid= (String) session.getAttribute("userID");
+                                        String userid = (String) session.getAttribute("userID");
                                         int result = event_data.check(userid, list.get(i).getEventID());
 
                                         System.out.println(list.get(i).getEventID());
                                         System.out.println(result);
 
-                                        if (result==-1){
+                                        if (result == -1) {
                                     %>
-                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">담기</span></a>
+                                    <a href="event_like.jsp?eventID=<%= list.get(i).getEventID() %>" class="button"
+                                       data-send-focus="that"><i class="ic1"></i> <span class="t1">담기</span></a>
 
                                     <%
-                                        }
-
-                                        else if (result==2){
+                                    } else if (result == 2) {
                                     %>
-                                    <a href="event_likecancel.jsp?eventID=<%= list.get(i).getEventID() %>" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">담기취소</span></a>
+                                    <a href="event_likecancel.jsp?eventID=<%= list.get(i).getEventID() %>"
+                                       class="button" data-send-focus="that"><i class="ic1"></i> <span
+                                            class="t1">담기취소</span></a>
                                     <%
                                         }
                                     %>
                                     <a href="https://map.kakao.com/link/search/<%=list.get(i).getEvent_Address()%>"
-                                          target="_blank" rel="noopener" title="새 창"
-                                          class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
-                                               class="t1">길찾기</span></a>
+                                       target="_blank" rel="noopener" title="새 창"
+                                       class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
+                                            class="t1">길찾기</span></a>
                                 </div>
                             </div>
-                        </div>
+                            <%-- </div>--%>
                     </li>
                     <%
                         }

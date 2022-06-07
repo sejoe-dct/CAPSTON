@@ -182,5 +182,26 @@ public class Comm_dataDAO {
         return -1; // 데이터베이스 오류
     }
 
+    public int check(String user_id, String comm_id) throws SQLException {
+        String sql = "select * from comm_data where user_id=? and comm_id=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, user_id);
+            pstmt.setString(2, comm_id);
+
+
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                return 2;
+            }
+
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1; //데이터베이스 오류
+    }
+
 
 }

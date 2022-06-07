@@ -1,7 +1,5 @@
-package bbs;
+package comm.bbs;
 
-import comm.Comm;
-import comm.Comm_data;
 import user.User;
 
 import java.sql.*;
@@ -51,21 +49,17 @@ public class BbsDAO {
     }
 
     //글쓰기 메소드
-    public int write( String userID,String event_Title, String event_Preview, String event_Address, String event_Phone,
-                      String event_Picture,String event_PicName, String event_StartDate, String event_EndDate,
-                      String event_Intro, String event_Content, int event_type) {
-        System.out.println("write 함수 테스트1 : "+ event_Title);
-        //bbs.Bbs bbs = new bbs.Bbs();
-        //String userID = bbs.getUserID();
+    public int write(String userID, String event_Title, String event_Preview, String event_Address, String event_Phone,
+                     String event_Picture, String event_PicName, String event_StartDate, String event_EndDate,
+                     String event_Intro,String event_manager,String event_Content, int event_type,String event_url) {
+
 
         int event_Like = 0;
-        int event_manager = checkType(userID);//
-        //int event_type = 1;//bbs.getEvent_type();// html 수정
 
-        Date sDate=Date.valueOf(event_StartDate);//converting string into sql date
-        Date eDate=Date.valueOf(event_EndDate);
+        Date sDate = Date.valueOf(event_StartDate);//converting string into sql date
+        Date eDate = Date.valueOf(event_EndDate);
 
-        String sql = "insert into event values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into event values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -81,88 +75,62 @@ public class BbsDAO {
             pstmt.setDate(10, sDate);
             pstmt.setDate(11, eDate);
             pstmt.setInt(12, event_Like);
-            pstmt.setInt(13, event_manager);
+            pstmt.setString(13, event_manager);
             pstmt.setInt(14, event_type);
             pstmt.setString(15, event_PicName);
-
-            System.out.println("디비 삽입 값 : "+ pstmt);
+            pstmt.setString(16, event_url);
+            System.out.println("디비 삽입 값 : " + pstmt);
 
             return pstmt.executeUpdate();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return -1; //데이터베이스 오류
     }
 
 
-    public ArrayList<Bbs> getList(String localName){
-        if (localName == "전국") {
-            String sql = String.format("SELECT * FROM event ORDER BY LPAD(event_id, 3,'0') desc");
-            ArrayList<Bbs> list =new ArrayList<Bbs>();
-            try {
-                PreparedStatement pstmt=conn.prepareStatement(sql);
-                //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
-                rs=pstmt.executeQuery();
-                while(rs.next()) {
-                    Bbs bbs=new Bbs();
-                    bbs.setEventID(rs.getString(1));
-                    bbs.setUserID(rs.getString(2));
-                    bbs.setEvent_Title(rs.getString(3));
-                    bbs.setEvent_Preview(rs.getString(4));
-                    bbs.setEvent_Picture(rs.getString(5));
-                    bbs.setEvent_Address(rs.getString(6));
-                    bbs.setEvent_Intro(rs.getString(7));
-                    bbs.setEvent_Content(rs.getString(8));
-                    bbs.setEvent_Phone(rs.getString(9));
-                    bbs.setEvent_StartDate(rs.getString(10));
-                    bbs.setEvent_EndDate(rs.getString(11));
-                    bbs.setEvent_Like(rs.getInt(12));
-                    bbs.setEvent_manager(rs.getString(13));
-                    bbs.setEvent_type(rs.getInt(14));
-                    bbs.setEvent_picName(rs.getString(15));
-                    list.add(bbs);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return list;
-        }else{ //기본 값이 아니라 지역명 선택했을 때
-            //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
-            StringBuffer query = new StringBuffer();
-            System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
-            query.append("SELECT * FROM event WHERE event_address LIKE ?");
 
-
-            //     String sql = "select * from event where event_address like %" +localName +"%";
-            ArrayList<Bbs> list =new ArrayList<Bbs>();
-            try {
-                PreparedStatement psmt=conn.prepareStatement(query.toString());
-                psmt.setString(1, "%"+localName+"%"); //"KSC5601"),"8859_1"//1트
-                rs=psmt.executeQuery();
-                while(rs.next()) {
-                    Bbs bbs=new Bbs();
-                    bbs.setEventID(rs.getString(1));
-                    bbs.setUserID(rs.getString(2));
-                    bbs.setEvent_Title(rs.getString(3));
-                    bbs.setEvent_Preview(rs.getString(4));
-                    bbs.setEvent_Picture(rs.getString(5));
-                    bbs.setEvent_Address(rs.getString(6));
-                    bbs.setEvent_Intro(rs.getString(7));
-                    bbs.setEvent_Content(rs.getString(8));
-                    bbs.setEvent_Phone(rs.getString(9));
-                    bbs.setEvent_StartDate(rs.getString(10));
-                    bbs.setEvent_EndDate(rs.getString(11));
-                    bbs.setEvent_Like(rs.getInt(12));
-                    bbs.setEvent_manager(rs.getString(13));
-                    bbs.setEvent_type(rs.getInt(14));
-                    bbs.setEvent_picName(rs.getString(15));
-                    list.add(bbs);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return list;
+    public ArrayList<Bbs> getList(String localName, String search) {
+        if (localName.equals("전국")) {
+            System.out.println("getList 전국 if문 들어옴");
+            localName = "";
         }
+        ArrayList<Bbs> list = new ArrayList<Bbs>();
+        //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
+        //기본 값이 아니라 지역명 선택했을 때
+        //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
+        StringBuffer query = new StringBuffer();
+        System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
+        query.append("SELECT * FROM event WHERE event_address LIKE ? AND CONCAT(event_title, event_preview, event_intro) LIKE ?");
+        try {
+            PreparedStatement psmt = conn.prepareStatement(query.toString());
+            psmt.setString(1, "%" + localName + "%"); //"KSC5601"),"8859_1"//1트
+            psmt.setString(2, "%" + search + "%");
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                Bbs bbs = new Bbs();
+                bbs.setEventID(rs.getString(1));
+                bbs.setUserID(rs.getString(2));
+                bbs.setEvent_Title(rs.getString(3));
+                bbs.setEvent_Preview(rs.getString(4));
+                bbs.setEvent_Picture(rs.getString(5));
+                bbs.setEvent_Address(rs.getString(6));
+                bbs.setEvent_Intro(rs.getString(7));
+                bbs.setEvent_Content(rs.getString(8));
+                bbs.setEvent_Phone(rs.getString(9));
+                bbs.setEvent_StartDate(rs.getString(10));
+                bbs.setEvent_EndDate(rs.getString(11));
+                bbs.setEvent_Like(rs.getInt(12));
+                bbs.setEvent_manager(rs.getString(13));
+                bbs.setEvent_type(rs.getInt(14));
+                bbs.setEvent_picName(rs.getString(15));
+                list.add(bbs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
         //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
     }
 
@@ -339,6 +307,36 @@ public class BbsDAO {
         return rc_event_list;
     }
 
+    public ArrayList<Bbs> getPreviewList() {
+
+        String sql = String.format("SELECT * FROM event ORDER BY LPAD(event_id, 3,'0') DESC LIMIT 6");
+        ArrayList<Bbs> list = new ArrayList<Bbs>();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Bbs bbs = new Bbs();
+
+                bbs.setEventID(rs.getString(1));
+
+                bbs.setEvent_Title(rs.getString(3));
+
+                bbs.setEvent_Preview(rs.getString(4));
+
+                bbs.setEvent_Picture(rs.getString(5));
+
+                bbs.setEvent_Intro(rs.getString(7));
+
+                bbs.setEvent_picName(rs.getString(15));
+
+                list.add(bbs);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 
 

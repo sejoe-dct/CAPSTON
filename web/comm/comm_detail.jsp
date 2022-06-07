@@ -12,8 +12,8 @@ comm_detail.jsp
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="comm.CommDAO" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="bbs.comment.CommentDAO" %>
-<%@ page import="bbs.comment.Comment" %>
+<%@ page import="comment.CommentDAO" %>
+<%@ page import="comment.Comment" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -303,9 +303,12 @@ comm_detail.jsp
                                                 <div class="mar-btm">
                                                     <h2 class="btn-link text-semibold media-heading box-inline">
                                                         <%=commentList.get(i).getUser_id() %>
-                                                        <p><%=commentList.get(i).getComment_content()%></p>
-
                                                     </h2>
+                                                    <h6>
+                                                        <p><%=commentList.get(i).getComment_content()%></p>
+                                                    </h6>
+
+
                                                 </div>
                                                 <form action="comment_delete.jsp" method="post">
                                                     <input type="hidden" name="commID" value="<%=commID%>">

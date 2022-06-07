@@ -1,9 +1,5 @@
 package user;
 
-import bbs.Bbs;
-import comm.Comm;
-import comm.Comm_data;
-
 import java.sql.*;
 import java.util.ArrayList;
 

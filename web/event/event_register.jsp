@@ -22,7 +22,6 @@
 
         <form action="event_register_back.jsp" method="post" enctype="multipart/form-data" accept-charset="utf-8">
             <div class="row">
-
                 <div class="col-md-6 mb-4">
                     <!--                                    <h6 class="mb-2 pb-1">Gender: </h6>-->
                     <div class="form-check form-check-inline">
@@ -38,7 +37,7 @@
                     </div>
 
                 </div>
-            <div class="row g-3">
+                <div class="row g-3">
                 <div class="col-12 col-sm-6">
                     <input type="text" class="form-control border-0" name="event_Title" placeholder="행사 제목"
                            style="height: 55px;" required="">
@@ -56,18 +55,27 @@
                             placeholder="주소 검색">주소검색
                     </button>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12">
                     <input type="text" class="form-control border-0" id="detailAddress" name= "event_detailAddress" placeholder="상세 주소"
                            style="height: 55px;">
                 </div>
 
-                <div class="col-12 ">
+                <div class="col-12 col-sm-6">
+                    <input type="text" class="form-control border-0" name="event_manager" placeholder="주최"
+                           style="height: 55px;">
+                </div>
+
+                <div class="col-12 col-sm-6">
                     <input type="text" class="form-control border-0" name="event_Phone" placeholder="전화번호"
                            style="height: 55px;">
                 </div>
 
                 <div class="col-12">
                     <input type="file" class="form-control border-0" name="event_Picture" placeholder="행사소개 이미지"
+                           style="height: 55px;">
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control border-0" name="event_url" placeholder="홈페이지"
                            style="height: 55px;">
                 </div>
                 <div class="col-12 col-sm-6">
@@ -84,9 +92,10 @@
                 <div class="col-12">
                     <textarea class="form-control border-0" name="event_Content" placeholder="행사 내용"></textarea>
                 </div>
-                <div class="col-12">
+                <div class="col-12 text-end">
                     <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>
                 </div>
+            </div>
             </div>
         </form>
     </div>

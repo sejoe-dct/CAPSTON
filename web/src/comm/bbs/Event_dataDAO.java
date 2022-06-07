@@ -1,6 +1,4 @@
-package bbs;
-
-import comm.Comm;
+package comm.bbs;
 
 import java.sql.*;
 import java.util.ArrayList;

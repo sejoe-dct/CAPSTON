@@ -2,7 +2,7 @@
 
 <% request.setCharacterEncoding("euc-kr"); %>
 <%@page import="java.io.PrintWriter"%>
-<%@page import="bbs.BbsDAO"%>
+<%@page import="comm.bbs.BbsDAO"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
 <%@ page import="java.util.Enumeration" %>
@@ -59,11 +59,13 @@
                     e_type = 2;
                 }
 
+
                 int result = bbsDAO.write(userID, multiRequest.getParameter("event_Title"), multiRequest.getParameter("event_Preview"),
                         multiRequest.getParameter("event_Address") + " " + multiRequest.getParameter("event_detailAddress")
                         , multiRequest.getParameter("event_Phone"), path + "\\" + original_filename , original_filename
                         , multiRequest.getParameter("event_StartDate"), multiRequest.getParameter("event_EndDate"), multiRequest.getParameter("event_Intro")
-                        , multiRequest.getParameter("event_Content"),e_type);
+                        , multiRequest.getParameter("event_manager"), multiRequest.getParameter("event_Content"),e_type,multiRequest.getParameter("event_url"));
+
 
                 // 데이터베이스 오류인 경우
                 if(result==-1){

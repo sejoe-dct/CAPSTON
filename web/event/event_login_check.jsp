@@ -1,7 +1,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="user.UserDAO" %>
-<%@ page import="bbs.BbsDAO" %>
+<%@ page import="comm.bbs.BbsDAO" %>
 <jsp:useBean id="user" class="user.User" scope="page"/>
 <html>
 <head>
