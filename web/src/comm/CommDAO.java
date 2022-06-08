@@ -20,7 +20,6 @@ public class CommDAO {
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 로드
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword); // 연결 얻기
-            System.out.println("디비연결성공");
             // Type mismatch: cannot convert from java.sql.Connection to com.sun.corba.se.pept.transport.Connection
             // import 확인 하기
 
@@ -55,8 +54,6 @@ public class CommDAO {
             pstmt.setString(10, comm_picName);
             pstmt.setInt(11, comm_score);
 
-            //rs = pstmt.executeQuery();
-            //System.out.println(SQL);
             return pstmt.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
@@ -93,7 +90,6 @@ public class CommDAO {
 
             pstmt.setString(8, comm_id);
 
-            System.out.println(pstmt);
             return pstmt.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
@@ -145,7 +141,6 @@ public class CommDAO {
             psmt.setString(2, "%" + search + "%");
             rs = psmt.executeQuery();
             while (rs.next()) {
-                System.out.println("while문");
                 Comm comm = new Comm();
                 comm.setcomm_id(rs.getString(1));
                 comm.setuser_id(rs.getString(2));
@@ -167,6 +162,43 @@ public class CommDAO {
 
     }
 
+    public ArrayList<Comm> getList2(String localName, String search) {
+        if (localName.equals("전국")) {
+            localName = "";
+        }
+        StringBuffer query = new StringBuffer();
+        query.append("SELECT * FROM community WHERE comm_address LIKE ? AND CONCAT(comm_title, comm_preview, comm_info) LIKE ?");
+        //     String sql = "select * from event where event_address like %" +localName +"%";
+        ArrayList<Comm> list = new ArrayList<Comm>();
+        try {
+            PreparedStatement psmt = conn.prepareStatement(query.toString());
+            psmt.setString(1, "%" + localName + "%"); //"KSC5601"),"8859_1"//1트
+            psmt.setString(2, "%" + search + "%");
+            rs = psmt.executeQuery();
+            while (rs.next()) {
+                Comm comm = new Comm();
+                comm.setcomm_id(rs.getString(1));
+                comm.setuser_id(rs.getString(2));
+                comm.setcomm_title(rs.getString(3));
+                comm.setcomm_preview(rs.getString(4));
+                comm.setcomm_picture(rs.getString(5));
+                comm.setcomm_info(rs.getString(6));
+                comm.setcomm_address(rs.getString(7));
+                comm.setcomm_like(rs.getInt(8));
+                comm.setcomm_date(rs.getString(9));
+                comm.setcomm_picName(rs.getString(10));
+                comm.setcomm_score(rs.getInt(11));
+                list.add(comm);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
+        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
+
+    }
+
     public ArrayList<Comm> getUserlist(String user_id){
         StringBuffer query = new StringBuffer();
         query.append("Select * from community where user_id=?");
@@ -179,7 +211,6 @@ public class CommDAO {
             rs=psmt.executeQuery();
 
             while(rs.next()) {
-                System.out.println("while문");
                 Comm user_comm=new Comm();
                 user_comm.setcomm_id(rs.getString(1));
                 user_comm.setuser_id(rs.getString(2));
@@ -215,7 +246,6 @@ public class CommDAO {
             rs=psmt.executeQuery();
 
             while(rs.next()) {
-                System.out.println("while문");
                 Comm user_comm=new Comm();
                 user_comm.setcomm_id(rs.getString(1));
                 user_comm.setuser_id(rs.getString(2));

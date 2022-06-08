@@ -80,7 +80,6 @@ public class BbsDAO {
             pstmt.setInt(14, event_type);
             pstmt.setString(15, event_PicName);
             pstmt.setString(16, event_url);
-            System.out.println("디비 삽입 값 : " + pstmt);
 
             return pstmt.executeUpdate();
         } catch (Exception e) {
@@ -91,11 +90,61 @@ public class BbsDAO {
 
 
 
-    public ArrayList<Bbs> getList(String localName, String search) {
+    public ArrayList<Bbs> getList( String localName, String search , int pageNumber) {
+        if (localName.equals("전국")) {
+            localName = "";
+        }
+        String sql = "";
+        ArrayList<Bbs> list = new ArrayList<Bbs>();
+        //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
+        //기본 값이 아니라 지역명 선택했을 때
+        StringBuffer query = new StringBuffer();
+
+
+        try {
+            sql="SELECT * FROM event WHERE event_address LIKE ? AND CONCAT(event_title, event_preview, event_intro) LIKE ? " +
+                    "ORDER BY LPAD(event_id, 3,'0') DESC LIMIT " + pageNumber * 5 + ", " + pageNumber * 5 + 6;
+
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            psmt.setString(1, "%" + localName + "%"); //"KSC5601"),"8859_1"//1트
+            psmt.setString(2, "%" + search + "%");
+            rs = psmt.executeQuery();
+
+            while (rs.next()) {
+                Bbs bbs = new Bbs();
+                bbs.setEventID(rs.getString(1));
+                bbs.setUserID(rs.getString(2));
+                bbs.setEvent_Title(rs.getString(3));
+                bbs.setEvent_Preview(rs.getString(4));
+                bbs.setEvent_Picture(rs.getString(5));
+                bbs.setEvent_Address(rs.getString(6));
+                bbs.setEvent_Intro(rs.getString(7));
+                bbs.setEvent_Content(rs.getString(8));
+                bbs.setEvent_Phone(rs.getString(9));
+                bbs.setEvent_StartDate(rs.getString(10));
+                bbs.setEvent_EndDate(rs.getString(11));
+                bbs.setEvent_Like(rs.getInt(12));
+                bbs.setEvent_manager(rs.getString(13));
+                bbs.setEvent_type(rs.getInt(14));
+                bbs.setEvent_picName(rs.getString(15));
+                bbs.setEvent_url(rs.getString(16));
+                list.add(bbs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+    public ArrayList<Bbs> getList2(String localName, String search) {
         if (localName.equals("전국")) {
             localName = "";
         }
         ArrayList<Bbs> list = new ArrayList<Bbs>();
+        //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
+        //기본 값이 아니라 지역명 선택했을 때
+        //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
         StringBuffer query = new StringBuffer();
         query.append("SELECT * FROM event WHERE event_address LIKE ? AND CONCAT(event_title, event_preview, event_intro) LIKE ?");
         try {
@@ -126,8 +175,9 @@ public class BbsDAO {
             e.printStackTrace();
         }
         return list;
-    }
 
+        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
+    }
 
     public int checkType(String id) {
         int type=0;
@@ -188,6 +238,7 @@ public class BbsDAO {
                 bbs.setEvent_manager(rs.getString(13));
                 bbs.setEvent_type(rs.getInt(14));
                 bbs.setEvent_picName(rs.getString(15));
+                bbs.setEvent_url(rs.getString(16));
 
                 return bbs;
             }

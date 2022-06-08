@@ -63,20 +63,34 @@
                         <div class="col-md-6">
                             <div class="pro-img-details" >
                                 <img src="<%="http://localhost:8888//uploadedFiles/"+event.getEvent_picName()%>" alt="<%=event.getEvent_Title()%>"
-                                     width=100%, height=100%>
+                                     width=70%, height=70%>
                             </div>
                         </div>
                         <div class="col-sm-6 push-bit" style="padding: 10px;">
                             <div class="clearfix" enctype="multipart/form-data" >
                                 <span class="h4" >
-
-                                    <h3  class="text-success"><%=event.getEvent_Title()%></h3><br />
+                                    <h3 class="text-success"><%=event.getEvent_Title()%></h3>
+                                    <h6 style="margin: 5px"><%=event.getEvent_Preview()%></h6></br>
                                 </span>
-                                <div class="text-end">
-                                    <p><%=event.getEvent_Address()%></p>
+                                </hr>
+                                <div>
+                                    <p><i class="fa fa-map-marker-alt me-3"></i><%=event.getEvent_Address()%></p>
+                                </div>
+                                <div>
+                                    <p><i class="fa fa-phone-alt me-3"></i><%=event.getEvent_Phone()%></p>
+                                </div>
+                                <div>
+                                    <p><i class="fa fa-envelope me-3"></i><%=event.getEvent_manager()%></p>
+                                </div>
+                                <div>
+                                    <p><i class="bi bi-calendar-range"></i>     <%=event.getEvent_StartDate()%> ~ <%=event.getEvent_EndDate()%></p>
+                                </div>
+                                <div>
+                                    <label><i class="bi bi-globe2"></i>    홈페이지</label></br>
+                                    <a href="<%=event.getEvent_url()%>" target="_blank"><%=event.getEvent_url()%></a>
                                 </div>
                                 <hr />
-                                <h6><%=event.getEvent_Content()%></h6>
+                                <h6 style="line-height: 2em"><%=event.getEvent_Content()%></h6>
                             </div>
                         </div>
                     </div>

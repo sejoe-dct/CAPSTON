@@ -18,170 +18,18 @@ comm_detail.jsp
 <html lang="en">
 
 <head>
-    <!--카카오지도 카테고리별-->
+    <jsp:directive.include file="comm_head.jsp"/>
     <style>
-        .map_wrap, .map_wrap * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-            font-size: 12px;
+        .checked {
+            color: orange;
         }
-
-        .map_wrap {
-            position: relative;
-            width: 100%;
-            height: 350px;
+        .left-box {
+            float: left;
         }
-
-        #category {
-            position: absolute;
-            top: 10px;
-            left: 1000px;
-            border-radius: 5px;
-            border: 1px solid #909090;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-            background: #fff;
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        #category li {
+        .right-box {
             float: right;
-            list-style: none;
-            width: 50px;
-            border-right: 1px solid #acacac;
-            padding: 6px 0;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        #category li.on {
-            background: #eee;
-        }
-
-        #category li:hover {
-            background: #ffe6e6;
-            border-left: 1px solid #acacac;
-            margin-left: -1px;
-        }
-
-        #category li:last-child {
-            margin-right: 0;
-            border-right: 0;
-        }
-
-        #category li span {
-            display: block;
-            margin: 0 auto 3px;
-            width: 27px;
-            height: 28px;
-        }
-
-        #category li .category_bg {
-            background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png) no-repeat;
-        }
-
-        #category li .bank {
-            background-position: -10px 0;
-        }
-
-        #category li .mart {
-            background-position: -10px -36px;
-        }
-
-        #category li .pharmacy {
-            background-position: -10px -72px;
-        }
-
-        #category li .oil {
-            background-position: -10px -108px;
-        }
-
-        #category li .cafe {
-            background-position: -10px -144px;
-        }
-
-        #category li .store {
-            background-position: -10px -180px;
-        }
-
-        #category li.on .category_bg {
-            background-position-x: -46px;
-        }
-
-        .placeinfo_wrap {
-            position: absolute;
-            bottom: 28px;
-            left: -150px;
-            width: 300px;
-        }
-
-        .placeinfo {
-            position: relative;
-            width: 100%;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 10px;
-            background: #fff;
-        }
-
-        .placeinfo:nth-of-type(n) {
-            border: 0;
-            box-shadow: 0px 1px 2px #888;
-        }
-
-        .placeinfo_wrap .after {
-            content: '';
-            position: relative;
-            margin-left: -12px;
-            left: 50%;
-            width: 22px;
-            height: 12px;
-            background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-        }
-
-        .placeinfo a, .placeinfo a:hover, .placeinfo a:active {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .placeinfo a, .placeinfo span {
-            display: block;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .placeinfo span {
-            margin: 5px 5px 0 5px;
-            cursor: default;
-            font-size: 13px;
-        }
-
-        .placeinfo .title {
-            font-weight: bold;
-            font-size: 14px;
-            border-radius: 6px 6px 0 0;
-            margin: -1px -1px 0 -1px;
-            padding: 10px;
-            color: #fff;
-            background: #d95050;
-            background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
-        }
-
-        .placeinfo .tel {
-            color: #0f7833;
-        }
-
-        .placeinfo .jibun {
-            color: #999;
-            font-size: 11px;
-            margin-top: 0;
         }
     </style>
-
-    <jsp:directive.include file="comm_head.jsp"/>
 </head>
 
 <body>
@@ -233,22 +81,55 @@ comm_detail.jsp
                         <div class="col-md-6">
                             <div class="pro-img-details">
                                 <img src="<%="http://localhost:8888//uploadedFiles/"+comm.getComm_picName()%>" alt="<%=comm.getcomm_title()%>"
-                                     width=100%, height=100%>
+                                     width=80%, height=80%>
                             </div>
 
                         </div>
                         <div class="col-sm-6 push-bit" style="padding: 10px;">
                             <div class="clearfix" enctype="multipart/form-data">
                                 <span class="h4">
+                                    <h3 class="left-box text-success"><%=comm.getcomm_title()%></h3>
+                                    <div class="right-box ratings">
+                                        <div class="row">
+                                            <div>
+                                                <%
+                                                    for (int star = 0; star < comm.getcomm_score(); star++) {
+                                                %>
+                                                <span class="fa fa-star checked"></span>
+                                                <%
+                                                    }
+                                                    for (int star_em = 0; star_em < 5 - comm.getcomm_score(); star_em++) {
+                                                %>
+                                                <span class="fa fa-star"></span>
+                                                <%
+                                                    }
+                                                %>
+                                            </div>
+                                        </div>
+                                        <h6>
+                                            <span class="t2">
+                                                <span class="blind">점수</span>
+                                                <span class="t2t1"><%=comm.getcomm_score()%></span>
+                                                <span class="sep">/</span>
+                                                <span class="t2t2">5.0</span>
+                                            </span>
+                                        </h6>
+                                    </div>
+                                </br>
+                                </span>
+                            </div>
 
-                    <h3 class="text-success"><%=comm.getcomm_title()%></h3><br/>
-                        </span>
-                                <div class="text-end">
-                                    <p><%=comm.getcomm_address()%>
-                                    </p>
+                                <h6><%=comm.getcomm_preview()%></h6></br>
+                                <div>
+                                    <label><i class="bi bi-geo-alt"></i></i>    주소</label></br>
+                                    <p><%=comm.getcomm_address()%></p>
                                 </div>
-                                <hr/>
-                                <h6><%=comm.getcomm_info()%>
+                                <div>
+                                    <label><i class="bi bi-calendar-range"></i>    작성날짜</label></br>
+                                    <p><%=comm.getcomm_date()%></p>
+                                </div>
+                                <hr />
+                                <h6 style="line-height: 2em"><%=comm.getcomm_info()%></h6>
                                 </h6>
                             </div>
                         </div>

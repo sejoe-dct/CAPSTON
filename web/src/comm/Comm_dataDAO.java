@@ -35,39 +35,28 @@ public class Comm_dataDAO {
             pstmt.setString(1, userID);
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                System.out.println("comm- if (rs.next()) {" );
                 Comm_data bbs = new Comm_data();
                 bbs.setuser_id(rs.getString(1));
                 bbs.setcomm_id(rs.getString(2));
 
                 String id1 = rs.getString(1);
                 String commid= rs.getString(2);
-                System.out.println("rs.getInt(1); id1:  " +id1);
-                System.out.println("rs.getInt(2); commid:  " +commid);
+
                 //이벤트 아이디 바로넣어서 주소 받아오기
                 /*try {*/
 
                 pstmt2.setString(1, commid);
                 rs2 = pstmt2.executeQuery();
                 if (rs2.next()) {
-                    System.out.println("comm- if (rs2.next()) {" );
                     bbs.setcomm_address(rs2.getString(1));
                     String addr = rs2.getString(1);
-                    System.out.println("comm- if (rs2.next()) {" + addr);
-
-
                 }
                 list.add(bbs);
-                System.out.println("comm- list.add(bbs); ");
-                /*} catch (Exception e2) {
-                    e2.printStackTrace();
-                }*/
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("comm- return list: "+list);
         return list;
         //  return null;
     }
@@ -161,6 +150,7 @@ public class Comm_dataDAO {
 
     public int check(String user_id, String comm_id) throws SQLException {
         String sql = "select * from comm_data where user_id=? and comm_id=?";
+
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, user_id);

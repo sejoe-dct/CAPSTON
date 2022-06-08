@@ -14,7 +14,6 @@ public class CommentDAO {
             String dbPassword = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 로드
             conn = DriverManager.getConnection(dbURL, dbID, dbPassword); // 연결 얻기
-            System.out.println("디비연결성공");
 
         } catch (Exception e) {
             // TODO: handle exception

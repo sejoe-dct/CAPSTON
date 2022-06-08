@@ -9,6 +9,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="bbs.Event_dataDAO" %>
+<%@ page import="java.net.URLEncoder" %>
 <html lang="en">
 
 <head>
@@ -22,18 +23,25 @@
     String localDivide = "전국";
 //    String searchType = "최신순";
     String search = "";
-    int pageNumber = 0;
     if (request.getParameter("localDivide") != null) {
         localDivide = request.getParameter("localDivide");
     }
-//    if (request.getParameter("searchType") != null) {
-//        searchType = request.getParameter("searchType");
-//    }
+
     if (request.getParameter("search") != null) {
         search = request.getParameter("search");
     }
 
     ArrayList<Bbs> list = new ArrayList<Bbs>();
+
+    int pageNumber = 0; // 기본페이지 기본적으로 페이지 1부터 시작하므로
+    if (request.getParameter("pageNumber") != null) {
+        try {
+            pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+        } catch (Exception e) {
+            System.out.println("검색 페이지 번호 오류");
+        }
+    }
+
 %>
 <!-- 게시판 Start -->
 <div class="container-xxl py-5">
@@ -95,9 +103,12 @@
         </form>
         <div class="cp33list1">
             <%
-                list = new BbsDAO().getList(localDivide, search);
+                //BbsDAO bbsDAO = new BbsDAO();
+                list = new BbsDAO().getList(localDivide, search, pageNumber);
 
-                for (int i = list.size() - 1; i >= 0; i--) {
+                for (int i =0; i<list.size();  i++) {
+                    if (i == 5) break;
+
             %>
             <ul class="lst1">
                 <!--1번째 -->
@@ -120,7 +131,7 @@
                                 <div class="texts">
                                     <a href="event_detail.jsp?eventID=<%= list.get(i).getEventID() %>" class="tg1">
                                         <em class="ic1 bsContain "
-                                            style="background-size: contain;"><%=list.size() - i%>
+                                            style="background-size: contain;"><%=i+1%>
                                         </em>
                                         <strong class="t1"><%=list.get(i).getEvent_Title()%>
                                         </strong>
@@ -227,8 +238,53 @@
                 </div>
             </ul>
         </div>
+
+        <!-- Pagination Start -->
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item">
+                <%
+                    if (pageNumber <= 0) {
+                %>
+                <a class="page-link disabled">이전</a>
+                <%
+                    } else {
+                %>
+                <a class="page-link" href="./event_main.jsp?localDivide=<%=URLEncoder.encode(localDivide, "UTF-8")%>&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber - 1%>">이전</a><% }%>
+            </li>
+            <li class="page-item">
+                <%
+                    if (list.size() < 6){
+                %>
+                <a class="page-link disabled">다음</a>
+                <%
+                    } else {
+                %>
+                <a class="page-link" href="./event_main.jsp?localDivide=<%=URLEncoder.encode(localDivide, "UTF-8")%>&search=<%=URLEncoder.encode(search, "UTF-8")%>&pageNumber=<%=pageNumber + 1%>">다음</a>
+                <%
+                    }
+                %>
+            </li>
+        </ul>
+
+        <!--<nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>-->
+        <!-- Pagination End -->
     </div>
 </div>
+
 
 
 <!-- Footer Start -->

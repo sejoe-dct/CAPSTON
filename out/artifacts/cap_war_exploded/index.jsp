@@ -53,10 +53,6 @@
                             <h1 class="display-2 text-white animated slideInDown">순교의 의미, 전주전동성당</h1>
                             <p class="fs-5 fw-medium text-white mb-4 pb-3"> 호남지역 최초로 지어진 로마네스크 양식의 성당</p>
                             <a href="https://map.kakao.com/link/search/전주전동성당" target="_blank" rel="noopener" title="새 창" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">더보기</a>
-                            <%--<a href="https://map.kakao.com/link/search/<%=list.get(i).getcomm_address()%>"
-                               target="_blank" rel="noopener" title="새 창"
-                               class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
-                                    class="t1">길찾기</span></a>--%>
                         </div>
                     </div>
                 </div>
@@ -147,9 +143,6 @@
                     <img class="img-fluidd" src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getEvent_picName()%>"
                          alt="<%=list.get(i).getEvent_Title()%>">
                     <div class="position-relative p-4 pt-0">
-<%--                        <div class="service-icon">--%>
-<%--                            <i class="bi bi-hand-thumbs-up"></i>--%>
-<%--                        </div>--%>
                         <h4 class="mb-3" style="padding-top: 10px"><%=list.get(i).getEvent_Title()%></h4>
                         <p><%=list.get(i).getEvent_Preview()%></p>
                         <a class="small fw-medium" href="event/event_detail.jsp?eventID=<%= list.get(i).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
@@ -189,13 +182,13 @@
                 </div>
                 <div class="testimonial-text text-center rounded p-4">
                     <p><%=commList.get(i).getcomm_preview()%></p>
-                    <h5 class="mb-1"><%=commList.get(i).getcomm_title()%></h5>
-                    <span class="fst-italic"><%=commList.get(i).getcomm_address()%></span>
+                    <a href="comm/comm_detail.jsp?commID=<%=commList.get(i).getcomm_id()%>">
+                        <h5 class="mb-1"><%=commList.get(i).getcomm_title()%>  </h5>
+                    </a>                    <span class="fst-italic"><%=commList.get(i).getcomm_address()%></span>
                 </div>
             </div>
             <% } %>
         </div>
-
     </div>
 </div>
 <!-- Testimonial End -->

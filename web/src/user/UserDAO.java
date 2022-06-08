@@ -68,7 +68,6 @@ public class UserDAO {
             rs=psmt.executeQuery();
 
             while(rs.next()) {
-                System.out.println("while문");
                 User user=new User();
                 user.setUserID(rs.getString(1));
                 user.setUserName(rs.getString(2));
@@ -84,7 +83,6 @@ public class UserDAO {
 
                 list.add(user);
             }
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

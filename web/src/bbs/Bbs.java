@@ -18,6 +18,15 @@ public class Bbs {
     private String event_manager;
     private int event_type;
 
+    public String getEvent_url() {
+        return event_url;
+    }
+
+    public void setEvent_url(String event_url) {
+        this.event_url = event_url;
+    }
+
+    private String event_url;
     public String getEvent_picName() {
         return event_picName;
     }

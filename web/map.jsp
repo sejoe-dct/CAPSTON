@@ -132,8 +132,8 @@
 <%
   BbsDAO bbsDAO=new BbsDAO();
   CommDAO commDAO = new CommDAO();
-ArrayList<Comm> commlist = commDAO.getList("전국","");
-  ArrayList<Bbs> eventlist = bbsDAO.getList("전국","");
+    ArrayList<Comm> commlist = commDAO.getList2("전국","");
+  ArrayList<Bbs> eventlist = bbsDAO.getList2("전국","");
 
     %>
 <!-- Map Start -->
