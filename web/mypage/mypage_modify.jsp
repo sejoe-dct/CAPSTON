@@ -39,33 +39,14 @@
 <jsp:directive.include file="mypage_nav.jsp"/>
 
 
-<!-- Page Header Start -->
-<div class="container-fluid page-header py-5 mb-5">
-    <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Projects</h1>
-        <nav aria-label="breadcrumb animated slideInDown">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
-                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Projects</li>
-            </ol>
-        </nav>
-    </div>
-</div>
-
-
 <div class="container-xxl py-5">
     <div class="container">
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">커뮤니티</h6>
-            <h1 class="mb-4">맛집 및 명소를 등록해주세요.</h1>
+            <h6 class="text-primary">마이페이지</h6>
+            <h2 class="mb-4">작성한 게시물의 내용을 수정해보세요.</h2>
         </div>
         <%
-            Connection conn =null;
-            Statement stmt =null;
-            ResultSet rs =null;
-
             CommDAO commDAO=new CommDAO();
 
             String session_id=String.valueOf(session.getAttribute("userID"));
@@ -119,7 +100,7 @@
                     <!--                    <p class="help-block">Min 0 - Max 5.</p>-->
                 </div>
 
-                <div class="col-12" >
+                <div class="col-12 text-end" >
                     <button href="mypage_modify_back.jsp?commID=<%= list.get(0).getcomm_id() %>" class="btn btn-primary rounded-pill py-3 px-5" type="submit">Submit</button>
                 </div>
 

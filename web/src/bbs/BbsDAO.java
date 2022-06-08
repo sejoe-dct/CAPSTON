@@ -363,25 +363,17 @@ public class BbsDAO {
                 Bbs bbs = new Bbs();
 
                 bbs.setEventID(rs.getString(1));
-
                 bbs.setEvent_Title(rs.getString(3));
-
                 bbs.setEvent_Preview(rs.getString(4));
-
                 bbs.setEvent_Picture(rs.getString(5));
-
                 bbs.setEvent_Intro(rs.getString(7));
-
                 bbs.setEvent_picName(rs.getString(15));
-
                 list.add(bbs);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-
 
 }

@@ -54,9 +54,9 @@
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="text-primary">여행지 추천</h6>
-            <h2 class="mb-4">비슷한 사용자가 좋아요 누른 여행지를 추천드립니당~!</h2>
+            <h3 class="mb-4"><p>비슷한 취향의 사용자가 담은 여행지를 </p>추천드립니다</h3>
         </div>
-       <!-- 여행지 추천 게시판 Start -->
+        <!-- 여행지 추천 게시판 Start -->
         <div class="row g-4">
             <%
                 for (int i = comm_list.size() - 1; i >= 0; i--) {
@@ -64,15 +64,16 @@
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item rounded overflow-hidden">
                     <img class="img-fluidd" width="400px" height="270px" src="<%="http://localhost:8888//uploadedFiles/"+comm_list.get(i).getComm_picName()%>" alt="">
-<%--                    <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>"--%>
-<%--                         alt="<%=list.get(i).getcomm_title()%>">--%>
+                    <%--                    <img src="<%="http://localhost:8888//uploadedFiles/"+list.get(i).getComm_picName()%>"--%>
+                    <%--                         alt="<%=list.get(i).getcomm_title()%>">--%>
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="bi bi-hand-thumbs-up"></i>
                         </div>
                         <h4 class="mb-3"><%=comm_list.get(i).getcomm_title()%></h4>
                         <p><%=comm_list.get(i).getcomm_preview()%></p>
-                        <a class="small fw-medium" href="">더보기><i class="fa fa-arrow-right ms-2"></i></a>
+                        <a class="small fw-medium" href="../comm/comm_detail.jsp?commID=<%= comm_list.get(i).getcomm_id() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
+
                     </div>
                 </div>
             </div>
@@ -95,7 +96,7 @@
                         </div>
                         <h4 class="mb-3"><%=eventlist.get(i).getEvent_Title()%></h4>
                         <p><%=eventlist.get(i).getEvent_Preview()%></p>
-                        <a class="small fw-medium" href="">더보기><i class="fa fa-arrow-right ms-2"></i></a>
+                        <a class="small fw-medium" href="../event/event_detail.jsp?eventID=<%= eventlist.get(i).getEventID() %>">더보기<i class="fa fa-arrow-right ms-2"></i></a>
                     </div>
                 </div>
             </div>

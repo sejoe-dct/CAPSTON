@@ -48,14 +48,13 @@
     <div class="container">
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">축제 및 행사 게시판</h6>
-            <h1 class="mb-4">전국 지역방방곡곡의 축제들을 알려드립니다!</h1>
+            <h6 class="text-primary">축제 및 체험활동 게시판</h6>
+            <h1 class="mb-4">전국 지역방방곡곡의 축제 및 체험활동을 알려드립니다!</h1>
         </div>
         <!-- 카테고리 -->
         <!-- <form method="post" action="event_detail.jsp">-->
-
         <form method="get" action="./event_main.jsp">
-            <div class="row" style="text-align:center">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="form-group col-lg-2 col-md-2 col-sm-12 p-0" >

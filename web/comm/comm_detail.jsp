@@ -119,7 +119,7 @@ comm_detail.jsp
                                 </span>
                             </div>
 
-                                <h6><%=comm.getcomm_preview()%></h6></br>
+                        </br><h6><%=comm.getcomm_preview()%></h6></br>
                                 <div>
                                     <label><i class="bi bi-geo-alt"></i></i>    주소</label></br>
                                     <p><%=comm.getcomm_address()%></p>
@@ -129,7 +129,8 @@ comm_detail.jsp
                                     <p><%=comm.getcomm_date()%></p>
                                 </div>
                                 <hr />
-                                <h6 style="line-height: 2em"><%=comm.getcomm_info()%></h6>
+                                <h6 style="line-height: 2em">
+                                    <%=comm.getcomm_info()%>
                                 </h6>
                             </div>
                         </div>

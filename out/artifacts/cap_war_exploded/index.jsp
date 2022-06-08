@@ -167,8 +167,8 @@
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">맛집 소개</h6>
-            <h1 class="mb-4">전국 각 지역의 맛집 소개</h1>
+            <h6 class="text-primary">맛집 및 명소 소개</h6>
+            <h1 class="mb-4">전국 각 지역의 맛집 및 명소 소개</h1>
         </div>
 
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">

@@ -30,8 +30,8 @@
     <div class="container">
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h6 class="text-primary">지역 커뮤니티</h6>
-            <h2 class="mb-4">지역 명소 및 맛집을 소개해주세요!</h2>
+            <h6 class="text-primary">마이페이지</h6>
+            <h2 class="mb-4">내가 작성한 게시물</h2>
         </div>
 
         <div class="cp33list1"

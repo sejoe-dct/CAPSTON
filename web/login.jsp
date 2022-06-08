@@ -22,15 +22,16 @@
         <input type="password" id="inputPassword" name="userPassword" class="form-control" placeholder="Password" required="">
         <!-- input type="submit" value="로그인하기"-->
         <button class="btn btn-success btn-block" type="submit"></a><i class="fas fa-sign-in-alt"></i> 로그인하기</button>
-        <p style="text-align:center"> 또는  </p>
-        <div class="social-login">
-            <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>
-            <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>
-        </div>
+<%--        <p style="text-align:center"> 또는  </p>--%>
+<%--        <div class="social-login">--%>
+<%--            <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign in with Facebook</span> </button>--%>
+<%--            <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign in with Google+</span> </button>--%>
+<%--        </div>--%>
 
         <hr>
 
-        <button class="btn btn-primary btn-block" type="button" onclick="location='signup.jsp'" id="btn-signup"><i class="fas fa-user-plus"></i> 회원가입</button>
+
+        <button style="text-align: right" class="btn btn-primary btn-block" type="button" onclick="location='signup.jsp'" id="btn-signup"><i class="fas fa-user-plus"></i> 회원가입</button>
     </form>
 
     <form action="/reset/password/" class="form-reset">
