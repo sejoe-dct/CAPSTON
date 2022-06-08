@@ -70,7 +70,6 @@
 
             String session_id=String.valueOf(session.getAttribute("userID"));
 
-            //Comm event = new CommDAO().getUserlist_detail(eventID);
             ArrayList<Comm> list = commDAO.getUserlist_detail(commID);
 
         %>

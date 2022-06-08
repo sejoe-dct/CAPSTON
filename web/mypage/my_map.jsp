@@ -93,22 +93,7 @@
       var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
       var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize);
       var dats=[];
-      /*for (var i = 0; i < positions.length; i ++) { //-> db셀렉트 갯수 가지고 for문 돌리면 될듯
 
-          // 마커 이미지의 이미지 크기 입니다
-          var imageSize = new kakao.maps.Size(24, 35);
-
-          // 마커 이미지를 생성합니다
-          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-          // 마커를 생성합니다
-          var marker = new kakao.maps.Marker({
-              map: map, // 마커를 표시할 지도
-              position: positions[i].latlng, // 마커를 표시할 위치
-              title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-              image : markerImage // 마커 이미지
-          });
-      }*/
       var Title = [];
       <% for(int i=eventlist.size()-1;i>=0;i--){
       ArrayList title = new ArrayList<>();
@@ -117,16 +102,7 @@
       <% } %>
 
 
-      /*
-            geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-              if (status === daum.maps.services.Status.OK) {
-                var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-                var marker = new daum.maps.Marker({
-                  map: map,
-                  position: coords
-                });
-              }
-            });*/
+
       var bounds = new kakao.maps.LatLngBounds();
       var latlngList =[];
       var geocoder = new kakao.maps.services.Geocoder();
@@ -203,7 +179,6 @@
           kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 
           map.setCenter(coords);
-          console.log("result, title 값: " + result + title);
 
           bounds.extend(coords);
         }
@@ -222,7 +197,6 @@
         };
       }
       function markUPUP(latlngList){
-        console.log("mymap ::::: latlngList 값2 "+latlngList);
         map.setBounds(bounds);
       }
     </script>
@@ -244,11 +218,11 @@
       <form method="get" action="like_map.jsp">
         <ul class="lst1">
           <!--comm like list Start-->
-          <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
+          <div class="country-item portfolio-item seoul">
             <%
               // ArrayList<Comm> list = commdataDAO.getComm_data(session_userID);
-              System.out.println(session_userID);
-              for (int i = list.size() - 1; i >= 0; i--) {
+//              for (int i = list.size() - 1; i >= 0; i--) {
+                for (int i=0; i<list.size(); i ++) {
             %>
 
             <li class="li1">
@@ -269,7 +243,7 @@
                   <div class="texts">
                     <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
                       <em class="ic1 bsContain "
-                          style="background-size: contain;"><%=list.size() - i%>
+                          style="background-size: contain;"><%=i+1%>
                       </em>
                       <strong class="t1"><%=list.get(i).getcomm_title()%></strong>
                       <div class="t2"><%=list.get(i).getcomm_preview()%></div>
@@ -291,12 +265,41 @@
                   </div>
                 </div>
 
-                <!-- 체크박스 -->
-                <div class="cp33btns1" style="text-align: center">
-                  <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
-                  <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=list.get(i).getcomm_address()%>">
-                  <input type="hidden" name="liketitle"  value="<%=list.get(i).getcomm_title()%>">
+                <div class="w1c3">
+                  <!-- 체크박스 -->
+                  <div class="cp33btns1" style="text-align: center">
+                    <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
+                    <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=list.get(i).getcomm_address()%>">
+                    <input type="hidden" name="liketitle"  value="<%=list.get(i).getcomm_title()%>">
+                  </div>
+                  <!-- 버튼 두개 -->
+                  <div class="cp33btns1">
+<%--                    <%--%>
+<%--                      Event_dataDAO event_data = new Event_dataDAO();--%>
+<%--                      String userid = (String) session.getAttribute("userID");--%>
+<%--                      int result = event_data.check(userid, list.get(i).getcomm_id());--%>
+
+<%--                      if (result == -1) {--%>
+<%--                    %>--%>
+<%--                    <a href="comm_like.jsp?eventID=<%= list.get(i).getcomm_id() %>" class="button"--%>
+<%--                       data-send-focus="that"><i class="ic1"></i> <span class="t1">담기</span></a>--%>
+
+<%--                    <%--%>
+<%--                    } else if (result == 2) {--%>
+<%--                    %>--%>
+                    <a href="../comm/comm_likecancel.jsp?commID=<%= list.get(i).getcomm_id() %>"
+                       class="button" data-send-focus="that"><i class="ic1"></i> <span
+                            class="t1">담기취소</span></a>
+<%--                    <%--%>
+<%--                      }--%>
+<%--                    %>--%>
+                    <a href="https://map.kakao.com/link/search/<%=list.get(i).getcomm_address()%>"
+                       target="_blank" rel="noopener" title="새 창"
+                       class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
+                            class="t1">길찾기</span></a>
+                  </div>
                 </div>
+
               </div>
             </li>
             <%
@@ -308,7 +311,9 @@
           <!--event like list Start-->
           <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
             <%
-              for (int i = eventlist.size() - 1; i >= 0; i--) {
+//              for (int i = eventlist.size() - 1; i >= 0; i--) {
+                for (int i =0; i <eventlist.size(); i++) {
+
             %>
 
             <li class="li1">
@@ -327,7 +332,7 @@
                 <div class="w1c2">
                   <div class="texts">
                     <a href="event_detail.jsp?eventID=<%= eventlist.get(i).getEventID() %>" class="tg1">
-                      <em class="ic1 bsContain " style="background-size: contain;"><%=eventlist.size()-i%></em>
+                      <em class="ic1 bsContain " style="background-size: contain;"><%=list.size()+i+1%></em>
                       <strong class="t1"><%=eventlist.get(i).getEvent_Title()%></strong>
 
                       <div class="t2"><%=eventlist.get(i).getEvent_Preview()%></div>
@@ -379,14 +384,28 @@
 
                   </div>
                 </div>
-                <!-- 체크박스 -->
-                <div class="cp33btns1" style="text-align: center">
-                  <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
-                  <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=eventlist.get(i).getEvent_Address()%>">
-                  <%--      <input type="hidden" name="liketitle"  value="<%=eventlist.get(i).getEvent_Title()%>">--%>
-                </div>
+                <div class="w1c3">
+                  <!-- 체크박스 -->
+                  <div class="cp33btns1" style="text-align: center">
+                    <%--                  <a href="comm_like.jsp?commID=<%= list.get(i).getcomm_id() %>" onclick="doConfirmRealName(this.href);return false;" class="button" data-send-focus="that"><i class="ic1"></i> <span class="t1">스케줄 담기취소</span></a>--%>
+                    <input type="checkbox" name="likeitem" style="width:30px;height:30px;" value="<%=eventlist.get(i).getEvent_Address()%>">
+                    <%--      <input type="hidden" name="liketitle"  value="<%=eventlist.get(i).getEvent_Title()%>">--%>
+                  </div>
+                  <!-- 버튼 두개 -->
+                  <div class="cp33btns1">
 
+                    <a href="event_likecancel.jsp?commID=<%= eventlist.get(i).getEventID() %>"
+                       class="button" data-send-focus="that"><i class="ic1"></i> <span
+                            class="t1">담기취소</span></a>
+
+                    <a href="https://map.kakao.com/link/search/<%=eventlist.get(i).getEvent_Address()%>"
+                       target="_blank" rel="noopener" title="새 창"
+                       class="btn btn-primary py-3 px-5 default getdirections"><i class="ic1"></i> <span
+                            class="t1">길찾기</span></a>
+                  </div>
+                </div>
               </div>
+
             </li>
             <%
               }

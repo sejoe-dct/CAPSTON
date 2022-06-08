@@ -70,25 +70,6 @@ public class Event_dataDAO {
         //  return null;
     }
 
-//    public ArrayList<Event_data> getEvent_data(String user_id, String event_id) {
-//        String SQL = "SELECT * FROM event_data WHERE user_id = ? AND event_id = ?";
-//        ArrayList<Event_data> list = new ArrayList<Event_data>();
-//        try {
-//            PreparedStatement pstmt = conn.prepareStatement(SQL);
-//            pstmt.setString(1,  user_id);
-//            pstmt.setString(2,  event_id);
-//            rs = pstmt.executeQuery();
-//            while (rs.next()) {
-//                Event_data event_data = new Event_data();
-//                event_data.setuser_id(rs.getString(1));
-//                event_data.setevent_id(rs.getString(2));
-//                list.add(event_data);
-//            }
-//        }catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
 
     public ArrayList<Bbs> getEvent_data(String user_id) throws SQLException {
         String SQL = "SELECT * FROM event_data WHERE user_id = ?";
@@ -204,11 +185,20 @@ public class Event_dataDAO {
 
     public int delete(String user_id, String event_id) {
         String SQL = "DELETE FROM event_data WHERE user_id = ? AND event_id = ?";
+        String sql2 = "update event set event_like= event_like-1 where event_id=?";
+
         try {
             PreparedStatement pstmt = conn.prepareStatement(SQL);
             pstmt.setString(1, (user_id));
             pstmt.setString(2, event_id);
-            return pstmt.executeUpdate();
+            pstmt.executeUpdate();
+
+            PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setString(1, event_id);
+            pstmt2.executeUpdate();
+
+            return 1;
+
         } catch (Exception e) {
             e.printStackTrace();
         }

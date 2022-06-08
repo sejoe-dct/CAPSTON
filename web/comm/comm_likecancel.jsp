@@ -38,8 +38,8 @@
         script.println("</script>");
     }
 
-    Comm_dataDAO event_data = new Comm_dataDAO();
-    int result = event_data.delete(userID, commID);
+    Comm_dataDAO comm_data = new Comm_dataDAO();
+    int result = comm_data.delete(userID, commID);
 
     // 데이터베이스 오류인 경우
     if(result==-1){
@@ -53,7 +53,7 @@
         PrintWriter script= response.getWriter();
         script.println("<script>");
         script.println("alert('담기를 취소했습니다.')");
-        script.println("location.href='event_main.jsp'");
+        script.println("location.href='comm_main.jsp'");
         script.println("</script>");
     }
 

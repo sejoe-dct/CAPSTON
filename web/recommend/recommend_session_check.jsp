@@ -1,10 +1,5 @@
-<%@ page import="java.io.PrintWriter" %><%--
-  Created by IntelliJ IDEA.
-  User: joe24
-  Date: 2022-06-07
-  Time: 오후 7:52
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.io.PrintWriter" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <%

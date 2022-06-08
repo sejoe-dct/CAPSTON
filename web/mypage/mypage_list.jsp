@@ -7,6 +7,7 @@
 <%@page import="comm.Comm" %>
 <%@page import="comm.CommDAO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="comment.CommentDAO" %>
 
 <html lang="en">
 <head>
@@ -30,25 +31,20 @@
         <!-- 제목 / 소제목 -->
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <h6 class="text-primary">지역 커뮤니티</h6>
-            <h1 class="mb-4">지역 명소 및 맛집을 소개해주세요!</h1>
+            <h2 class="mb-4">지역 명소 및 맛집을 소개해주세요!</h2>
         </div>
-        <!-- 카테고리 -->
-        <!-- <form method="post" action="event_detail.jsp">-->
 
         <div class="cp33list1"
             <%
-                Connection conn =null;
-                Statement stmt =null;
-                ResultSet rs =null;
-
                 CommDAO commDAO=new CommDAO();
+                CommentDAO commentDAO=new CommentDAO();
 
                 String session_id=String.valueOf(session.getAttribute("userID"));
             %>
 
         <ul class="lst1">
-            <!--1번째 --> <!-- 서울 리스트 for문 -->
-            <div class="country-item portfolio-item seoul"> <!-- 카테고리 구분 -->
+            <!--1번째 -->
+            <div class="country-item portfolio-item seoul">
                 <%
                     ArrayList<Comm> list = commDAO.getUserlist(session_id);
                     for (int i = list.size() - 1; i >= 0; i--) {
@@ -69,7 +65,7 @@
                         <!-- 설명 -->
                         <div class="w1c2">
                             <div class="texts">
-                                <a href="comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
+                                <a href="../comm/comm_detail.jsp?commID=<%= list.get(i).getcomm_id() %>" class="tg1">
                                     <em class="ic1 bsContain "
                                         style="background-size: contain;"><%=list.size() - i%>
                                     </em>
@@ -122,7 +118,8 @@
                                         <span class="sep">/</span>
                                         <span class="t2t2">5.0</span>
                                       </span>
-                                <span class="t3">(총 <em class="em">1개</em> 후기)</span>
+                                <span class="t3">(총 <em class="em"><%=commentDAO.commentCount(list.get(i).getcomm_id())%>개
+                                    </em> 댓글)</span>
                             </div>
                             <!-- 버튼 두개 -->
                             <div class="cp33btns1">

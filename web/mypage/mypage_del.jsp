@@ -27,13 +27,6 @@
         commID = request.getParameter("commID");
     }
 
-//    if (!userID.equals(comm.getUser_id())) {
-//        PrintWriter script = response.getWriter();
-//        script.println("<script>");
-//        script.println("alert('권한이 없습니다')");
-//        script.println("location.href='comment_detail.jsp'");
-//        script.println("</script>");
-//    } else {
         CommDAO commDAO = new CommDAO();
         // 글 삭제 로직을 수행한다
         //CommentDAO commentDAO = new CommentDAO();
@@ -42,7 +35,7 @@
         if (result == -1) {
             PrintWriter script = response.getWriter();
             script.println("<script>");
-            script.println("alert('댓글 수정 실패')");
+            script.println("alert('게시글 수정 실패')");
 
             script.println("history.back()");
             script.println("</script>");
@@ -52,12 +45,8 @@
             //session.setAttribute("commID", commID);
             PrintWriter script = response.getWriter();
             script.println("<script>");
-            script.println("alert('댓글 삭제하기 성공')");
+            script.println("alert('게시글 삭제하기 성공')");
             script.println("location.href='mypage_list.jsp'");
-            //script.println("history.go(0)");
-            //script.println("location.href='comm_detail.jsp?commID='"+commID);
             script.println("</script>");
-
     }
-
 %>

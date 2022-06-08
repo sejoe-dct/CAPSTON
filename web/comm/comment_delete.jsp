@@ -1,4 +1,3 @@
-comment_delete.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page import="java.io.PrintWriter" %>
@@ -18,25 +17,44 @@ comment_delete.jsp
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('로그인을 하세요')");
-        script.println("location.href='../login.jsp'");
+        script.println("location.href='login.jsp'");
         script.println("</script>");
     }
 
     String commID = null;
-    if (request.getParameter("commID") != null) {
+    if (request.getParameter("commentID") != null) {
         commID = request.getParameter("commID");
+        System.out.println("딜리트 ㅋ댓글컴 아이디 : " + commID);
+
     }
+    String commentID = null;
+    if (request.getParameter("commentID") != null) {
+        commentID = request.getParameter("commentID");
+        System.out.println("코멘트 아이디 : " + commentID);
+
+    }
+
+    if (commentID == null) {
+        PrintWriter script = response.getWriter();
+        script.println("<script>");
+        script.println("alert('유효하지 않은 글입니다')");
+        script.println("location.href='comm_main.jsp'");
+        script.println("</script>");
+    }
+    //해당 'commentID'에 대한 게시글을 가져온 다음 세션을 통하여 작성자 본인이 맞는지 체크한다
+    Comment comment = new CommentDAO().getCommentDetail(commentID);
+
 
     if (!userID.equals(comment.getUser_id())) {
         PrintWriter script = response.getWriter();
         script.println("<script>");
         script.println("alert('권한이 없습니다')");
-        script.println("location.href='comment_detail.jsp'");
+        script.println("location.href='comm_main.jsp'");
         script.println("</script>");
     } else {
         // 글 삭제 로직을 수행한다
         CommentDAO commentDAO = new CommentDAO();
-        int result = commentDAO.delete(commID);
+        int result = commentDAO.delete(commentID);
         // 데이터베이스 오류인 경우
         if (result == -1) {
             PrintWriter script = response.getWriter();

@@ -29,12 +29,6 @@
             </div>
 
             <%
-
-                System.out.println("예전 event_detail.jsp에 있던 소스로 넘어옴");
-                Connection conn =null;
-                Statement stmt =null;
-                ResultSet rs =null;
-
                 UserDAO userDAO=new UserDAO();
                 String session_id=String.valueOf(session.getAttribute("userID"));
 
@@ -177,7 +171,7 @@
                             <div class="col-md-6 mb-4 pb-2">
                                 <div class="form-outline">
 <%--                                    <input type="password" name="ps" class="form-control form-control-lg" disabled/>--%>
-                                    <p  class="form-control" id="ps" >비밀번호는 안알려줄거지롱</p>
+                                    <p  class="form-control" id="ps" >비밀번호</p>
                                     <label class="form-label" for="ps">Password</label>
                                 </div>
 
@@ -188,7 +182,6 @@
                             <div class="col-md-4 mb-4 pb-2">
 
                                 <div class="form-outline">
-                                    <%--                                    <input type="text" name="id" class="form-control form-control-lg" disabled/>--%>
                                     <p  class="form-control" id="id" ><%= list.get(0).getUserFv1() %></p>
                                     <label class="form-label" for="id">타입1</label>
                                 </div>
@@ -213,6 +206,7 @@
                             </div>
                         </div>
 
+                        <!--
                         <div class="row">
                             <div class="col-md-3 mb-4 form-outline ">
                                 <select class="btn-sm select form-control-lg" name="fv1">
@@ -236,12 +230,10 @@
                                 </select>
                             </div>
 
-                        </div>
+                        </div>-->
 
                         <div class="mt-4 pt-2 text-end">
-                            <!--                                <input class="btn btn-primary btn-lg" type="submit" value="Submit" />-->
                             <button type="submit" class="btn btn-primary btn-block btn-lg">수정</button>
-
                         </div>
 
                     </form>

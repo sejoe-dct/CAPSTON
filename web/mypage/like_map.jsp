@@ -99,13 +99,6 @@
                     });
                 }
             }
-            // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-            /*    var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),
-                    contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
-                    markers = [], // 마커를 담을 배열입니다
-                    currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
-             */   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-            //const map = new kakao.maps.Map(mapContainer, mapOption);
 
 
             // 지도를 생성합니다
@@ -123,32 +116,7 @@
             var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize);
             var distanceOverlay;
             var dats=[];
-            /*for (var i = 0; i < positions.length; i ++) { //-> db셀렉트 갯수 가지고 for문 돌리면 될듯
 
-                // 마커 이미지의 이미지 크기 입니다
-                var imageSize = new kakao.maps.Size(24, 35);
-
-                // 마커 이미지를 생성합니다
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                    map: map, // 마커를 표시할 지도
-                    position: positions[i].latlng, // 마커를 표시할 위치
-                    title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                    image : markerImage // 마커 이미지
-                });
-            }*/
-            /*function makeOverListener(map, marker, infowindow) {
-                return function() {
-                    infowindow.open(map, marker);
-                };
-            }
-            function makeOutListener(infowindow) {
-                return function() {
-                    infowindow.close();
-                };
-            }*/
             <%
                      String[] likelangs = request.getParameterValues("likeitem");
              //       String[] liketitle = request.getParameterValues("liketitle");
@@ -210,39 +178,8 @@
                     infowindow.close();
                 };
             }
-            /* var doneCallback2 = function(result, status) {
-                 if (status === kakao.maps.services.Status.OK) {
-                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                     //   $("input[name=lat]").val(result[0].y);
-                     latlngList.push(coords);
-                     console.log("comm콜백함수 안 latlngList 값 "+latlngList);
-
-                     marker = new kakao.maps.Marker({
-                         map: map,
-                         position: coords,
-                         image : markerImage2
-                     });
-                     map.setCenter(coords);
-                 }
-             };
-                   var callback = function(result, status) {
-                     if (status === kakao.maps.services.Status.OK) {
-                       const coX = new kakao.maps.LatLng(result[0].x);
-                       const coY = new kakao.maps.LatLng(result[0].y);
-                    //   $("input[name=lat]").val(result[0].y);
-                       console.log(coX,coY);
-                     }
-                   };*/
-
-            //                            for(int j=commlist.size()-1;j>=0;j--){
-
-            <%--geocoder.addressSearch('<%=commlist.get(j).getcomm_address()%>', doneCallback2);--%>
-            <%--            <%--%>
-            <%--//              }--%>
-            <%--            %>--%>
 
             function getTimeHTML(distance) {
-
                 // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
                 var walkkTime = distance / 67 | 0;
                 var walkHour = '', walkMin = '';

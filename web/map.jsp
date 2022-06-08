@@ -129,17 +129,7 @@
 <jsp:directive.include file="fragment/spinnertopbar.jsp"/>
 <jsp:directive.include file="fragment/nav.jsp"/>
 
-<%--<%
-    String session_userID = String.valueOf(session.getAttribute("userID"));
-    // 만약 넘어온 데이터가 없다면
-    // 유효한 글이라면 구체적인 정보를 'evnet'라는 인스턴스에 담는다
-  //  ArrayList<Event_data> eventlist = new Event_dataDAO().getEventUserID(session_userID);
- //   ArrayList<Comm_data> commlist = new bbs.Comm_dataDAO().getCommUserID(session_userID);
-/*    ArrayList<Event_data> eventlist = new Event_dataDAO().getEventUserID(session_userID);
-    ArrayList<Comm_data> commlist = new bbs.Comm_dataDAO().getCommUserID(session_userID);
-    System.out.println("세션 userID: " + session_userID);*/
-
-%>--%><%
+<%
   BbsDAO bbsDAO=new BbsDAO();
   CommDAO commDAO = new CommDAO();
 ArrayList<Comm> commlist = commDAO.getList("전국","");
@@ -169,14 +159,6 @@ ArrayList<Comm> commlist = commDAO.getList("전국","");
                     level: 7
                     //   level: 5 // 지도의 확대 레벨
                 };
-            // 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
-            /*    var placeOverlay = new kakao.maps.CustomOverlay({zIndex:1}),
-                    contentNode = document.createElement('div'), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
-                    markers = [], // 마커를 담을 배열입니다
-                    currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
-             */   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-            //const Map = new kakao.maps.Map(mapContainer, mapOption);
-
 
             // 지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -191,22 +173,6 @@ ArrayList<Comm> commlist = commDAO.getList("전국","");
             var imageSize = new kakao.maps.Size(24, 35);
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
             var markerImage2 = new kakao.maps.MarkerImage(imageSrc2, imageSize);
-            /*for (var i = 0; i < positions.length; i ++) { //-> db셀렉트 갯수 가지고 for문 돌리면 될듯
-
-                // 마커 이미지의 이미지 크기 입니다
-                var imageSize = new kakao.maps.Size(24, 35);
-
-                // 마커 이미지를 생성합니다
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                    Map: Map, // 마커를 표시할 지도
-                    position: positions[i].latlng, // 마커를 표시할 위치
-                    title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                    image : markerImage // 마커 이미지
-                });
-            }*/
 
             var bounds = new kakao.maps.LatLngBounds();
             var latlngList = [];
@@ -306,25 +272,6 @@ ArrayList<Comm> commlist = commDAO.getList("전국","");
                 };
             }
 
-            /*      var doneCallback2 = function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                      marker = new kakao.maps.Marker({
-                        map: map,
-                        position: coords,
-                        image : markerImage2
-                      });
-                      map.setCenter(coords);
-                    }
-                  };*/
-            // 마커 위에 커스텀오버레이를 표시합니다
-            // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-
-            // 주소-좌표 변환 객체를 생성합니다
-            ///////////////////////////////////////////////////////
-            //////////////////
-            /*geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', doneCallback);
-            geocoder.addressSearch('제주특별자치도 제주시 첨단로 241', doneCallback);*/
             function markUPUP(latlngList) {
                 console.log("mymap ::::: latlngList 값2 " + latlngList);
                 map.setBounds(bounds);

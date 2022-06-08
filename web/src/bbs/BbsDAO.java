@@ -1,5 +1,6 @@
 package bbs;
 
+import comm.Comm;
 import user.User;
 
 import java.sql.*;
@@ -92,15 +93,10 @@ public class BbsDAO {
 
     public ArrayList<Bbs> getList(String localName, String search) {
         if (localName.equals("전국")) {
-            System.out.println("getList 전국 if문 들어옴");
             localName = "";
         }
         ArrayList<Bbs> list = new ArrayList<Bbs>();
-        //      pstmt.setInt(1,getNext()-(pageNumber-1)*10);
-        //기본 값이 아니라 지역명 선택했을 때
-        //   String sql = String.format("SELECT * FROM event WHERE localname = " + localName);
         StringBuffer query = new StringBuffer();
-        System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
         query.append("SELECT * FROM event WHERE event_address LIKE ? AND CONCAT(event_title, event_preview, event_intro) LIKE ?");
         try {
             PreparedStatement psmt = conn.prepareStatement(query.toString());
@@ -130,8 +126,6 @@ public class BbsDAO {
             e.printStackTrace();
         }
         return list;
-
-        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
     }
 
 
@@ -337,7 +331,6 @@ public class BbsDAO {
         }
         return list;
     }
-
 
 
 }

@@ -93,7 +93,6 @@ public class CommDAO {
 
             pstmt.setString(8, comm_id);
 
-            //rs = pstmt.executeQuery();
             System.out.println(pstmt);
             return pstmt.executeUpdate();
         }catch(Exception e) {
@@ -137,7 +136,6 @@ public class CommDAO {
             localName = "";
         }
         StringBuffer query = new StringBuffer();
-        System.out.println("지역명 선택하고 쿼리문 어펜드하기전");
         query.append("SELECT * FROM community WHERE comm_address LIKE ? AND CONCAT(comm_title, comm_preview, comm_info) LIKE ?");
         //     String sql = "select * from event where event_address like %" +localName +"%";
         ArrayList<Comm> list = new ArrayList<Comm>();
@@ -166,8 +164,6 @@ public class CommDAO {
             e.printStackTrace();
         }
         return list;
-
-        //  String SQL="SELECT * FROM BBS WHERE bbsID<? AND bbsAvailable=1 ORDER BY bbsID DESC LIMIT 10";
 
     }
 
@@ -283,7 +279,7 @@ public class CommDAO {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return -1; //데이터베이스 오류
+        return -1; //데이터베이스 오류ㅆ
     }
 
 
@@ -392,6 +388,38 @@ public class CommDAO {
     }
 
 
+    public ArrayList<Comm> getPreviewList() {
+
+        String sql = String.format("SELECT * FROM community ORDER BY LPAD(comm_id, 3,'0') DESC LIMIT 5");
+        ArrayList<Comm> list = new ArrayList<Comm>();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Comm comm = new Comm();
+
+                comm.setcomm_id(rs.getString(1));
+
+                comm.setuser_id(rs.getString(2));
+
+                comm.setcomm_title(rs.getString(3));
+
+                comm.setcomm_preview(rs.getString(4));
+
+                comm.setcomm_picture(rs.getString(5));
+
+                comm.setcomm_address(rs.getString(7));
+
+                comm.setcomm_picName(rs.getString(10));
+
+                list.add(comm);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
 
 
